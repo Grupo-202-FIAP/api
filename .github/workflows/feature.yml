@@ -1,0 +1,41 @@
+name: Build, Test and Create PR to Dev
+
+on:
+  push:
+    branches-ignore:
+      - main
+      - hom
+      - dev
+
+jobs:
+  build-test-and-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build and Skip Tests
+        run: mvn clean install -DskipTests
+
+      - name: Create Pull Request to Dev
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: dev
+          branch: ${{ github.ref_name }}
+          title: 'Merge ${{ github.ref_name }} into dev'
+          body: |
+            PR automática da branch ${{ github.ref_name }} para dev.
+          labels: automatic-pr
+          commit-message: '[create-pull-request] chore: create PR'
+          signoff: true
+          author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
+          delete-branch: false
+          always-create: true
+          branch-suffix: timestamp
