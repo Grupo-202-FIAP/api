@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: fastfood
+  datasource:
+    url: jdbc:postgresql://0.0.0.0:5432/fastfood
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+    # ddl-auto: update # create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  flyway:
+    enabled: true
+    classpath: db/migration
+    location: classpath:db/migration
