@@ -41,3 +41,5 @@ jobs:
           author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
           delete-branch: false
           always-create: true
+          push-to-fork: false
+          branch-suffix: timestamp

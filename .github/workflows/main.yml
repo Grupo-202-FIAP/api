@@ -12,9 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Fetch all branches
-        run: git fetch --all
-
       - name: Create PR to Main
         uses: peter-evans/create-pull-request@v6
         with:
@@ -30,3 +27,5 @@ jobs:
           author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
           delete-branch: false
           always-create: true
+          push-to-fork: false
+          branch-suffix: timestamp
