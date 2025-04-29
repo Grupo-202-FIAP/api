@@ -23,6 +23,9 @@ jobs:
       - name: Build and Skip Tests
         run: mvn clean install -DskipTests
 
+      - name: Fetch all branches
+        run: git fetch --all
+
       - name: Create Pull Request to Dev
         uses: peter-evans/create-pull-request@v6
         with:
@@ -31,5 +34,9 @@ jobs:
           branch: ${{ github.ref_name }}
           title: 'Merge ${{ github.ref_name }} into dev'
           body: |
-            PR automático da branch ${{ github.ref_name }} para dev.
+            PR automática da branch ${{ github.ref_name }} para dev.
           labels: automatic-pr
+          commit-message: '[create-pull-request] chore: create PR'
+          signoff: true
+          author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
+          delete-branch: false
