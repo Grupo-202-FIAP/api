@@ -40,3 +40,4 @@ jobs:
           signoff: true
           author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
           delete-branch: false
+          always-create: true
