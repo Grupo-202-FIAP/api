@@ -1,10 +1,9 @@
 name: Create PR Hom to Main
 
 on:
-  workflow_run:
-    workflows: ["Create PR to Hom"]
-    types:
-      - completed
+  push:
+    branches:
+      - hom
 
 jobs:
   create-pr-to-main:

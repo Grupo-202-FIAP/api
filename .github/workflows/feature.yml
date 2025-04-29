@@ -1,4 +1,4 @@
-name: Build and Test Feature Branch
+name: Build, Test and Create PR to Dev
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - dev
 
 jobs:
-  build-test:
+  build-test-and-pr:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -22,3 +22,14 @@ jobs:
 
       - name: Build and Skip Tests
         run: mvn clean install -DskipTests
+
+      - name: Create Pull Request to Dev
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: dev
+          branch: ${{ github.ref_name }}
+          title: 'Merge ${{ github.ref_name }} into dev'
+          body: |
+            PR automático da branch ${{ github.ref_name }} para dev.
+          labels: automatic-pr
