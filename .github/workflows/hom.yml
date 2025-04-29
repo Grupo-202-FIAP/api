@@ -1,0 +1,30 @@
+name: Create PR to Hom
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  create-pr-to-hom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create PR to Hom
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: hom
+          branch: dev
+          title: 'Merge dev into hom'
+          body: |
+            PR automática da branch dev para hom.
+          labels: automatic-pr
+          commit-message: '[create-pull-request] chore: create PR'
+          signoff: true
+          author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
+          delete-branch: false
+          always-create: true
+          branch-suffix: timestamp
