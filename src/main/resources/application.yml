@@ -2,9 +2,9 @@ spring:
   application:
     name: fastfood
   datasource:
-    url: jdbc:postgresql://0.0.0.0:5432/fastfood
-    username: postgres
-    password: postgres
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASS}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -15,3 +15,16 @@ spring:
     enabled: true
     classpath: db/migration
     location: classpath:db/migration
+
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: health,info,prometheus
+    endpoint:
+      prometheus:
+        enabled: true
+    metrics:
+      export:
+        prometheus:
+          enabled: true
