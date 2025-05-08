@@ -153,6 +153,14 @@
                 </configuration>
             </plugin>
         </plugins>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <excludes>
+                    <exclude>db/migration/**</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
     </build>
 
 </project>
