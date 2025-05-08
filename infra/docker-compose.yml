@@ -1,5 +1,6 @@
+---
 services:
-# Configuração da app
+  # Configuração da app
   app:
     build:
       context: ..
@@ -17,7 +18,7 @@ services:
     networks:
       - fastfood
 
-# Configuração do PostgreSQL
+  # Configuração do PostgreSQL
   db:
     image: postgres:latest
     container_name: postgres_fastfood
@@ -34,7 +35,7 @@ services:
     networks:
       - fastfood
 
-# Configuração do Prometheus
+  # Configuração do Prometheus
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -47,7 +48,7 @@ services:
     depends_on:
       - app
 
-# Configuração do Grafana
+  # Configuração do Grafana
   grafana:
     image: grafana/grafana
     container_name: grafana
@@ -62,7 +63,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
 
-# Configuração do Loki
+  # Configuração do Loki
   loki:
     image: grafana/loki:2.9.2
     container_name: loki
@@ -72,11 +73,10 @@ services:
     volumes:
       - ./loki/loki-config.yml:/etc/loki/loki-config.yml
       - loki-data:/loki
-
     networks:
       - fastfood
 
-# Configuração do Promtail
+  # Configuração do Promtail
   promtail:
     image: grafana/promtail:2.9.2
     container_name: promtail

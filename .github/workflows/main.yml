@@ -1,3 +1,4 @@
+---
 name: Create PR Hom to Main
 
 on:
@@ -24,7 +25,8 @@ jobs:
           labels: automatic-pr
           commit-message: '[create-pull-request] chore: create PR'
           signoff: true
-          author: "${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>"
+          author: >
+            ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           delete-branch: false
           always-create: true
           branch-suffix: timestamp
