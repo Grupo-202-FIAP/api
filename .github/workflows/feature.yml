@@ -68,9 +68,9 @@ jobs:
       - name: Instalar Docker Compose V2
         run: |
           mkdir -p ~/.docker/cli-plugins/
-          curl -SL \
-            "https://github.com/docker/compose/releases/download/v2.24.6/docker-compose-linux-x86_64" \
-            -o ~/.docker/cli-plugins/docker-compose
+          URL="https://github.com/docker/compose/releases/download/v2.24.6"
+          FILE="docker-compose-linux-x86_64"
+          curl -SL "$URL/$FILE" -o ~/.docker/cli-plugins/docker-compose
           chmod +x ~/.docker/cli-plugins/docker-compose
 
       - name: Validar docker-compose
