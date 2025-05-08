@@ -1,4 +1,4 @@
-name: Build, Test and Create PR to Dev
+name: Build, Test, Docker e PR para Dev
 
 on:
   push:
@@ -6,12 +6,14 @@ on:
       - main
       - hom
       - dev
+    paths-ignore:
+      - '**.md'
 
 jobs:
-  build-test-and-pr:
+  build-test-docker-pr:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout do código
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
@@ -20,18 +22,55 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build and Skip Tests
-        run: mvn clean install -DskipTests
+      - name: Cache dependências do Maven
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            maven-${{ runner.os }}-
 
-      - name: Create Pull Request to Dev
+      - name: Instalar dependências para linters
+        run: sudo apt-get update && sudo apt-get install -y yamllint
+
+      - name: Hadolint no Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+      - name: Yamllint no docker-compose.yml
+        run: yamllint infra/docker-compose.yml
+
+      - name: Checkstyle
+        run: mvn checkstyle:check
+
+      - name: OWASP Dependency Check
+        run: mvn org.owasp:dependency-check-maven:check
+
+      - name: Build com testes
+        run: mvn clean test jacoco:report
+
+      - name: Upload Jacoco Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: target/site/jacoco
+
+      - name: Validar docker-compose
+        run: docker-compose -f infra/docker-compose.yml config
+
+      - name: Build da imagem com Docker Compose
+        run: docker-compose -f infra/docker-compose.yml build app
+
+      - name: Criar Pull Request para Dev
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           base: dev
           branch: ${{ github.ref_name }}
-          title: 'Merge ${{ github.ref_name }} into dev'
+          title: 'Merge branch ${{ github.ref_name }} into dev'
           body: |
-            PR automática da branch ${{ github.ref_name }} para dev.
+            PR automática da branch `${{ github.ref_name }}` para `dev`.
           labels: automatic-pr
           commit-message: '[create-pull-request] chore: create PR'
           signoff: true
