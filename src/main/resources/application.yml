@@ -2,10 +2,11 @@ spring:
   application:
     name: fastfood
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PASS}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/fastfood}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:postgres}
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
     # ddl-auto: update # create-drop
