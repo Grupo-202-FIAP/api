@@ -45,6 +45,9 @@ jobs:
           name: jacoco-report
           path: target/site/jacoco
 
+      - name: Build do JAR com Maven
+        run: mvn clean package -DskipTests
+
       - name: Instalar Docker Compose V2
         run: |
           mkdir -p ~/.docker/cli-plugins/
