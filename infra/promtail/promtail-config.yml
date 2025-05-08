@@ -21,7 +21,8 @@ scrape_configs:
 
     pipeline_stages:
       - regex:
-          expression: '/var/lib/docker/containers/(?P<container_id>[a-f0-9]{64})/.*-json.log'
+          expression: >
+            /var/lib/docker/containers/(?P<container_id>[a-f0-9]{64})/.*-json.log
       - docker:
           source: filename
       - json:
