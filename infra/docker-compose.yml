@@ -1,5 +1,7 @@
+
+---
 services:
-# Configuração da app
+  # Configuração da app
   app:
     build:
       context: ..
@@ -34,7 +36,7 @@ services:
     networks:
       - fastfood
 
-# Configuração do Prometheus
+  # Configuração do Prometheus
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -47,7 +49,7 @@ services:
     depends_on:
       - app
 
-# Configuração do Grafana
+  # Configuração do Grafana
   grafana:
     image: grafana/grafana
     container_name: grafana
@@ -72,11 +74,10 @@ services:
     volumes:
       - ./loki/loki-config.yml:/etc/loki/loki-config.yml
       - loki-data:/loki
-
     networks:
       - fastfood
 
-# Configuração do Promtail
+  # Configuração do Promtail
   promtail:
     image: grafana/promtail:2.9.2
     container_name: promtail
