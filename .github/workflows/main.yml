@@ -9,10 +9,10 @@ jobs:
   create-pr-to-main:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout do código
         uses: actions/checkout@v4
 
-      - name: Create PR to Main
+      - name: Criar Pull Request para Main
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -20,7 +20,7 @@ jobs:
           branch: hom
           title: 'Merge hom into main'
           body: |
-            PR automática da branch hom para main.
+            PR automática da branch `hom` para `main`.
           labels: automatic-pr
           commit-message: '[create-pull-request] chore: create PR'
           signoff: true
