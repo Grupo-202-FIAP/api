@@ -1,9 +1,7 @@
 package com.postech.fastfood.adapter.driven.persistence.entity;
 
 import com.postech.fastfood.core.domain.enums.UserRole;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,6 +24,7 @@ import static com.postech.fastfood.core.domain.enums.UserRole.*;
 public class User implements UserDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String username;
     private String email;
