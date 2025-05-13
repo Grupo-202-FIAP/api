@@ -1,0 +1,42 @@
+package com.postech.fastfood.application.mapper;
+
+import com.postech.fastfood.adapter.driven.persistence.entity.UserEntity;
+import com.postech.fastfood.core.domain.User;
+import org.springframework.stereotype.Component;
+
+@Component
+public class UserMapper {
+
+    public static User toDomain(UserEntity userEntity){
+
+        if (userEntity == null) {
+            return null;
+        }
+
+        return new User.Builder()
+                .id(userEntity.getId())
+                .name(userEntity.getName())
+                .email(userEntity.getEmail())
+                .cpf(userEntity.getCpf())
+                .password(userEntity.getPassword())
+                .role(userEntity.getRole())
+                .build();
+
+    }
+    public static UserEntity toEntity(User user){
+
+        if (user == null) {
+            return null;
+        }
+
+        return UserEntity.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .cpf(user.getCpf())
+                .password(user.getPassword())
+                .role(user.getRole())
+                .build();
+    }
+
+}
