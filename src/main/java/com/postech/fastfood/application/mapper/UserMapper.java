@@ -2,7 +2,9 @@ package com.postech.fastfood.application.mapper;
 
 import com.postech.fastfood.adapter.driven.persistence.entity.UserEntity;
 import com.postech.fastfood.adapter.driver.controller.dto.request.CustomerCpfRequest;
+import com.postech.fastfood.adapter.driver.controller.dto.request.CustomerEmailRequest;
 import com.postech.fastfood.core.domain.User;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -45,5 +47,15 @@ public class UserMapper {
             return null;
         }
         return new User.Builder().cpf(user.cpf()).build();
+    }
+
+    public static User toDomain(@Valid CustomerEmailRequest user) {
+        if (user == null) {
+            return null;
+        }
+        return new User.Builder()
+                .email(user.email())
+                .name(user.name())
+                .build();
     }
 }

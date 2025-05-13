@@ -10,10 +10,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class UseCaseBeanConfiguration {
-//    @Bean
-//    public CreateCustomerWithNameAndEmailUseCase createCustomerWithNameAndEmailUseCase(UserRepositoryPort userRepositoryPort){
-//        return new CreateCustomerWithNameAndEmailUseCaseImpl(userRepositoryPort);
-//    }
+
+    @Bean
+    public CreateCustomerWithNameAndEmailUseCase createCustomerWithNameAndEmailUseCase(UserRepositoryPort userRepositoryPort){
+        return new CreateCustomerWithNameAndEmailUseCaseImpl(userRepositoryPort);
+    }
 
     @Bean
     public CreateCustomerWithCpfUseCase createCustomerWithCpfUseCase(UserRepositoryPort userRepositoryPort){
