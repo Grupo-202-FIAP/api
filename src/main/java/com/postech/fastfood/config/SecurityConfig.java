@@ -13,7 +13,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(a -> a.requestMatchers(HttpMethod.POST, "/produtos").hasRole("ROLE_ADMIN").anyRequest().authenticated())
+                .authorizeHttpRequests(a -> a.requestMatchers(HttpMethod.POST, "/produtos").hasRole("ADMIN").anyRequest().authenticated())
                 .build();
 
     }

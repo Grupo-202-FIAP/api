@@ -35,7 +35,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String username;
+    private String name;
     private String email;
     private String cpf;
     private UserRole role;
