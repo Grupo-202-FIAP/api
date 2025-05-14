@@ -1,12 +1,18 @@
 package com.postech.fastfood.adapter.driven.persistence.repository;
 
 import com.postech.fastfood.adapter.driven.persistence.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.postech.fastfood.application.repository.UserRepositoryPortOut;
+import java.util.Optional;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import java.util.UUID;
+@Component
+@AllArgsConstructor
+public class UserRepository implements UserRepositoryPortOut {
 
-public interface UserRepository extends JpaRepository<User, UUID> {
+    private final IUserRepository userRepositoryImpl;
 
-    UserDetails findByName
+    public Optional<User> findByCpf(String cpf) {
+        return userRepositoryImpl.findByCpf(cpf);
+    }
 }
