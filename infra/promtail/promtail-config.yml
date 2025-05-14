@@ -1,3 +1,4 @@
+---
 server:
   http_listen_port: 9080
   grpc_listen_port: 0
@@ -15,11 +16,13 @@ scrape_configs:
           - localhost
         labels:
           job: docker-logs
-          __path__: /var/lib/docker/containers/*/*.log
+          __path__: >
+            /var/lib/docker/containers/*/*.log
 
     pipeline_stages:
       - regex:
-          expression: '/var/lib/docker/containers/(?P<container_id>[a-f0-9]{64})/.*-json.log'
+          expression: >
+            /var/lib/docker/containers/(?P<container_id>[a-f0-9]{64})/.*-json.log
       - docker:
           source: filename
       - json:
