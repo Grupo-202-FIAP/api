@@ -9,12 +9,11 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
-    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(a -> a.requestMatchers(HttpMethod.POST, "/sla").hasRole("ROLE_ADMIN").anyRequest().authenticated())
+                .authorizeHttpRequests(a -> a.requestMatchers(HttpMethod.POST, "/produtos").hasRole("ROLE_ADMIN").anyRequest().authenticated())
                 .build();
 
     }

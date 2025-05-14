@@ -20,7 +20,7 @@ public class AuthenticationController {
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public void authenticate(@RequestBody AuthRequest authRequest) {
-        autorizaUsuario.autorizarUsuarioPor(authRequest.cpf());
+        autorizaUsuario.loadUserByUsername(authRequest.cpf());
     }
 }
 
