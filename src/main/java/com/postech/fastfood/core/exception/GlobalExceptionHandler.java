@@ -3,6 +3,7 @@ package com.postech.fastfood.core.exception;
 import java.net.URI;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -21,5 +22,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(FastFoodException.class)
     public ProblemDetail fastFoodException(FastFoodException e) {
         return montarProblemDetail(e.title, e.status, e.getLocalizedMessage());
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ProblemDetail authenticationException(AuthenticationException e) {
+        return montarProblemDetail("Teste", HttpStatus.BAD_REQUEST, e.getLocalizedMessage());
     }
 }
