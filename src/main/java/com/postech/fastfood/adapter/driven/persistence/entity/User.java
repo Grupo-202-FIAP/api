@@ -6,6 +6,8 @@ import static com.postech.fastfood.core.domain.enums.UserRole.GUEST;
 
 import com.postech.fastfood.core.domain.enums.UserRole;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,7 +26,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@Table(name = "users")
+@Table(name = "tb_user")
 @Entity(name = "users")
 @Getter
 @Setter
@@ -38,6 +40,7 @@ public class User implements UserDetails {
     private String name;
     private String email;
     private String cpf;
+    @Enumerated(EnumType.STRING)
     private UserRole role;
     @CreationTimestamp
     private LocalDateTime createdAt;

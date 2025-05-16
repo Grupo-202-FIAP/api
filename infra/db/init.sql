@@ -7,12 +7,14 @@ CREATE TABLE tb_user (
     id INT PRIMARY KEY,
     name VARCHAR(45),
     email VARCHAR(45),
-    role_id_fk INT,
+	cpf VARCHAR(11) UNIQUE NOT NULL,
+	role VARCHAR(20) NOT null,
     employee_id_fk INT,
     customer_id_fk INT,
-    FOREIGN KEY (role_id_fk) REFERENCES tb_roles(role_id),
-    FOREIGN KEY (employee_id_fk) REFERENCES tb_employee(id),
-    FOREIGN KEY (customer_id_fk) REFERENCES tb_customer(id)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    --FOREIGN KEY (employee_id_fk) REFERENCES tb_employee(id),
+    --FOREIGN KEY (customer_id_fk) REFERENCES tb_customer(id)
 );
 
 CREATE TABLE tb_payment (
