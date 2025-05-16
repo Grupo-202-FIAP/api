@@ -16,19 +16,19 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
         this.userEntityRepository = userEntityRepository;
     }
     @Override
-    public User saveCustomer(User user) {
+    public User save(User user) {
         UserEntity userSaved = this.userEntityRepository.save(UserMapper.toEntity(user));
         return UserMapper.toDomain(userSaved);
     }
     @Override
-    public User findCustomerByCpf(String cpf) {
+    public User findByCpf(String cpf) {
         return userEntityRepository.findByCpf(cpf)
                 .map(UserMapper::toDomain)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer not found with CPF: " + cpf));
     }
 
     @Override
-    public User findCustomerByEmail(String email) {
+    public User findByEmail(String email) {
         return userEntityRepository.findByEmail(email)
                 .map(UserMapper::toDomain)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer not found with Email: " + email));

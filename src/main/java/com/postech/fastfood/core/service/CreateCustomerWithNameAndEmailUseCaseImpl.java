@@ -18,7 +18,7 @@ public class CreateCustomerWithNameAndEmailUseCaseImpl implements CreateCustomer
     public User execute(User user) {
         User userSaved;
         try {
-                userSaved = this.userRepositoryPort.saveCustomer(user);
+                userSaved = this.userRepositoryPort.save(user);
         } catch (DataIntegrityViolationException e) {
             throw new EmailAlreadyExistsException(e.getMessage());
         }

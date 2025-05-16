@@ -20,7 +20,7 @@ public class CreateCustomerWithCpfUseCaseImpl implements CreateCustomerWithCpfUs
         try {
                 user.setCpf(user.getCpf().replace(".",""));
                 user.setCpf(user.getCpf().replace("-",""));
-                userSaved = this.userRepositoryPort.saveCustomer(user);
+                userSaved = this.userRepositoryPort.save(user);
         } catch (DataIntegrityViolationException e) {
             throw new CpfAlreadyInUseException(e.getMessage());
         }
