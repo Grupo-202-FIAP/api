@@ -1,9 +1,9 @@
 package com.postech.fastfood.core.usecase;
 
-import com.postech.fastfood.core.domain.User;
+import com.postech.fastfood.core.domain.Employee;
 
 public interface CreateEmployeeUseCase {
 
-    User execute(User user);
+    Employee execute(Employee employee);
 
     }

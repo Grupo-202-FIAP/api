@@ -1,0 +1,21 @@
+package com.postech.fastfood.adapter.driven.persistence.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.io.Serial;
+
+@Getter
+@Setter
+@SuperBuilder
+@Entity
+@Table(name = "tb_customer")
+@NoArgsConstructor
+public class CustomerEntity extends UserEntity {
+
+
+    @Serial
+    private static final long serialVersionUID = -6156531295790055692L;
+}

@@ -1,38 +1,67 @@
 package com.postech.fastfood.adapter.driven.persistence.repository;
 
-import com.postech.fastfood.adapter.driven.persistence.entity.UserEntity;
-import com.postech.fastfood.application.mapper.UserMapper;
+import com.postech.fastfood.adapter.driven.persistence.entity.CustomerEntity;
+import com.postech.fastfood.adapter.driven.persistence.entity.EmployeeEntity;
+import com.postech.fastfood.application.mapper.CustomerMapper;
+import com.postech.fastfood.application.mapper.EmployeeMapper;
+import com.postech.fastfood.core.domain.Customer;
+import com.postech.fastfood.core.domain.Employee;
 import com.postech.fastfood.core.domain.User;
+import com.postech.fastfood.core.domain.enums.UserRole;
 import com.postech.fastfood.core.exception.CustomerNotFoundException;
 import com.postech.fastfood.core.ports.UserRepositoryPort;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class UserRepositoryAdapter implements UserRepositoryPort {
 
-    private final UserEntityRepository userEntityRepository;
+    private final ICustomerEntityRepository iCustomerEntityRepository;
+    private  final IEmployeeEntityRepository iEmployeeEntityRepository;
 
-    public UserRepositoryAdapter(UserEntityRepository userEntityRepository) {
-        this.userEntityRepository = userEntityRepository;
+    public UserRepositoryAdapter( ICustomerEntityRepository iCustomerEntityRepository, IEmployeeEntityRepository iEmployeeEntityRepositor) {
+        this.iCustomerEntityRepository = iCustomerEntityRepository;
+
+        this.iEmployeeEntityRepository = iEmployeeEntityRepositor;
     }
+
     @Override
     public User save(User user) {
-        UserEntity userSaved = this.userEntityRepository.save(UserMapper.toEntity(user));
-        return UserMapper.toDomain(userSaved);
+        User userSaved = null;
+        if (user instanceof Employee) {
+            userSaved = EmployeeMapper.toDomain(this.iEmployeeEntityRepository.save(EmployeeMapper.toEntity((Employee) user)));
+        } else if (user instanceof Customer) {
+            userSaved = CustomerMapper.toDomain(this.iCustomerEntityRepository.save(CustomerMapper.toEntity((Customer) user)));
+        }
+        return userSaved;
     }
-    @Override
-    public User findByCpf(String cpf) {
-        return userEntityRepository.findByCpf(cpf)
-                .map(UserMapper::toDomain)
-                .orElseThrow(() -> new CustomerNotFoundException("Customer not found with CPF: " + cpf));
+    public User findByCpf(String cpf, UserRole role) {
+        User user = null;
+        if (role != UserRole.GUEST && role != UserRole.CUSTOMER) {
+            EmployeeEntity employee = this.iEmployeeEntityRepository.findByCpf(cpf).orElseThrow(() -> new CustomerNotFoundException("Customer not found with CPF: " + cpf));
+            user = EmployeeMapper.toDomain(employee);
+        } else  {
+            CustomerEntity customer = this.iCustomerEntityRepository.findByCpf(cpf).orElseThrow(() -> new CustomerNotFoundException("Customer not found with CPF: " + cpf));
+            user = CustomerMapper.toDomain(customer);
+        }
+        return user;
     }
 
-    @Override
-    public User findByEmail(String email) {
-        return userEntityRepository.findByEmail(email)
-                .map(UserMapper::toDomain)
-                .orElseThrow(() -> new CustomerNotFoundException("Customer not found with Email: " + email));
+
+    public User findByEmail(String email, UserRole role) {
+        User user = null;
+        if (role != UserRole.GUEST && role != UserRole.CUSTOMER) {
+            EmployeeEntity employee = this.iEmployeeEntityRepository.findByEmail(email).orElseThrow(() -> new CustomerNotFoundException("Customer not found with Email: " + email));
+            user = EmployeeMapper.toDomain(employee);
+        } else {
+            CustomerEntity customer = this.iCustomerEntityRepository.findByEmail(email).orElseThrow(() -> new CustomerNotFoundException("Customer not found with Email: " + email));
+            user = CustomerMapper.toDomain(customer) ;
+        }
+        return user;
     }
+
+
 
 
 }

@@ -1,10 +1,9 @@
-package com.postech.fastfood.core.service;
+package com.postech.fastfood.core.service.employee;
 
-import com.postech.fastfood.core.domain.User;
+import com.postech.fastfood.core.domain.Employee;
 import com.postech.fastfood.core.exception.CpfAlreadyInUseException;
 import com.postech.fastfood.core.exception.EmailAlreadyExistsException;
 import com.postech.fastfood.core.ports.UserRepositoryPort;
-import com.postech.fastfood.core.usecase.CreateCustomerWithCpfUseCase;
 import com.postech.fastfood.core.usecase.CreateEmployeeUseCase;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -17,12 +16,12 @@ public class CreateEmployeeUseCaseImpl implements CreateEmployeeUseCase {
     }
 
     @Override
-    public User execute(User user) {
-        User userSaved= null;
+    public Employee execute(Employee user) {
+        Employee userSaved= null;
         try {
             user.setCpf(user.getCpf().replace(".",""));
             user.setCpf(user.getCpf().replace("-",""));
-            userSaved = this.userRepositoryPort.save(user);
+            userSaved = (Employee) this.userRepositoryPort.save(user);
         } catch (DataIntegrityViolationException e) {
             String message = e.getMostSpecificCause().getMessage();
             if (message != null) {
