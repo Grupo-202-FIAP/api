@@ -1,7 +1,11 @@
 package com.postech.fastfood.config;
 
 import com.postech.fastfood.core.ports.UserRepositoryPort;
-import com.postech.fastfood.core.service.*;
+import com.postech.fastfood.core.service.customer.CreateCustomerWithCpfUseCaseImpl;
+import com.postech.fastfood.core.service.customer.CreateCustomerWithNameAndEmailUseCaseImpl;
+import com.postech.fastfood.core.service.customer.FindCustomerByCpfUseCaseImpl;
+import com.postech.fastfood.core.service.customer.FindCustomerrByEmailUseCaseImpl;
+import com.postech.fastfood.core.service.employee.CreateEmployeeUseCaseImpl;
 import com.postech.fastfood.core.usecase.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,12 +25,12 @@ public class UseCaseBeanConfiguration {
 
     @Bean
     public FindUserByEmailUseCase findCustomerByEmailUseCase(UserRepositoryPort userRepositoryPort){
-        return new FindUserByEmailUseCaseImpl(userRepositoryPort);
+        return new FindCustomerrByEmailUseCaseImpl(userRepositoryPort);
     }
 
     @Bean
     public FindUserByCpfUseCase findCustomerByCpfUseCase (UserRepositoryPort userRepositoryPort){
-        return new FindUserByCpfUseCaseImpl(userRepositoryPort);
+        return new FindCustomerByCpfUseCaseImpl(userRepositoryPort);
     }
 
     @Bean

@@ -1,4 +1,4 @@
-package com.postech.fastfood.core.service;
+package com.postech.fastfood.core.service.customer;
 
 import com.postech.fastfood.core.domain.User;
 import com.postech.fastfood.core.exception.CpfAlreadyInUseException;
