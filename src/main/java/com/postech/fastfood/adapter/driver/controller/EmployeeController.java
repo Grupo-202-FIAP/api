@@ -3,8 +3,7 @@ package com.postech.fastfood.adapter.driver.controller;
 import com.postech.fastfood.adapter.driver.controller.dto.request.EmployeeRequest;
 import com.postech.fastfood.application.mapper.EmployeeMapper;
 import com.postech.fastfood.core.domain.Employee;
-import com.postech.fastfood.core.domain.User;
-import com.postech.fastfood.core.usecase.CreateEmployeeUseCase;
+import com.postech.fastfood.core.usecase.employee.CreateEmployeeUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +22,7 @@ public class EmployeeController {
     }
 
     @PostMapping()
-    public ResponseEntity<Employee> createEmployee(@RequestBody @Valid EmployeeRequest employeeRequest){
+    public ResponseEntity<Employee> createEmployee(@RequestBody @Valid EmployeeRequest employeeRequest) {
         Employee employee = EmployeeMapper.toDomain(employeeRequest);
         return ResponseEntity.status(201).body(this.createEmployeeUseCase.execute(employee));
     }

@@ -1,4 +1,4 @@
-package com.postech.fastfood.core.usecase;
+package com.postech.fastfood.core.usecase.customer;
 
 import com.postech.fastfood.core.domain.User;
 

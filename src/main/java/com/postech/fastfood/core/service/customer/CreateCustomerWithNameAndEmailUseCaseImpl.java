@@ -4,7 +4,7 @@ import com.postech.fastfood.core.domain.User;
 import com.postech.fastfood.core.domain.enums.UserRole;
 import com.postech.fastfood.core.exception.EmailAlreadyExistsException;
 import com.postech.fastfood.core.ports.UserRepositoryPort;
-import com.postech.fastfood.core.usecase.CreateCustomerWithNameAndEmailUseCase;
+import com.postech.fastfood.core.usecase.customer.CreateCustomerWithNameAndEmailUseCase;
 import org.springframework.dao.DataIntegrityViolationException;
 
 public class CreateCustomerWithNameAndEmailUseCaseImpl implements CreateCustomerWithNameAndEmailUseCase {

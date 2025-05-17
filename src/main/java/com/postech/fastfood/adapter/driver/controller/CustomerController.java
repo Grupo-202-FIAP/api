@@ -5,10 +5,10 @@ import com.postech.fastfood.adapter.driver.controller.dto.request.CustomerCpfReq
 import com.postech.fastfood.adapter.driver.controller.dto.request.CustomerEmailRequest;
 import com.postech.fastfood.application.mapper.CustomerMapper;
 import com.postech.fastfood.core.domain.User;
-import com.postech.fastfood.core.usecase.CreateCustomerWithCpfUseCase;
-import com.postech.fastfood.core.usecase.CreateCustomerWithNameAndEmailUseCase;
 import com.postech.fastfood.core.usecase.FindUserByCpfUseCase;
 import com.postech.fastfood.core.usecase.FindUserByEmailUseCase;
+import com.postech.fastfood.core.usecase.customer.CreateCustomerWithCpfUseCase;
+import com.postech.fastfood.core.usecase.customer.CreateCustomerWithNameAndEmailUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,31 +30,30 @@ public class CustomerController {
     }
 
     @PostMapping("/cpf")
-    public ResponseEntity<User> createCustomerWithCpf(@RequestBody @Valid CustomerCpfRequest customerCpfRequest){
+    public ResponseEntity<User> createCustomerWithCpf(@RequestBody @Valid CustomerCpfRequest customerCpfRequest) {
         User customerCpf = CustomerMapper.toDomain(customerCpfRequest);
         User customerSaved = this.createCustomerWithCpfUseCase.execute(customerCpf);
         return ResponseEntity.status(201).body(customerSaved);
     }
 
     @PostMapping("/email")
-    public ResponseEntity<User> createCustomerWithEmailAndName(@RequestBody @Valid CustomerEmailRequest customerEmailRequest){
+    public ResponseEntity<User> createCustomerWithEmailAndName(@RequestBody @Valid CustomerEmailRequest customerEmailRequest) {
         User customer = CustomerMapper.toDomain(customerEmailRequest);
         User customerSaved = this.createCustomerWithNameAndEmailUseCase.execute(customer);
         return ResponseEntity.status(201).body(customerSaved);
     }
 
     @GetMapping("/email")
-    public ResponseEntity<User> getCustomerByEmail(@RequestBody CustomerByEmailRequest customerEmailRequest ){
-        User customerSaved = this.findUserByEmail.execute(customerEmailRequest.email(),customerEmailRequest.userRole());
+    public ResponseEntity<User> getCustomerByEmail(@RequestBody CustomerByEmailRequest customerEmailRequest) {
+        User customerSaved = this.findUserByEmail.execute(customerEmailRequest.email(), customerEmailRequest.userRole());
         return ResponseEntity.status(200).body(customerSaved);
     }
 
     @GetMapping("/cpf")
-    public ResponseEntity<User> getCustomerByCpf(CustomerCpfRequest customerCpfRequest ){
+    public ResponseEntity<User> getCustomerByCpf(CustomerCpfRequest customerCpfRequest) {
         User customerSaved = this.findUserByCpfUseCase.execute(customerCpfRequest.cpf(), customerCpfRequest.userRole());
         return ResponseEntity.status(200).body(customerSaved);
     }
-
 
 
 }

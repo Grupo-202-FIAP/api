@@ -3,7 +3,7 @@ package com.postech.fastfood.core.service.customer;
 import com.postech.fastfood.core.domain.User;
 import com.postech.fastfood.core.exception.CpfAlreadyInUseException;
 import com.postech.fastfood.core.ports.UserRepositoryPort;
-import com.postech.fastfood.core.usecase.CreateCustomerWithCpfUseCase;
+import com.postech.fastfood.core.usecase.customer.CreateCustomerWithCpfUseCase;
 import org.springframework.dao.DataIntegrityViolationException;
 
 public class CreateCustomerWithCpfUseCaseImpl implements CreateCustomerWithCpfUseCase {
