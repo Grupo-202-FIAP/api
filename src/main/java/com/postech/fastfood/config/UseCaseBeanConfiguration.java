@@ -1,5 +1,6 @@
 package com.postech.fastfood.config;
 
+import com.postech.fastfood.core.ports.PasswordEncoderPort;
 import com.postech.fastfood.core.ports.UserRepositoryPort;
 import com.postech.fastfood.core.service.customer.CreateCustomerWithCpfUseCaseImpl;
 import com.postech.fastfood.core.service.customer.CreateCustomerWithNameAndEmailUseCaseImpl;
@@ -38,8 +39,8 @@ public class UseCaseBeanConfiguration {
     }
 
     @Bean
-    public CreateEmployeeUseCase createEmployeeUseCase(UserRepositoryPort userRepositoryPort) {
-        return new CreateEmployeeUseCaseImpl(userRepositoryPort);
+    public CreateEmployeeUseCase createEmployeeUseCase(UserRepositoryPort userRepositoryPort, PasswordEncoderPort passwordEncoderPort) {
+        return new CreateEmployeeUseCaseImpl(userRepositoryPort, passwordEncoderPort);
     }
 
 }

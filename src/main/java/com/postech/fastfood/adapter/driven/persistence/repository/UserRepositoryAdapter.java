@@ -30,7 +30,6 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     public User save(User user) {
         User userSaved = null;
         if (user instanceof Employee) {
-            ((Employee) user).setPassword(passwordEncoder.encode(((Employee) user).getPassword()));
             userSaved = EmployeeMapper.toDomain(this.iEmployeeEntityRepository.save(EmployeeMapper.toEntity((Employee) user)));
         } else if (user instanceof Customer) {
             userSaved = CustomerMapper.toDomain(this.iCustomerEntityRepository.save(CustomerMapper.toEntity((Customer) user)));

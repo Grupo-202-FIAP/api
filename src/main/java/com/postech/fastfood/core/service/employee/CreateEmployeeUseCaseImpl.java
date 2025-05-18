@@ -3,6 +3,7 @@ package com.postech.fastfood.core.service.employee;
 import com.postech.fastfood.core.domain.Employee;
 import com.postech.fastfood.core.exception.CpfAlreadyInUseException;
 import com.postech.fastfood.core.exception.EmailAlreadyExistsException;
+import com.postech.fastfood.core.ports.PasswordEncoderPort;
 import com.postech.fastfood.core.ports.UserRepositoryPort;
 import com.postech.fastfood.core.usecase.employee.CreateEmployeeUseCase;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -10,9 +11,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 public class CreateEmployeeUseCaseImpl implements CreateEmployeeUseCase {
 
     private final UserRepositoryPort userRepositoryPort;
+    private final PasswordEncoderPort passwordEncoderPort;
 
-    public CreateEmployeeUseCaseImpl(UserRepositoryPort userRepositoryPort) {
+    public CreateEmployeeUseCaseImpl(UserRepositoryPort userRepositoryPort, PasswordEncoderPort passwordEncoderPort) {
         this.userRepositoryPort = userRepositoryPort;
+        this.passwordEncoderPort = passwordEncoderPort;
     }
 
     @Override
@@ -21,6 +24,7 @@ public class CreateEmployeeUseCaseImpl implements CreateEmployeeUseCase {
         try {
             user.setCpf(user.getCpf().replace(".", ""));
             user.setCpf(user.getCpf().replace("-", ""));
+            user.setPassword(passwordEncoderPort.encode(user.getPassword()));
             userSaved = (Employee) this.userRepositoryPort.save(user);
         } catch (DataIntegrityViolationException e) {
             String message = e.getMostSpecificCause().getMessage();

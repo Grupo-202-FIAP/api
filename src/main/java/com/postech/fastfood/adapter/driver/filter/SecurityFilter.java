@@ -1,6 +1,6 @@
 package com.postech.fastfood.adapter.driver.filter;
 
-import com.postech.fastfood.adapter.driven.persistence.repository.ICustomerEntityRepository;
+import com.postech.fastfood.adapter.driven.persistence.repository.IEmployeeEntityRepository;
 import com.postech.fastfood.adapter.driven.security.TokenServiceAdapter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -19,7 +19,7 @@ import java.io.IOException;
 public class SecurityFilter extends OncePerRequestFilter {
 
     private final TokenServiceAdapter tokenService;
-    private final ICustomerEntityRepository userRepository;
+    private final IEmployeeEntityRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -27,7 +27,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         final var token = recoverToken(request);
         if (token != null) {
             final var validateToken = tokenService.validateToken(token);
-            final var user = userRepository.findByCpf(validateToken);
+            final var user = userRepository.findByEmail(validateToken);
             if (user.isPresent()) {
                 final var auth = new UsernamePasswordAuthenticationToken(user, null, user.get().getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(auth);
