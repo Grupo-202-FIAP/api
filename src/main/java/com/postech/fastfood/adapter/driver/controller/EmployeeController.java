@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/v1/employee")
 public class EmployeeController {
-
     private final CreateEmployeeUseCase createEmployeeUseCase;
 
     public EmployeeController(CreateEmployeeUseCase createEmployeeUseCase) {
@@ -24,7 +23,8 @@ public class EmployeeController {
     @PostMapping()
     public ResponseEntity<Employee> createEmployee(@RequestBody @Valid EmployeeRequest employeeRequest) {
         Employee employee = EmployeeMapper.toDomain(employeeRequest);
-        return ResponseEntity.status(201).body(this.createEmployeeUseCase.execute(employee));
+        this.createEmployeeUseCase.execute(employee);
+        return ResponseEntity.status(201).build();
     }
 
 }

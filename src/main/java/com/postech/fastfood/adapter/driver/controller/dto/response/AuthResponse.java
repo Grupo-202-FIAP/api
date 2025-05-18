@@ -1,4 +1,8 @@
 package com.postech.fastfood.adapter.driver.controller.dto.response;
 
-public record AuthResponse(String token) {
+import jakarta.validation.constraints.NotNull;
+
+public record AuthResponse(
+        @NotNull
+        String token) {
 }
