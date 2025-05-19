@@ -27,7 +27,7 @@ public class CreateEmployeeUseCaseImpl implements CreateEmployeeUseCase {
             user.setPassword(passwordEncoderPort.encode(user.getPassword()));
             userSaved = (Employee) this.userRepositoryPort.save(user);
         } catch (DataIntegrityViolationException e) {
-            String message = e.getMostSpecificCause().getMessage();
+            final String message = e.getMostSpecificCause().getMessage();
             if (message != null) {
                 if (message.contains("email_unique_constraint") || message.toLowerCase().contains("email")) {
                     throw new EmailAlreadyExistsException("Email já cadastrado");

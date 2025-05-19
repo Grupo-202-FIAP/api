@@ -15,7 +15,7 @@ public class CreateCustomerWithCpfUseCaseImpl implements CreateCustomerWithCpfUs
 
     @Override
     public User execute(User user) {
-        User userSaved;
+        final User userSaved;
         try {
             user.setCpf(user.getCpf().replace(".", ""));
             user.setCpf(user.getCpf().replace("-", ""));

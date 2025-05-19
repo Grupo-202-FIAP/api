@@ -1,5 +1,6 @@
 package com.postech.fastfood.adapter.driver.controller;
 
+import com.postech.fastfood.adapter.driven.persistence.entity.UserEntity;
 import com.postech.fastfood.adapter.driven.security.AuthorizeUserServiceAdapter;
 import com.postech.fastfood.adapter.driven.security.TokenServiceAdapter;
 import com.postech.fastfood.adapter.driver.controller.dto.request.AuthRequest;
@@ -27,12 +28,12 @@ public class AuthenticationController {
 
     @PostMapping
     public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest authRequest) {
-        var user = authorizeUser.loadUserByUsername(authRequest.email());
+        final UserEntity user = authorizeUser.loadUserByUsername(authRequest.email());
         if (!passwordEncoder.matches(authRequest.password(), user.getPassword())) {
             throw new FastFoodException("Senha inválida", "Unauthorized", HttpStatus.UNAUTHORIZED);
         }
 
-        String token = tokenService.generateToken(user);
+        final String token = tokenService.generateToken(user);
         return ResponseEntity.ok(new AuthResponse(token));
     }
 

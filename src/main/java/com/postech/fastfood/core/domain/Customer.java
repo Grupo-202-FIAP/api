@@ -1,10 +1,9 @@
 package com.postech.fastfood.core.domain;
 
 import com.postech.fastfood.core.domain.enums.UserRole;
-
 import java.util.UUID;
 
-public class Customer extends User{
+public class Customer extends User {
     public Customer(UUID id, String name, String email, String cpf, UserRole role) {
         super(id, name, email, cpf, role);
     }
@@ -45,7 +44,6 @@ public class Customer extends User{
             this.role = role;
             return this;
         }
-
 
 
         public Customer build() {

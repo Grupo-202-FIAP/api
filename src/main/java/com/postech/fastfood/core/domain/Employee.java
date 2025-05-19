@@ -1,14 +1,13 @@
 package com.postech.fastfood.core.domain;
 
 import com.postech.fastfood.core.domain.enums.UserRole;
-
 import java.util.UUID;
 
 public class Employee extends User {
 
     private String password;
 
-    public Employee(UUID id, String name, String email, String cpf, UserRole role,String password) {
+    public Employee(UUID id, String name, String email, String cpf, UserRole role, String password) {
         super(id, name, email, cpf, role);
         this.password = password;
     }
@@ -16,6 +15,14 @@ public class Employee extends User {
     public Employee(Builder builder) {
         super(builder.id, builder.name, builder.email, builder.cpf, builder.role);
         this.password = builder.password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public static class Builder {
@@ -59,13 +66,5 @@ public class Employee extends User {
         public Employee build() {
             return new Employee(this);
         }
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }
