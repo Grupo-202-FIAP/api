@@ -1,7 +1,6 @@
 package com.postech.fastfood.core.domain;
 
 import com.postech.fastfood.core.domain.enums.UserRole;
-
 import java.util.UUID;
 
 public abstract class User {

@@ -16,7 +16,7 @@ public class CreateCustomerWithNameAndEmailUseCaseImpl implements CreateCustomer
 
     @Override
     public User execute(User user) {
-        User userSaved;
+        final User userSaved;
         try {
             user.setRole(UserRole.CUSTOMER);
             userSaved = this.userRepositoryPort.save(user);

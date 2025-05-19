@@ -4,13 +4,12 @@ import com.postech.fastfood.adapter.driven.persistence.entity.CustomerEntity;
 import com.postech.fastfood.adapter.driver.controller.dto.request.CustomerCpfRequest;
 import com.postech.fastfood.adapter.driver.controller.dto.request.CustomerEmailRequest;
 import com.postech.fastfood.core.domain.Customer;
-import com.postech.fastfood.core.domain.User;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CustomerMapper {
-    public static Customer toDomain(CustomerEntity customerEntity){
+    public static Customer toDomain(CustomerEntity customerEntity) {
         return new Customer.Builder()
                 .id(customerEntity.getId())
                 .name(customerEntity.getName())
