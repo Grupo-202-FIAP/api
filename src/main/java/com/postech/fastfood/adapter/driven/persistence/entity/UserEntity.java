@@ -5,35 +5,33 @@ import static com.postech.fastfood.core.domain.enums.UserRole.CUSTOMER;
 import static com.postech.fastfood.core.domain.enums.UserRole.GUEST;
 
 import com.postech.fastfood.core.domain.enums.UserRole;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-@Table(name = "tb_user")
-@Entity(name = "users")
+
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Getter
 @Setter
+@SuperBuilder
 @NoArgsConstructor
-@AllArgsConstructor
-public class User implements UserDetails {
+public abstract class UserEntity implements UserDetails {
 
+    @Serial
+    private static final long serialVersionUID = -5814489921556099032L;
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
