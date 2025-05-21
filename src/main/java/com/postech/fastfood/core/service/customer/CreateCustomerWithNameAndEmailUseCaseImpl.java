@@ -2,10 +2,11 @@ package com.postech.fastfood.core.service.customer;
 
 import com.postech.fastfood.core.domain.User;
 import com.postech.fastfood.core.domain.enums.UserRole;
-import com.postech.fastfood.core.exception.EmailAlreadyExistsException;
+import com.postech.fastfood.core.exception.FastFoodException;
 import com.postech.fastfood.core.ports.UserRepositoryPort;
 import com.postech.fastfood.core.usecase.customer.CreateCustomerWithNameAndEmailUseCase;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 
 public class CreateCustomerWithNameAndEmailUseCaseImpl implements CreateCustomerWithNameAndEmailUseCase {
     private final UserRepositoryPort userRepositoryPort;
@@ -21,7 +22,12 @@ public class CreateCustomerWithNameAndEmailUseCaseImpl implements CreateCustomer
             user.setRole(UserRole.CUSTOMER);
             userSaved = this.userRepositoryPort.save(user);
         } catch (DataIntegrityViolationException e) {
-            throw new EmailAlreadyExistsException(e.getMessage());
+            throw new FastFoodException(
+                    e.getMessage(),
+                    "Email already in use",
+                    HttpStatus.CONFLICT
+            );
+
         }
         return userSaved;
     }

@@ -1,10 +1,12 @@
 package com.postech.fastfood.core.service.customer;
 
 import com.postech.fastfood.core.domain.User;
-import com.postech.fastfood.core.exception.CpfAlreadyInUseException;
+import com.postech.fastfood.core.exception.FastFoodException;
 import com.postech.fastfood.core.ports.UserRepositoryPort;
 import com.postech.fastfood.core.usecase.customer.CreateCustomerWithCpfUseCase;
+import com.postech.fastfood.core.utils.FormatCpf;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 
 public class CreateCustomerWithCpfUseCaseImpl implements CreateCustomerWithCpfUseCase {
     private final UserRepositoryPort userRepositoryPort;
@@ -17,11 +19,14 @@ public class CreateCustomerWithCpfUseCaseImpl implements CreateCustomerWithCpfUs
     public User execute(User user) {
         final User userSaved;
         try {
-            user.setCpf(user.getCpf().replace(".", ""));
-            user.setCpf(user.getCpf().replace("-", ""));
+            user.setCpf(FormatCpf.formatCpfToEntity(user.getCpf()));
             userSaved = this.userRepositoryPort.save(user);
         } catch (DataIntegrityViolationException e) {
-            throw new CpfAlreadyInUseException(e.getMessage());
+            throw new FastFoodException(
+                    e.getMessage(),
+                    "CPF already in use",
+                    HttpStatus.CONFLICT
+            );
         }
         return userSaved;
     }
