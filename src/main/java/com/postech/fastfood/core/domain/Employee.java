@@ -12,6 +12,9 @@ public class Employee extends User {
         this.password = password;
     }
 
+    public Employee() {
+    }
+
     public Employee(Builder builder) {
         super(builder.id, builder.name, builder.email, builder.cpf, builder.role);
         this.password = builder.password;

@@ -12,6 +12,8 @@ public class Customer extends User {
         super(builder.id, builder.name, builder.email, builder.cpf, builder.role);
     }
 
+    public Customer() {
+    }
 
     public static class Builder {
         private UUID id;

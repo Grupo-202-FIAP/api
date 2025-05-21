@@ -8,8 +8,9 @@ import com.postech.fastfood.core.domain.Customer;
 import com.postech.fastfood.core.domain.Employee;
 import com.postech.fastfood.core.domain.User;
 import com.postech.fastfood.core.domain.enums.UserRole;
-import com.postech.fastfood.core.exception.CustomerNotFoundException;
+import com.postech.fastfood.core.exception.FastFoodException;
 import com.postech.fastfood.core.ports.UserRepositoryPort;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -41,12 +42,20 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
         if (role != UserRole.GUEST && role != UserRole.CUSTOMER) {
             final EmployeeEntity employee = this.employeeEntityRepository
                     .findByCpf(cpf)
-                    .orElseThrow(() -> new CustomerNotFoundException("Customer not found with CPF: " + cpf));
+                    .orElseThrow(() -> new FastFoodException(
+                            "Employee not found with CPF: " + cpf,
+                            "Employee Not Found",
+                            HttpStatus.NOT_FOUND
+                    ));
             user = EmployeeMapper.toDomain(employee);
         } else {
             final CustomerEntity customer = this.customerEntityRepository
                     .findByCpf(cpf)
-                    .orElseThrow(() -> new CustomerNotFoundException("Customer not found with CPF: " + cpf));
+                    .orElseThrow(() -> new FastFoodException(
+                            "Customer not found with CPF: " + cpf,
+                            "Customer Not Found",
+                            HttpStatus.NOT_FOUND
+                    ));
             user = CustomerMapper.toDomain(customer);
         }
         return user;
@@ -58,12 +67,20 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
         if (role != UserRole.GUEST && role != UserRole.CUSTOMER) {
             final EmployeeEntity employee = this.employeeEntityRepository
                     .findByEmail(email)
-                    .orElseThrow(() -> new CustomerNotFoundException("Customer not found with Email: " + email));
+                    .orElseThrow(() -> new FastFoodException(
+                            "Employee not found with Email: " + email,
+                            "Employee Not Found",
+                            HttpStatus.NOT_FOUND
+                    ));
             user = EmployeeMapper.toDomain(employee);
         } else {
             final CustomerEntity customer = this.customerEntityRepository
                     .findByEmail(email)
-                    .orElseThrow(() -> new CustomerNotFoundException("Customer not found with Email: " + email));
+                    .orElseThrow(() -> new FastFoodException(
+                            "Customer not found with Email: " + email,
+                            "Customer Not Found",
+                            HttpStatus.NOT_FOUND
+                    ));
             user = CustomerMapper.toDomain(customer);
         }
         return user;
