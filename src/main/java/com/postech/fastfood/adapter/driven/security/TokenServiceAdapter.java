@@ -1,5 +1,8 @@
 package com.postech.fastfood.adapter.driven.security;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -9,9 +12,6 @@ import com.postech.fastfood.core.exception.FastFoodException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 @Service
 public class TokenServiceAdapter {
@@ -42,7 +42,7 @@ public class TokenServiceAdapter {
             final var algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm).withIssuer("FastFood").build().verify(token).getSubject();
         } catch (JWTVerificationException e) {
-            return "";
+            throw new FastFoodException("Invalid or expired token", "Unauthorized", HttpStatus.UNAUTHORIZED);
         }
     }
 

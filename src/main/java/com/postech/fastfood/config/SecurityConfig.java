@@ -21,9 +21,6 @@ public class SecurityConfig {
     private final SecurityFilter securityFilter;
     private final String prefix_api = "/api/v1/";
 
-    private String apiPrefix(String path) {
-        return this.prefix_api + path;
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -31,10 +28,12 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, apiPrefix("products")).hasRole("ADMIN")
-                        .requestMatchers("/auth").permitAll()
-                        .requestMatchers(HttpMethod.POST, apiPrefix("customer/**")).permitAll()
-                        .requestMatchers(HttpMethod.POST, apiPrefix("employee/**")).permitAll()
+                        .requestMatchers(HttpMethod.POST, "product").hasAnyRole("ADMIN", "MANAGER")
+                        .requestMatchers(HttpMethod.DELETE, "product").hasAnyRole("ADMIN", "MANAGER")
+                        .requestMatchers(HttpMethod.PUT, "product").hasAnyRole("ADMIN", "MANAGER")
+                        .requestMatchers("customer").permitAll()
+                        .requestMatchers("employee").permitAll()
+                        .requestMatchers("auth").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
