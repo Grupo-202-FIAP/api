@@ -40,6 +40,10 @@ public class Product {
         this.updatedAt = builder.updatedAt;
     }
 
+    public Product() {
+    }
+
+
     public Long getId() {
         return id;
     }

@@ -11,4 +11,8 @@ public class FastFoodException extends RuntimeException {
         this.title = title;
         this.status = status;
     }
+
+    public HttpStatus getStatus() {
+        return status;
+    }
 }
