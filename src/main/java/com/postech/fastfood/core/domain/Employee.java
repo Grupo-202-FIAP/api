@@ -1,14 +1,24 @@
 package com.postech.fastfood.core.domain;
 
-import com.postech.fastfood.core.domain.enums.UserRole;
+import java.time.LocalDateTime;
 import java.util.UUID;
+import com.postech.fastfood.core.domain.enums.UserRole;
 
 public class Employee extends User {
 
     private String password;
 
-    public Employee(UUID id, String name, String email, String cpf, UserRole role, String password) {
-        super(id, name, email, cpf, role);
+    public Employee(
+            UUID id,
+            String name,
+            String email,
+            String cpf,
+            UserRole role,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
+            String password
+    ) {
+        super(id, name, email, cpf, role, createdAt, updatedAt);
         this.password = password;
     }
 
@@ -16,7 +26,7 @@ public class Employee extends User {
     }
 
     public Employee(Builder builder) {
-        super(builder.id, builder.name, builder.email, builder.cpf, builder.role);
+        super(builder.id, builder.name, builder.email, builder.cpf, builder.role, builder.createdAt, builder.updatedAt);
         this.password = builder.password;
     }
 
@@ -35,6 +45,8 @@ public class Employee extends User {
         private String cpf;
         private UserRole role;
         private String password;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
 
         public Builder id(UUID id) {
             this.id = id;
@@ -63,6 +75,16 @@ public class Employee extends User {
 
         public Builder password(String password) {
             this.password = password;
+            return this;
+        }
+
+        public Builder createdAt(LocalDateTime createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
+        public Builder updatedAt(LocalDateTime updatedAt) {
+            this.updatedAt = updatedAt;
             return this;
         }
 

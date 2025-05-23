@@ -1,7 +1,8 @@
 package com.postech.fastfood.core.domain;
 
-import com.postech.fastfood.core.domain.enums.UserRole;
+import java.time.LocalDateTime;
 import java.util.UUID;
+import com.postech.fastfood.core.domain.enums.UserRole;
 
 public abstract class User {
     private UUID id;
@@ -9,13 +10,17 @@ public abstract class User {
     private String email;
     private String cpf;
     private UserRole role;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    public User(UUID id, String name, String email, String cpf, UserRole role) {
+    public User(UUID id, String name, String email, String cpf, UserRole role, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.cpf = cpf;
         this.role = role;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public User() {
@@ -62,4 +67,19 @@ public abstract class User {
         this.role = role;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

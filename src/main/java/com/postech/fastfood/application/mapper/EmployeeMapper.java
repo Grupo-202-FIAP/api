@@ -16,6 +16,8 @@ public class EmployeeMapper {
                 .cpf(employeeEntity.getCpf())
                 .password(employeeEntity.getPassword())
                 .role(employeeEntity.getRole())
+                .createdAt(employeeEntity.getCreatedAt())
+                .updatedAt(employeeEntity.getUpdatedAt())
                 .build();
     }
 
@@ -27,6 +29,8 @@ public class EmployeeMapper {
                 .cpf(employee.getCpf())
                 .password(employee.getPassword())
                 .role(employee.getRole())
+                .createdAt(employee.getCreatedAt())
+                .updatedAt(employee.getUpdatedAt())
                 .build();
     }
 
