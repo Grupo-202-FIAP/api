@@ -1,0 +1,78 @@
+package com.postech.fastfood.adapter.driven.persistence.repository;
+
+import java.util.List;
+import java.util.UUID;
+import com.postech.fastfood.adapter.driven.persistence.entity.EmployeeEntity;
+import com.postech.fastfood.adapter.driven.persistence.entity.ProductEntity;
+import com.postech.fastfood.application.mapper.EmployeeMapper;
+import com.postech.fastfood.application.mapper.ProductMapper;
+import com.postech.fastfood.core.domain.Product;
+import com.postech.fastfood.core.exception.FastFoodException;
+import com.postech.fastfood.core.ports.ProductRepositoryPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ProductRepositoryAdapter implements ProductRepositoryPort {
+
+    private final IProductRepository productRepository;
+    private final IEmployeeEntityRepository employeeEntityRepository;
+
+    public ProductRepositoryAdapter(IProductRepository productRepository, IEmployeeEntityRepository employeeEntityRepository) {
+        this.productRepository = productRepository;
+        this.employeeEntityRepository = employeeEntityRepository;
+    }
+
+    @Override
+    public Product save(Product product) {
+        UUID employeeId = product.getCreatedByEmployee().getId();
+
+        EmployeeEntity employeeEntity = this.employeeEntityRepository.findById(employeeId)
+                .orElseThrow(() -> new FastFoodException("Employee not found with id: " + employeeId, "Employee not found ", HttpStatus.NOT_FOUND));
+
+        product.setCreatedByEmployee(EmployeeMapper.toDomain(employeeEntity));
+
+        ProductEntity savedEntity = this.productRepository.save(ProductMapper.toEntity(product));
+
+        return ProductMapper.toDomain(savedEntity);
+    }
+
+
+    public Product update(Product product) {
+        Long productId = product.getId();
+
+        ProductEntity existingEntity = this.productRepository.findById(productId)
+                .orElseThrow(() -> new FastFoodException("Product not found with id: " + productId, "Product not found", HttpStatus.NOT_FOUND));
+
+        if (product.getName() != null) {
+            existingEntity.setName(product.getName());
+        }
+        if (product.getCategory() != null) {
+            existingEntity.setCategory(product.getCategory());
+        }
+        if (product.getUnitPrice() != null) {
+            existingEntity.setUnitPrice(product.getUnitPrice());
+        }
+        if (product.getUrlImage() != null) {
+            existingEntity.setUrlImage(product.getUrlImage());
+        }
+        if (product.getDescription() != null) {
+            existingEntity.setDescription(product.getDescription());
+        }
+
+        ProductEntity updatedEntity = this.productRepository.save(existingEntity);
+
+        return ProductMapper.toDomain(updatedEntity);
+    }
+
+    @Override
+    public void delete(Long id_product) {
+        this.productRepository.deleteById(id_product);
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return this.productRepository.findAll().stream().map(ProductMapper::toDomain).toList();
+    }
+
+}
