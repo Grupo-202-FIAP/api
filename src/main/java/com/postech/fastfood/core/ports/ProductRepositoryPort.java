@@ -8,7 +8,7 @@ public interface ProductRepositoryPort {
 
     Product update(Product product);
 
-    void delete(Long id_product);
+    void delete(Long idProduct);
 
     List<Product> findAll();
 }

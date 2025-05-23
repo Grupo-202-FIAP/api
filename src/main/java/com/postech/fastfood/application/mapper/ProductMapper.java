@@ -41,7 +41,7 @@ public class ProductMapper {
 
     public static Product toDomain(ProductRequest product) {
 
-        Employee employee = new Employee.Builder()
+        final Employee employee = new Employee.Builder()
                 .id(product.employee_id())
                 .build();
 

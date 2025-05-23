@@ -16,7 +16,17 @@ public class Product {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Product(Long id, String name, String urlImage, BigDecimal unitPrice, Category category, String description, Employee createdByEmployee, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Product(
+            Long id,
+            String name,
+            String urlImage,
+            BigDecimal unitPrice,
+            Category category,
+            String description,
+            Employee createdByEmployee,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt
+    ) {
         this.id = id;
         this.name = name;
         this.urlImage = urlImage;

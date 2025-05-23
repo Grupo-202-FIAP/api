@@ -30,7 +30,10 @@ public class ProductController {
     private final ListProductsUseCase listProductsUseCase;
     private final UpdateProductUseCase updateProductUseCase;
 
-    public ProductController(CreateProductUseCase createProductUseCase, DeleteProductUseCase deleteProductUseCase, ListProductsUseCase listProductsUseCase, UpdateProductUseCase updateProductUseCase) {
+    public ProductController(CreateProductUseCase createProductUseCase,
+                             DeleteProductUseCase deleteProductUseCase,
+                             ListProductsUseCase listProductsUseCase,
+                             UpdateProductUseCase updateProductUseCase) {
         this.createProductUseCase = createProductUseCase;
         this.deleteProductUseCase = deleteProductUseCase;
         this.listProductsUseCase = listProductsUseCase;
@@ -39,8 +42,8 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest) {
-        Product domain = ProductMapper.toDomain(productRequest);
-        Product productCreated = createProductUseCase.execute(domain);
+        final Product domain = ProductMapper.toDomain(productRequest);
+        final Product productCreated = createProductUseCase.execute(domain);
         return ResponseEntity.status(HttpStatus.CREATED).body(productCreated);
     }
 
@@ -51,8 +54,8 @@ public class ProductController {
 
     @PutMapping
     public ResponseEntity<Product> updateProduct(@RequestBody @Valid ProductUpdateRequest productRequest, @RequestParam Long id) {
-        Product domain = ProductMapper.toDomain(productRequest);
-        Product execute = this.updateProductUseCase.execute(domain, id);
+        final Product domain = ProductMapper.toDomain(productRequest);
+        final Product execute = this.updateProductUseCase.execute(domain, id);
         return ResponseEntity.status(HttpStatus.OK).body(execute);
     }
 

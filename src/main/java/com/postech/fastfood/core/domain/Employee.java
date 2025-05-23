@@ -8,7 +8,16 @@ public class Employee extends User {
 
     private String password;
 
-    public Employee(UUID id, String name, String email, String cpf, UserRole role, LocalDateTime createdAt, LocalDateTime updatedAt, String password) {
+    public Employee(
+            UUID id,
+            String name,
+            String email,
+            String cpf,
+            UserRole role,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt,
+            String password
+    ) {
         super(id, name, email, cpf, role, createdAt, updatedAt);
         this.password = password;
     }

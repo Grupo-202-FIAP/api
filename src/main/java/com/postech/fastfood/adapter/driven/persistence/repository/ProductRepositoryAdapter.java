@@ -25,23 +25,23 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
 
     @Override
     public Product save(Product product) {
-        UUID employeeId = product.getCreatedByEmployee().getId();
+        final UUID employeeId = product.getCreatedByEmployee().getId();
 
-        EmployeeEntity employeeEntity = this.employeeEntityRepository.findById(employeeId)
+        final EmployeeEntity employeeEntity = this.employeeEntityRepository.findById(employeeId)
                 .orElseThrow(() -> new FastFoodException("Employee not found with id: " + employeeId, "Employee not found ", HttpStatus.NOT_FOUND));
 
         product.setCreatedByEmployee(EmployeeMapper.toDomain(employeeEntity));
 
-        ProductEntity savedEntity = this.productRepository.save(ProductMapper.toEntity(product));
+        final ProductEntity savedEntity = this.productRepository.save(ProductMapper.toEntity(product));
 
         return ProductMapper.toDomain(savedEntity);
     }
 
 
     public Product update(Product product) {
-        Long productId = product.getId();
+        final Long productId = product.getId();
 
-        ProductEntity existingEntity = this.productRepository.findById(productId)
+        final ProductEntity existingEntity = this.productRepository.findById(productId)
                 .orElseThrow(() -> new FastFoodException("Product not found with id: " + productId, "Product not found", HttpStatus.NOT_FOUND));
 
         if (product.getName() != null) {
@@ -60,14 +60,14 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
             existingEntity.setDescription(product.getDescription());
         }
 
-        ProductEntity updatedEntity = this.productRepository.save(existingEntity);
+        final ProductEntity updatedEntity = this.productRepository.save(existingEntity);
 
         return ProductMapper.toDomain(updatedEntity);
     }
 
     @Override
-    public void delete(Long id_product) {
-        this.productRepository.deleteById(id_product);
+    public void delete(Long idProduct) {
+        this.productRepository.deleteById(idProduct);
     }
 
     @Override

@@ -12,7 +12,7 @@ public class DeleteProductUseCaseImpl implements DeleteProductUseCase {
     }
 
     @Override
-    public void execute(Long id_product) {
-        this.productRepositoryPort.delete(id_product);
+    public void execute(Long idProduct) {
+        this.productRepositoryPort.delete(idProduct);
     }
 }
