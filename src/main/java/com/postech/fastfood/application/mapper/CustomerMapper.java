@@ -16,6 +16,8 @@ public class CustomerMapper {
                 .email(customerEntity.getEmail())
                 .cpf(customerEntity.getCpf())
                 .role(customerEntity.getRole())
+                .createdAt(customerEntity.getCreatedAt())
+                .updatedAt(customerEntity.getUpdatedAt())
                 .build();
     }
 
@@ -26,6 +28,8 @@ public class CustomerMapper {
                 .email(customer.getEmail())
                 .cpf(customer.getCpf())
                 .role(customer.getRole())
+                .createdAt(customer.getCreatedAt())
+                .updatedAt(customer.getUpdatedAt())
                 .build();
     }
 

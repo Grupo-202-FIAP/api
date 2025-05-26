@@ -18,12 +18,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @AllArgsConstructor
 public class SecurityConfig {
 
+    private static final String PRODUCT_ENDPOINT = "product";
+    private static final String CUSTOMER_ENDPOINT = "customer";
+    private static final String EMPLOYEE_ENDPOINT = "employee";
+    private static final String AUTH_ENDPOINT = "auth";
+    private static final String ROLE_ADMIN = "ADMIN";
+    private static final String ROLE_MANAGER = "MANAGER";
     private final SecurityFilter securityFilter;
-    private final String prefix_api = "/api/v1/";
-
-    private String apiPrefix(String path) {
-        return this.prefix_api + path;
-    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -31,10 +32,12 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, apiPrefix("products")).hasRole("ADMIN")
-                        .requestMatchers("/auth").permitAll()
-                        .requestMatchers(HttpMethod.POST, apiPrefix("customer/**")).permitAll()
-                        .requestMatchers(HttpMethod.POST, apiPrefix("employee/**")).permitAll()
+                        .requestMatchers(HttpMethod.POST, PRODUCT_ENDPOINT).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
+                        .requestMatchers(HttpMethod.DELETE, PRODUCT_ENDPOINT).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
+                        .requestMatchers(HttpMethod.PUT, PRODUCT_ENDPOINT).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
+                        .requestMatchers(CUSTOMER_ENDPOINT).permitAll()
+                        .requestMatchers(EMPLOYEE_ENDPOINT).permitAll()
+                        .requestMatchers(AUTH_ENDPOINT).permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
