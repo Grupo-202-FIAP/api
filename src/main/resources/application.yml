@@ -21,7 +21,6 @@ spring:
   server:
     servlet:
       context-path: /api/v1
-
   management:
     endpoints:
       web:
@@ -38,10 +37,3 @@ api:
   security:
     token:
       secret: ${JWT_SECRET:minha-secret}
-
-mercadoPago:
-  publicKey: ${PUBLIC_KEY:APP_USR-af3118dd-c2cf-46fc-8a3e-01e74be4a614}
-  accessToken: ${ACCESS_TOKEN:APP_USR-2809902885795734-052201-249bcc45ee8385397056e7d019cd11cd-1363380766}
-  clientId: ${CLIENT_ID:2809902885795734}
-  clientSecret: ${CLIENT_SECRET:1D7LfKw1COrDlYavbk1TSb85dkDfkSCq}
-
