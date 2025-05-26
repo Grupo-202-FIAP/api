@@ -54,7 +54,8 @@ $ cd api
 $ mvn clean package -DskipTests
 
 # Suba o ambiente completo
-$ docker compose -f infra/docker-compose.yml up --build
+$ docker compose -f infra/docker-compose.yml up -d --build
+
 ```
 
 ## 🌐 Serviços disponíveis
