@@ -1,9 +1,0 @@
-CREATE TABLE tb_customer (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(255) ,
-    email VARCHAR(255) UNIQUE,
-    cpf VARCHAR(20) UNIQUE,
-    role VARCHAR(20) NOT NULL,
-    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
-    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
-);
