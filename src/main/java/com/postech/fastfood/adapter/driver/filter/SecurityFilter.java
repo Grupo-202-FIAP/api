@@ -1,6 +1,6 @@
 package com.postech.fastfood.adapter.driver.filter;
 
-import com.postech.fastfood.adapter.driven.persistence.repository.IEmployeeEntityRepository;
+import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
 import com.postech.fastfood.adapter.driven.security.TokenServiceAdapter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

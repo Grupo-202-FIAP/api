@@ -1,7 +1,7 @@
 package com.postech.fastfood.adapter.driven.security;
 
 import com.postech.fastfood.adapter.driven.persistence.entity.UserEntity;
-import com.postech.fastfood.adapter.driven.persistence.repository.IEmployeeEntityRepository;
+import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
 import com.postech.fastfood.core.exception.FastFoodException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

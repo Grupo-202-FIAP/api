@@ -61,7 +61,7 @@ public class PaymentRepositoryAdapter implements PaymentRepositoryPort {
 
 
     private OrderEntity getOrderById(UUID orderId) {
-        return orderEntityRepository.findByOrderId(orderId)
+        return orderEntityRepository.findById(orderId)
                 .orElseThrow(() -> new FastFoodException(
                         "Order not found for ID: " + orderId,
                         "Order Not Found",
