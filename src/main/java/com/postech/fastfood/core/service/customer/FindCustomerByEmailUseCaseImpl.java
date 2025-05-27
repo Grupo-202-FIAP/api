@@ -5,11 +5,11 @@ import com.postech.fastfood.core.domain.enums.UserRole;
 import com.postech.fastfood.core.ports.UserRepositoryPort;
 import com.postech.fastfood.core.usecase.FindUserByEmailUseCase;
 
-public class FindCustomerrByEmailUseCaseImpl implements FindUserByEmailUseCase {
+public class FindCustomerByEmailUseCaseImpl implements FindUserByEmailUseCase {
 
     private final UserRepositoryPort userRepositoryPort;
 
-    public FindCustomerrByEmailUseCaseImpl(UserRepositoryPort userRepositoryPort) {
+    public FindCustomerByEmailUseCaseImpl(UserRepositoryPort userRepositoryPort) {
         this.userRepositoryPort = userRepositoryPort;
     }
 

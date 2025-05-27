@@ -1,4 +1,4 @@
-package com.postech.fastfood.adapter.driven.persistence.repository;
+package com.postech.fastfood.adapter.driven.persistence.repository.employee;
 
 import com.postech.fastfood.adapter.driven.persistence.entity.EmployeeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class FindCustomerrByEmailUseCaseImplTest {
+class FindCustomerByEmailUseCaseImplTest {
 
     @Mock
     UserRepositoryPort userRepositoryPort;
 
     @InjectMocks
-    FindCustomerrByEmailUseCaseImpl useCase; // mantém o nome conforme seu código, mas recomendo corrigir para FindCustomer...
+    FindCustomerByEmailUseCaseImpl useCase; // mantém o nome conforme seu código, mas recomendo corrigir para FindCustomer...
 
     @Test
     void deveRetornarClienteQuandoEmailExistir() {

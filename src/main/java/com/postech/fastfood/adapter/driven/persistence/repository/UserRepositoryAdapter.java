@@ -2,6 +2,8 @@ package com.postech.fastfood.adapter.driven.persistence.repository;
 
 import com.postech.fastfood.adapter.driven.persistence.entity.CustomerEntity;
 import com.postech.fastfood.adapter.driven.persistence.entity.EmployeeEntity;
+import com.postech.fastfood.adapter.driven.persistence.repository.customer.ICustomerEntityRepository;
+import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
 import com.postech.fastfood.application.mapper.CustomerMapper;
 import com.postech.fastfood.application.mapper.EmployeeMapper;
 import com.postech.fastfood.core.domain.Customer;
@@ -10,6 +12,7 @@ import com.postech.fastfood.core.domain.User;
 import com.postech.fastfood.core.domain.enums.UserRole;
 import com.postech.fastfood.core.exception.FastFoodException;
 import com.postech.fastfood.core.ports.UserRepositoryPort;
+import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -86,5 +89,17 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
         return user;
     }
 
-
+    public User findById(UUID id) {
+        return customerEntityRepository.findById(id)
+                .map(CustomerMapper::toDomain)
+                .map(User.class::cast)
+                .or(() -> employeeEntityRepository.findById(id)
+                        .map(EmployeeMapper::toDomain)
+                        .map(User.class::cast))
+                .orElseThrow(() -> new FastFoodException(
+                        "User not found with ID: " + id,
+                        "User Not Found",
+                        HttpStatus.NOT_FOUND
+                ));
+    }
 }

@@ -1,8 +1,8 @@
 package com.postech.fastfood.core.domain;
 
+import com.postech.fastfood.core.domain.enums.UserRole;
 import java.time.LocalDateTime;
 import java.util.UUID;
-import com.postech.fastfood.core.domain.enums.UserRole;
 
 public class Customer extends User {
     public Customer(UUID id, String name, String email, String cpf, UserRole role, LocalDateTime createdAt, LocalDateTime updatedAt) {

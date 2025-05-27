@@ -1,4 +1,4 @@
-package com.postech.fastfood.adapter.driven.persistence.repository;
+package com.postech.fastfood.adapter.driven.persistence.repository.customer;
 
 import com.postech.fastfood.adapter.driven.persistence.entity.CustomerEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,4 +11,6 @@ public interface ICustomerEntityRepository extends JpaRepository<CustomerEntity,
     Optional<CustomerEntity> findByCpf(String cpf);
 
     Optional<CustomerEntity> findByEmail(String email);
+
+    Optional<CustomerEntity> findById(UUID uuid);
 }
