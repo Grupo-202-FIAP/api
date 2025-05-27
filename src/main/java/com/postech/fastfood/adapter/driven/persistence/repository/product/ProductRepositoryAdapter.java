@@ -1,5 +1,7 @@
-package com.postech.fastfood.adapter.driven.persistence.repository;
+package com.postech.fastfood.adapter.driven.persistence.repository.product;
 
+import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
+import com.postech.fastfood.core.domain.enums.Category;
 import java.util.List;
 import java.util.UUID;
 import com.postech.fastfood.adapter.driven.persistence.entity.EmployeeEntity;
@@ -76,8 +78,8 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     }
 
     @Override
-    public List<Product> findProductByCategory(String category) {
-        return this.productRepository.findProductByCategory(category).stream().map(ProductMapper::toDomain).toList();
+    public List<Product> findProductByCategory(Category category) {
+        return this.productRepository.findByCategory(category).stream().map(ProductMapper::toDomain).toList();
     }
 
 }

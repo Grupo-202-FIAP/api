@@ -1,11 +1,16 @@
 package com.postech.fastfood.adapter.driver.controller;
 
+import com.postech.fastfood.core.domain.enums.Category;
+import com.postech.fastfood.core.usecase.product.CreateProductUseCase;
+import com.postech.fastfood.core.usecase.product.DeleteProductUseCase;
+import com.postech.fastfood.core.usecase.product.ListProductByCategoryUseCase;
+import com.postech.fastfood.core.usecase.product.ListProductsUseCase;
+import com.postech.fastfood.core.usecase.product.UpdateProductUseCase;
 import java.util.List;
 import com.postech.fastfood.adapter.driver.controller.dto.request.ProductRequest;
 import com.postech.fastfood.adapter.driver.controller.dto.request.ProductUpdateRequest;
 import com.postech.fastfood.application.mapper.ProductMapper;
 import com.postech.fastfood.core.domain.Product;
-import com.postech.fastfood.core.usecase.product.*;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/product")
+@RequestMapping("/product")
 public class ProductController {
 
     private final CreateProductUseCase createProductUseCase;
@@ -41,7 +46,7 @@ public class ProductController {
     }
 
     @GetMapping("/category")
-    public ResponseEntity<List<Product>> listProductByCategory(@RequestParam String category) {
+    public ResponseEntity<List<Product>> listProductByCategory(@RequestParam Category category) {
         return ResponseEntity.status(HttpStatus.OK).body(listProductByCategoryUseCase.execute(category));
     }
 

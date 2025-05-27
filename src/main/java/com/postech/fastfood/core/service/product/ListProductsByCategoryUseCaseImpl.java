@@ -1,9 +1,9 @@
 package com.postech.fastfood.core.service.product;
 
 import com.postech.fastfood.core.domain.Product;
+import com.postech.fastfood.core.domain.enums.Category;
 import com.postech.fastfood.core.ports.ProductRepositoryPort;
 import com.postech.fastfood.core.usecase.product.ListProductByCategoryUseCase;
-
 import java.util.List;
 
 public class ListProductsByCategoryUseCaseImpl implements ListProductByCategoryUseCase {
@@ -14,7 +14,7 @@ public class ListProductsByCategoryUseCaseImpl implements ListProductByCategoryU
     }
 
     @Override
-    public List<Product> execute(String category) {
+    public List<Product> execute(Category category) {
         return productRepositoryPort.findProductByCategory(category);
     }
 }
