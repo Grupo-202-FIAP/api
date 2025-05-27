@@ -18,10 +18,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @AllArgsConstructor
 public class SecurityConfig {
 
-    private static final String PRODUCT_ENDPOINT = "product";
-    private static final String CUSTOMER_ENDPOINT = "customer";
-    private static final String EMPLOYEE_ENDPOINT = "employee";
-    private static final String AUTH_ENDPOINT = "auth";
+    private static final String PRODUCT_ENDPOINT = "/product/**";
+    private static final String CUSTOMER_ENDPOINT = "/customer/**";
+    private static final String EMPLOYEE_ENDPOINT = "/employee/**";
+    private static final String AUTH_ENDPOINT = "/auth/**";
     private static final String ROLE_ADMIN = "ADMIN";
     private static final String ROLE_MANAGER = "MANAGER";
     private final SecurityFilter securityFilter;

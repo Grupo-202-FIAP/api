@@ -1,12 +1,11 @@
-CREATE TYPE order_status AS ENUM ('RECEIVED', 'PREPARING', 'READY', 'COMPLETED', 'CANCELLED');
 
 CREATE TABLE tb_order (
     id SERIAL PRIMARY KEY,
-    identifier varchar(7) NOT NULL,
+    identifier varchar(40) NOT NULL,
     total_price NUMERIC(10, 2) NOT NULL,
-    status order_status NOT NULL,
+    order_status VARCHAR(255) NOT NULL,
     order_date_time TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
-
+    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
     customer_id UUID NOT NULL,
     payment_fk_id UUID,
 

@@ -1,9 +1,9 @@
-CREATE TYPE product_category AS ENUM ('SANDWICHES', 'SIDES', 'DRINKS', 'DESSERTS');
+
 
 CREATE TABLE tb_products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE,
-    category product_category NOT NULL,
+    category VARCHAR(255) NOT NULL,
     unit_price NUMERIC(15, 2),
     url_image TEXT,
     description TEXT,
