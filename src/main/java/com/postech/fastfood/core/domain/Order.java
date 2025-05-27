@@ -1,25 +1,31 @@
 package com.postech.fastfood.core.domain;
 
-import com.postech.fastfood.core.domain.enums.OrderStatus;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
+import com.postech.fastfood.core.domain.enums.OrderStatus;
 
 public class Order {
+    // TODO CHANGE TO LONG
     private UUID id;
+    private String identifier;
     private BigDecimal totalPrice;
     private OrderStatus status;
     private LocalDateTime orderDateTime;
-    private UUID userId;
-    private UUID paymentId;
+    private Customer customer;
+    private Payment payment;
+    private List<OrderItem> itens;
 
-    public Order(UUID id, BigDecimal totalPrice, OrderStatus status, LocalDateTime orderDateTime, UUID userId, UUID paymentId) {
+    public Order(UUID id, String identifier, BigDecimal totalPrice, OrderStatus status, LocalDateTime orderDateTime, Customer customer, Payment payment, List<OrderItem> itens) {
         this.id = id;
+        this.identifier = identifier;
         this.totalPrice = totalPrice;
         this.status = status;
         this.orderDateTime = orderDateTime;
-        this.userId = userId;
-        this.paymentId = paymentId;
+        this.customer = customer;
+        this.payment = payment;
+        this.itens = itens;
     }
 
     public Order() {
@@ -30,8 +36,9 @@ public class Order {
         this.totalPrice = builder.totalPrice;
         this.status = builder.status;
         this.orderDateTime = builder.orderDateTime;
-        this.userId = builder.userId;
-        this.paymentId = builder.paymentId;
+        this.customer = builder.customer;
+        this.payment = builder.payment;
+        this.itens = builder.itens;
     }
 
     public UUID getId() {
@@ -66,20 +73,36 @@ public class Order {
         this.orderDateTime = orderDateTime;
     }
 
-    public UUID getUserId() {
-        return userId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public UUID getPaymentId() {
-        return paymentId;
+    public Payment getPayment() {
+        return payment;
     }
 
-    public void setPaymentId(UUID paymentId) {
-        this.paymentId = paymentId;
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public List<OrderItem> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<OrderItem> itens) {
+        this.itens = itens;
     }
 
     public static class Builder {
@@ -87,8 +110,9 @@ public class Order {
         private BigDecimal totalPrice;
         private OrderStatus status;
         private LocalDateTime orderDateTime;
-        private UUID userId;
-        private UUID paymentId;
+        private Customer customer;
+        private Payment payment;
+        private List<OrderItem> itens;
 
         public Builder id(UUID id) {
             this.id = id;
@@ -110,18 +134,24 @@ public class Order {
             return this;
         }
 
-        public Builder userId(UUID userId) {
-            this.userId = userId;
+        public Builder customer(Customer customer) {
+            this.customer = customer;
             return this;
         }
 
-        public Builder paymentId(UUID paymentId) {
-            this.paymentId = paymentId;
+        public Builder itens(List<OrderItem> itens) {
+            this.itens = itens;
             return this;
         }
+
+        public Builder payment(Payment payment) {
+            this.payment = payment;
+            return this;
+        }
+
 
         public Order build() {
-         return new Order(this);
+            return new Order(this);
         }
     }
 
