@@ -11,4 +11,6 @@ public interface ProductRepositoryPort {
     void delete(Long idProduct);
 
     List<Product> findAll();
+
+    List<Product> findProductByCategory(String category);
 }
