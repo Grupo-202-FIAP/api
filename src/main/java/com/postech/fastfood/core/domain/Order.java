@@ -1,14 +1,12 @@
 package com.postech.fastfood.core.domain;
 
+import com.postech.fastfood.core.domain.enums.OrderStatus;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
-import com.postech.fastfood.core.domain.enums.OrderStatus;
 
 public class Order {
-    // TODO CHANGE TO LONG
-    private UUID id;
+    private Long id;
     private String identifier;
     private BigDecimal totalPrice;
     private OrderStatus status;
@@ -16,8 +14,12 @@ public class Order {
     private Customer customer;
     private Payment payment;
     private List<OrderItem> itens;
+    private LocalDateTime updatedAt;
 
-    public Order(UUID id, String identifier, BigDecimal totalPrice, OrderStatus status, LocalDateTime orderDateTime, Customer customer, Payment payment, List<OrderItem> itens) {
+    public Order(
+            Long id,
+            String identifier, BigDecimal totalPrice, OrderStatus status, LocalDateTime orderDateTime, Customer customer, Payment payment,
+            List<OrderItem> itens, LocalDateTime updatedAt) {
         this.id = id;
         this.identifier = identifier;
         this.totalPrice = totalPrice;
@@ -26,6 +28,7 @@ public class Order {
         this.customer = customer;
         this.payment = payment;
         this.itens = itens;
+        this.updatedAt = updatedAt;
     }
 
     public Order() {
@@ -39,13 +42,14 @@ public class Order {
         this.customer = builder.customer;
         this.payment = builder.payment;
         this.itens = builder.itens;
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -105,16 +109,26 @@ public class Order {
         this.itens = itens;
     }
 
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public static class Builder {
-        private UUID id;
+        private Long id;
         private BigDecimal totalPrice;
         private OrderStatus status;
         private LocalDateTime orderDateTime;
         private Customer customer;
         private Payment payment;
         private List<OrderItem> itens;
+        private String identifier;
+        private LocalDateTime updatedAt;
 
-        public Builder id(UUID id) {
+        public Builder id(Long id) {
             this.id = id;
             return this;
         }
@@ -149,10 +163,34 @@ public class Order {
             return this;
         }
 
+        public Builder identifier(String identifier) {
+            this.identifier = identifier;
+            return this;
+        }
+
+        public Builder updatedAt(LocalDateTime updatedAt) {
+            this.updatedAt = updatedAt;
+            return this;
+        }
 
         public Order build() {
             return new Order(this);
         }
+    }
+
+    public BigDecimal calculateTotalPrice() {
+        if (itens == null || itens.isEmpty()) {
+            return BigDecimal.ZERO;
+        }
+
+        return itens.stream()
+                .map(item -> item.getProduct().getUnitPrice()
+                        .multiply(BigDecimal.valueOf(item.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public void updateTotalPrice() {
+        this.totalPrice = calculateTotalPrice();
     }
 
 }
