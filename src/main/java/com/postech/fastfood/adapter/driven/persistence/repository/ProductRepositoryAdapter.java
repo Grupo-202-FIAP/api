@@ -75,4 +75,9 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
         return this.productRepository.findAll().stream().map(ProductMapper::toDomain).toList();
     }
 
+    @Override
+    public List<Product> findProductByCategory(String category) {
+        return this.productRepository.findProductByCategory(category).stream().map(ProductMapper::toDomain).toList();
+    }
+
 }

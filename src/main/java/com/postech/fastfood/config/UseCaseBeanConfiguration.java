@@ -15,6 +15,7 @@ import com.postech.fastfood.core.service.product.CreateProductUseCaseImpl;
 import com.postech.fastfood.core.service.product.DeleteProductUseCaseImpl;
 import com.postech.fastfood.core.service.product.ListProductsUseCaseImpl;
 import com.postech.fastfood.core.service.product.UpdateProductUseCaseImpl;
+import com.postech.fastfood.core.service.product.*;
 import com.postech.fastfood.core.usecase.FindUserByCpfUseCase;
 import com.postech.fastfood.core.usecase.FindUserByEmailUseCase;
 import com.postech.fastfood.core.usecase.customer.CreateCustomerWithCpfUseCase;
@@ -26,6 +27,7 @@ import com.postech.fastfood.core.usecase.product.CreateProductUseCase;
 import com.postech.fastfood.core.usecase.product.DeleteProductUseCase;
 import com.postech.fastfood.core.usecase.product.ListProductsUseCase;
 import com.postech.fastfood.core.usecase.product.UpdateProductUseCase;
+import com.postech.fastfood.core.usecase.product.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -87,6 +89,11 @@ public class UseCaseBeanConfiguration {
     @Bean
     public ListProductsUseCase listProductsUseCase(ProductRepositoryPort productRepositoryPort) {
         return new ListProductsUseCaseImpl(productRepositoryPort);
+    }
+
+    @Bean
+    public ListProductByCategoryUseCase listProductByCategoryUseCase(ProductRepositoryPort productRepositoryPort) {
+        return new ListProductsByCategoryUseCaseImpl(productRepositoryPort);
     }
 
 }
