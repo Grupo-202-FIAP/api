@@ -1,7 +1,6 @@
-
 CREATE TABLE tb_order (
     id SERIAL PRIMARY KEY,
-    identifier varchar(40) NOT NULL,
+    identifier VARCHAR(40),
     total_price NUMERIC(10, 2) NOT NULL,
     order_status VARCHAR(255) NOT NULL,
     order_date_time TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
