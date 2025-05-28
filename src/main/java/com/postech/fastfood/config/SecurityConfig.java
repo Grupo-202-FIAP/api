@@ -24,7 +24,7 @@ public class SecurityConfig {
     private static final String AUTH_ENDPOINT = "auth";
     private static final String ROLE_ADMIN = "ADMIN";
     private static final String ROLE_MANAGER = "MANAGER";
-    private final SecurityFilter securityFilter;
+//    private final SecurityFilter securityFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -40,7 +40,7 @@ public class SecurityConfig {
                         .requestMatchers(AUTH_ENDPOINT).permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+//                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
