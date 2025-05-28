@@ -42,7 +42,7 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
 
     public User findByCpf(String cpf, UserRole role) {
         User user = null;
-        if (role != UserRole.GUEST && role != UserRole.CUSTOMER) {
+        if (role != UserRole.ROLE_GUEST && role != UserRole.ROLE_CUSTOMER) {
             final EmployeeEntity employee = this.employeeEntityRepository
                     .findByCpf(cpf)
                     .orElseThrow(() -> new FastFoodException(
@@ -67,7 +67,7 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
 
     public User findByEmail(String email, UserRole role) {
         User user = null;
-        if (role != UserRole.GUEST && role != UserRole.CUSTOMER) {
+        if (role != UserRole.ROLE_GUEST && role != UserRole.ROLE_CUSTOMER) {
             final EmployeeEntity employee = this.employeeEntityRepository
                     .findByEmail(email)
                     .orElseThrow(() -> new FastFoodException(

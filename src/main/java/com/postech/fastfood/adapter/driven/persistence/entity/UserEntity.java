@@ -1,8 +1,8 @@
 package com.postech.fastfood.adapter.driven.persistence.entity;
 
-import static com.postech.fastfood.core.domain.enums.UserRole.ADMIN;
-import static com.postech.fastfood.core.domain.enums.UserRole.CUSTOMER;
-import static com.postech.fastfood.core.domain.enums.UserRole.GUEST;
+import static com.postech.fastfood.core.domain.enums.UserRole.ROLE_ADMIN;
+import static com.postech.fastfood.core.domain.enums.UserRole.ROLE_CUSTOMER;
+import static com.postech.fastfood.core.domain.enums.UserRole.ROLE_GUEST;
 
 import java.io.Serial;
 import java.time.LocalDateTime;
@@ -54,12 +54,12 @@ public abstract class UserEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role.equals(ADMIN)) {
-            final var roleAdmin = new SimpleGrantedAuthority(ADMIN.getRole());
-            final var roleCustomer = new SimpleGrantedAuthority(CUSTOMER.getRole());
+        if (this.role.equals(ROLE_ADMIN)) {
+            final var roleAdmin = new SimpleGrantedAuthority(ROLE_ADMIN.getRole());
+            final var roleCustomer = new SimpleGrantedAuthority(ROLE_CUSTOMER.getRole());
             return List.of(roleAdmin, roleCustomer);
         } else {
-            final var role = new SimpleGrantedAuthority(GUEST.getRole());
+            final var role = new SimpleGrantedAuthority(ROLE_GUEST.getRole());
             return List.of(role);
         }
     }

@@ -1,5 +1,6 @@
 package com.postech.fastfood.config;
 
+import com.postech.fastfood.core.ports.CustomerRepositoryPort;
 import com.postech.fastfood.core.ports.OrderRepositoryPort;
 import com.postech.fastfood.core.ports.PasswordEncoderPort;
 import com.postech.fastfood.core.ports.PaymentRepositoryPort;
@@ -53,8 +54,8 @@ public class UseCaseBeanConfiguration {
     }
 
     @Bean
-    public FindUserByCpfUseCase findCustomerByCpfUseCase(UserRepositoryPort userRepositoryPort) {
-        return new FindCustomerByCpfUseCaseImpl(userRepositoryPort);
+    public FindUserByCpfUseCase findCustomerByCpfUseCase(CustomerRepositoryPort customerRepositoryPort) {
+        return new FindCustomerByCpfUseCaseImpl(customerRepositoryPort);
     }
 
     @Bean
@@ -69,10 +70,8 @@ public class UseCaseBeanConfiguration {
 
     @Bean
     public ProccessPaymentUseCase savePayment(PaymentRepositoryPort paymentRepositoryPort) {
-        return new ProccessPaymentUseCaseImpl(paymentRepositoryPort) {
-        };
+        return new ProccessPaymentUseCaseImpl(paymentRepositoryPort);
     }
-
 
     @Bean
     public CreateProductUseCase createProductUseCase(ProductRepositoryPort productRepositoryPort) {
@@ -97,11 +96,6 @@ public class UseCaseBeanConfiguration {
     @Bean
     public ListProductByCategoryUseCase listProductByCategoryUseCase(ProductRepositoryPort productRepositoryPort) {
         return new ListProductsByCategoryUseCaseImpl(productRepositoryPort);
-    }
-
-    @Bean
-    public FindUserByCpfUseCase findUserByCpfUseCase(UserRepositoryPort userRepositoryPort) {
-        return new FindCustomerByCpfUseCaseImpl(userRepositoryPort);
     }
 
     @Bean

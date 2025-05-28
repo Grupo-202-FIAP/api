@@ -1,6 +1,6 @@
 package com.postech.fastfood.config;
 
-import com.postech.fastfood.adapter.driver.filter.SecurityFilter;
+//import com.postech.fastfood.adapter.driver.filter.SecurityFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+//import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @AllArgsConstructor
@@ -25,6 +25,7 @@ public class SecurityConfig {
     private static final String AUTH_ENDPOINT = "/auth";
     private static final String ROLE_ADMIN = "ADMIN";
     private static final String ROLE_MANAGER = "MANAGER";
+    private static final String ALL_URIS = "/**";
 //    private final SecurityFilter securityFilter;
 
     @Bean
@@ -33,13 +34,13 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, PRODUCT_ENDPOINT + "/**").hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
-                        .requestMatchers(HttpMethod.DELETE, PRODUCT_ENDPOINT + "/**").hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
-                        .requestMatchers(HttpMethod.PUT, PRODUCT_ENDPOINT + "/**").hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
-                        .requestMatchers(CUSTOMER_ENDPOINT + "/**").permitAll()
-                        .requestMatchers(EMPLOYEE_ENDPOINT + "/**").permitAll()
-                        .requestMatchers(AUTH_ENDPOINT + "/**").permitAll()
-                        .requestMatchers(ORDER_ENDPOINT + "/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, PRODUCT_ENDPOINT + ALL_URIS).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
+                        .requestMatchers(HttpMethod.DELETE, PRODUCT_ENDPOINT + ALL_URIS).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
+                        .requestMatchers(HttpMethod.PUT, PRODUCT_ENDPOINT + ALL_URIS).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
+                        .requestMatchers(CUSTOMER_ENDPOINT + ALL_URIS).permitAll()
+                        .requestMatchers(EMPLOYEE_ENDPOINT + ALL_URIS).permitAll()
+                        .requestMatchers(AUTH_ENDPOINT + ALL_URIS).permitAll()
+                        .requestMatchers(ORDER_ENDPOINT + ALL_URIS).permitAll()
                         .anyRequest().authenticated()
                 )
 //                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

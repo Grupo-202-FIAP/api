@@ -27,7 +27,7 @@ class FindCustomerByEmailUseCaseImplTest {
     void deveRetornarClienteQuandoEmailExistir() {
         // Arrange
         String email = "cliente@teste.com";
-        UserRole role = UserRole.CUSTOMER;
+        UserRole role = UserRole.ROLE_CUSTOMER;
 
         Customer cliente = new Customer();
         cliente.setId(UUID.randomUUID());
@@ -44,7 +44,7 @@ class FindCustomerByEmailUseCaseImplTest {
         assertNotNull(resultado);
         assertEquals(email, resultado.getEmail());
         assertEquals("Maria", resultado.getName());
-        assertEquals(UserRole.CUSTOMER, resultado.getRole());
+        assertEquals(UserRole.ROLE_CUSTOMER, resultado.getRole());
         verify(userRepositoryPort, times(1)).findByEmail(email, role);
     }
 
@@ -52,7 +52,7 @@ class FindCustomerByEmailUseCaseImplTest {
     void deveRetornarNullQuandoClienteNaoExiste() {
         // Arrange
         String email = "inexistente@teste.com";
-        UserRole role = UserRole.CUSTOMER;
+        UserRole role = UserRole.ROLE_CUSTOMER;
 
         when(userRepositoryPort.findByEmail(email, role)).thenReturn(null);
 

@@ -41,7 +41,7 @@ class CreateEmployeeUseCaseImplTest {
         employee.setEmail("funcionario@empresa.com");
         employee.setCpf("123.456.789-00");
         employee.setPassword("senha123");
-        employee.setRole(UserRole.ADMIN);
+        employee.setRole(UserRole.ROLE_ADMIN);
     }
 
     @Test
@@ -56,7 +56,7 @@ class CreateEmployeeUseCaseImplTest {
         funcionarioSalvo.setEmail(employee.getEmail());
         funcionarioSalvo.setName(employee.getName());
         funcionarioSalvo.setPassword(senhaCodificada);
-        funcionarioSalvo.setRole(UserRole.ADMIN);
+        funcionarioSalvo.setRole(UserRole.ROLE_ADMIN);
 
         when(userRepositoryPort.save(any(Employee.class))).thenReturn(funcionarioSalvo);
 

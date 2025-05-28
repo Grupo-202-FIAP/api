@@ -60,7 +60,7 @@ public class CustomerController {
 
     @GetMapping("/cpf")
     public ResponseEntity<User> getCustomerByCpf(CustomerCpfRequest customerCpfRequest) {
-        final User customerSaved = this.findUserByCpfUseCase.execute(customerCpfRequest.cpf(), customerCpfRequest.userRole());
+        final User customerSaved = this.findUserByCpfUseCase.execute(customerCpfRequest.cpf());
         return ResponseEntity.status(HttpStatus.OK).body(customerSaved);
     }
 

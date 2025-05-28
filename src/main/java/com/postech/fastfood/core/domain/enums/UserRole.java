@@ -1,12 +1,12 @@
 package com.postech.fastfood.core.domain.enums;
 
 public enum UserRole {
-    CUSTOMER("ROLE_CUSTOMER"),
-    ADMIN("ROLE_ADMIN"),
-    MANAGER("ROLE_MANAGER"),
-    KITCHEN("ROLE_KITCHEN"),
-    DELIVERY("ROLE_DELIVERY"),
-    GUEST("ROLE_GUEST");
+    ROLE_CUSTOMER("ROLE_CUSTOMER"),
+    ROLE_ADMIN("ROLE_ADMIN"),
+    ROLE_MANAGER("ROLE_MANAGER"),
+    ROLE_KITCHEN("ROLE_KITCHEN"),
+    ROLE_DELIVERY("ROLE_DELIVERY"),
+    ROLE_GUEST("ROLE_GUEST");
 
     private final String role;
 

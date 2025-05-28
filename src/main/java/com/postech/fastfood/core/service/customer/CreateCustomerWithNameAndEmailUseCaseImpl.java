@@ -19,7 +19,7 @@ public class CreateCustomerWithNameAndEmailUseCaseImpl implements CreateCustomer
     public User execute(User user) {
         final User userSaved;
         try {
-            user.setRole(UserRole.CUSTOMER);
+            user.setRole(UserRole.ROLE_CUSTOMER);
             userSaved = this.userRepositoryPort.save(user);
         } catch (DataIntegrityViolationException e) {
             throw new FastFoodException(
