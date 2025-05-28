@@ -43,14 +43,12 @@ public class OrderMapper {
 
     public static OrderEntity toEntity(Order order) {
         return OrderEntity.builder()
-                .id(order.getId())
                 .identifier(order.getIdentifier())
                 .customer(CustomerMapper.toEntity(order.getCustomer()))
                 .itens(order.getItens()
                         .stream()
                         .map(OrderItemMapper::toEntity).toList())
                 .totalPrice(order.getTotalPrice())
-                .payment(PaymentMapper.toEntity(order.getPayment()))
                 .orderStatus(order.getStatus())
                 .orderDateTime(order.getOrderDateTime())
                 .updatedAt(order.getUpdatedAt())
@@ -65,5 +63,19 @@ public class OrderMapper {
                 .itens(orderRequest.itens().stream().map(OrderItemMapper::toDomain).toList())
                 .build();
     }
+
+    public static OrderEntity toEntityWithoutItems(Order order) {
+        if (order == null) {
+            return null;
+        }
+
+        return OrderEntity.builder()
+                .id(order.getId())
+                .orderStatus(order.getStatus())
+                .orderDateTime(order.getOrderDateTime())
+                .totalPrice(order.getTotalPrice())
+                .build();
+    }
+
 
 }

@@ -22,6 +22,7 @@ public class OrderController {
 
     @PostMapping("/create")
     public ResponseEntity<Order> createOrder(@Valid @RequestBody OrderRequest orderRequest) {
-        return ResponseEntity.ok(this.createOrderUseCase.execute(OrderMapper.toDomain(orderRequest)));
+        final Order domain = OrderMapper.toDomain(orderRequest);
+        return ResponseEntity.ok(this.createOrderUseCase.execute(domain));
     }
 }

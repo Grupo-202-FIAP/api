@@ -3,22 +3,12 @@ INSERT INTO tb_customer (id, name, email, cpf, role) VALUES
 ('00000000-0000-0000-0000-000000000001', 'Customer User', 'customer@example.com', '00000000001', 'ROLE_CUSTOMER'),
 ('00000000-0000-0000-0000-000000000002', 'Guest User', 'guest@example.com', '00000000002', 'ROLE_GUEST');
 
-
 -- FUNCIONÁRIOS
 INSERT INTO tb_employee (id, name, email, cpf, role, password) VALUES
 ('10000000-0000-0000-0000-000000000001', 'Admin User', 'admin@company.com', '11111111101', 'ROLE_ADMIN', 'senha123'),
 ('10000000-0000-0000-0000-000000000002', 'Manager User', 'manager@company.com', '11111111102', 'ROLE_MANAGER', 'senha123'),
 ('10000000-0000-0000-0000-000000000003', 'Kitchen User', 'kitchen@company.com', '11111111103', 'ROLE_KITCHEN', 'senha123'),
 ('10000000-0000-0000-0000-000000000004', 'Delivery User', 'delivery@company.com', '11111111104', 'ROLE_DELIVERY', 'senha123');
-
-
--- PRODUTOS
-INSERT INTO tb_products (name, category, unit_price, url_image, description, created_by_employee_id) VALUES
-('Burger', 'SANDWICHES', 15.00, 'https://img.com/burger.png', 'Delicious artisan burger', '10000000-0000-0000-0000-000000000001'),
-('Fries', 'SIDES', 8.00, 'https://img.com/fries.png', 'Crispy fries', '10000000-0000-0000-0000-000000000002'),
-('Soda', 'DRINKS', 5.00, 'https://img.com/soda.png', '350ml soda can', '10000000-0000-0000-0000-000000000003'),
-('Ice Cream', 'DESSERTS', 10.00, 'https://img.com/icecream.png', 'Ice cream bowl', '10000000-0000-0000-0000-000000000003');
-
 
 -- PAGAMENTOS
 INSERT INTO tb_payment (id, status, method) VALUES
@@ -32,16 +22,22 @@ INSERT INTO tb_payment (id, status, method) VALUES
 ('20000000-0000-0000-0000-000000000008', 'REFUNDED', 'QRCODE'),
 ('20000000-0000-0000-0000-000000000009', 'CHARGED_BACK', 'QRCODE');
 
+-- PRODUTOS
+INSERT INTO tb_products (name, category, unit_price, url_image, description, created_by_employee_id) VALUES
+('Burger', 'SANDWICHES', 15.00, 'https://img.com/burger.png', 'Delicious artisan burger', '10000000-0000-0000-0000-000000000001'),
+('Fries', 'SIDES', 8.00, 'https://img.com/fries.png', 'Crispy fries', '10000000-0000-0000-0000-000000000002'),
+('Soda', 'DRINKS', 5.00, 'https://img.com/soda.png', '350ml soda can', '10000000-0000-0000-0000-000000000003'),
+('Ice Cream', 'DESSERTS', 10.00, 'https://img.com/icecream.png', 'Ice cream bowl', '10000000-0000-0000-0000-000000000003');
 
 -- PEDIDOS
-INSERT INTO tb_order (identifier, total_price, status, payment_fk_id, customer_id) VALUES
+INSERT INTO tb_order (identifier, total_price, order_status, payment_fk_id, customer_id) VALUES
 ('ORD001', 100.00, 'RECEIVED', '20000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000001'),
 ('ORD002', 150.00, 'PREPARING', '20000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000001'),
 ('ORD003', 200.00, 'READY', '20000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000001'),
 ('ORD004', 250.00, 'COMPLETED', '20000000-0000-0000-0000-000000000004', '00000000-0000-0000-0000-000000000001'),
 ('ORD005', 50.00, 'CANCELLED', '20000000-0000-0000-0000-000000000005', '00000000-0000-0000-0000-000000000001');
 
--- PEDIDOS - PRODUTOS
+-- PEDIDOS_PRODUTOS
 INSERT INTO tb_order_item (id, order_id, product_id, quantity, price_at_purchase) VALUES
 ('50000000-0000-0000-0000-000000000001', 1, 1, 2, 15.00),
 ('50000000-0000-0000-0000-000000000002', 1, 2, 1, 8.00),

@@ -1,29 +1,30 @@
 package com.postech.fastfood.core.service.order;
 
-import com.postech.fastfood.core.domain.Order;
-import com.postech.fastfood.core.exception.FastFoodException;
-import com.postech.fastfood.core.ports.OrderRepositoryPort;
-import com.postech.fastfood.core.usecase.order.CreateOrderUseCase;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import com.postech.fastfood.core.domain.Order;
+import com.postech.fastfood.core.domain.enums.OrderStatus;
+import com.postech.fastfood.core.exception.FastFoodException;
+import com.postech.fastfood.core.ports.OrderRepositoryPort;
+import com.postech.fastfood.core.usecase.order.CreateOrderUseCase;
 import org.springframework.http.HttpStatus;
 
 public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
 
+    private static final int END_ID = 4;
     private final OrderRepositoryPort orderRepositoryPort;
 
     public CreateOrderUseCaseImpl(OrderRepositoryPort orderRepositoryPort) {
         this.orderRepositoryPort = orderRepositoryPort;
     }
 
-    private static final int END_ID = 4;
-
     @Override
     public Order execute(Order order) {
+
         if (order.getItens() == null || order.getItens().isEmpty()) {
             throw new FastFoodException(
                     "Order item list cannot be null or empty",
@@ -31,6 +32,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
                     HttpStatus.BAD_REQUEST);
         }
         order.setIdentifier(generateOrderId());
+        order.setStatus(OrderStatus.RECEIVED);
         return orderRepositoryPort.save(order);
     }
 

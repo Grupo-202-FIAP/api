@@ -8,10 +8,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OrderItemMapper {
-    static OrderItemEntity toEntity(OrderItem orderItem) {
+
+    public static OrderItemEntity toEntity(OrderItem orderItem) {
         return OrderItemEntity.builder()
                 .id(orderItem.getId())
-                .order(OrderMapper.toEntity(orderItem.getOrder()))
+                .order(OrderMapper.toEntityWithoutItems(orderItem.getOrder()))
                 .product(ProductMapper.toEntity(orderItem.getProduct()))
                 .priceAtPurchase(orderItem.getPriceAtPurchase())
                 .quantity(orderItem.getQuantity())
@@ -21,7 +22,6 @@ public class OrderItemMapper {
     public static OrderItem toDomain(OrderItemEntity orderItem) {
         return new OrderItem.Builder()
                 .id(orderItem.getId())
-                .order(OrderMapper.toDomain(orderItem.getOrder()))
                 .product(ProductMapper.toDomain(orderItem.getProduct()))
                 .priceAtPurchase(orderItem.getPriceAtPurchase())
                 .quantity(orderItem.getQuantity())
@@ -30,13 +30,11 @@ public class OrderItemMapper {
 
     public static OrderItem toDomain(OrderItemRequest orderItemRequest) {
         return new OrderItem.Builder()
-                .id(orderItemRequest.orderId())
                 .product(new Product.Builder()
-                                .id(orderItemRequest.productId())
+                        .id(orderItemRequest.productId())
                         .build())
                 .quantity(orderItemRequest.quantity())
                 .priceAtPurchase(orderItemRequest.priceAtPurchase())
                 .build();
     }
 }
-

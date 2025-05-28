@@ -1,9 +1,9 @@
 package com.postech.fastfood.core.domain;
 
-import com.postech.fastfood.core.domain.enums.OrderStatus;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import com.postech.fastfood.core.domain.enums.OrderStatus;
 
 public class Order {
     private Long id;
@@ -36,13 +36,14 @@ public class Order {
 
     public Order(Builder builder) {
         this.id = builder.id;
+        this.identifier = builder.identifier;
         this.totalPrice = builder.totalPrice;
         this.status = builder.status;
         this.orderDateTime = builder.orderDateTime;
         this.customer = builder.customer;
         this.payment = builder.payment;
         this.itens = builder.itens;
-        this.updatedAt = LocalDateTime.now();
+        this.updatedAt = builder.updatedAt;
     }
 
     public Long getId() {
@@ -117,67 +118,6 @@ public class Order {
         this.updatedAt = updatedAt;
     }
 
-    public static class Builder {
-        private Long id;
-        private BigDecimal totalPrice;
-        private OrderStatus status;
-        private LocalDateTime orderDateTime;
-        private Customer customer;
-        private Payment payment;
-        private List<OrderItem> itens;
-        private String identifier;
-        private LocalDateTime updatedAt;
-
-        public Builder id(Long id) {
-            this.id = id;
-            return this;
-        }
-
-        public Builder totalPrice(BigDecimal totalPrice) {
-            this.totalPrice = totalPrice;
-            return this;
-        }
-
-        public Builder status(OrderStatus status) {
-            this.status = status;
-            return this;
-        }
-
-        public Builder orderDateTime(LocalDateTime orderDateTime) {
-            this.orderDateTime = orderDateTime;
-            return this;
-        }
-
-        public Builder customer(Customer customer) {
-            this.customer = customer;
-            return this;
-        }
-
-        public Builder itens(List<OrderItem> itens) {
-            this.itens = itens;
-            return this;
-        }
-
-        public Builder payment(Payment payment) {
-            this.payment = payment;
-            return this;
-        }
-
-        public Builder identifier(String identifier) {
-            this.identifier = identifier;
-            return this;
-        }
-
-        public Builder updatedAt(LocalDateTime updatedAt) {
-            this.updatedAt = updatedAt;
-            return this;
-        }
-
-        public Order build() {
-            return new Order(this);
-        }
-    }
-
     public BigDecimal calculateTotalPrice() {
         if (itens == null || itens.isEmpty()) {
             return BigDecimal.ZERO;
@@ -191,6 +131,85 @@ public class Order {
 
     public void updateTotalPrice() {
         this.totalPrice = calculateTotalPrice();
+    }
+
+    public static class Builder {
+        private Long id;
+        private BigDecimal totalPrice;
+        private OrderStatus status;
+        private LocalDateTime orderDateTime;
+        private Customer customer;
+        private Payment payment;
+        private List<OrderItem> itens;
+        private String identifier;
+        private LocalDateTime updatedAt;
+
+        public Builder id(Long id) {
+            if (id != null) {
+                this.id = id;
+            }
+            return this;
+        }
+
+        public Builder totalPrice(BigDecimal totalPrice) {
+            if (totalPrice != null) {
+                this.totalPrice = totalPrice;
+            }
+            return this;
+        }
+
+        public Builder status(OrderStatus status) {
+            if (status != null) {
+                this.status = status;
+            }
+            return this;
+        }
+
+        public Builder orderDateTime(LocalDateTime orderDateTime) {
+            if (orderDateTime != null) {
+                this.orderDateTime = orderDateTime;
+            }
+            return this;
+        }
+
+        public Builder customer(Customer customer) {
+            if (customer != null) {
+                this.customer = customer;
+            }
+            return this;
+        }
+
+        public Builder itens(List<OrderItem> itens) {
+            if (itens != null) {
+                this.itens = itens;
+            }
+            return this;
+        }
+
+        public Builder payment(Payment payment) {
+            if (payment != null) {
+                this.payment = payment;
+            }
+            return this;
+        }
+
+        public Builder identifier(String identifier) {
+            if (identifier != null) {
+                this.identifier = identifier;
+            }
+            return this;
+        }
+
+        public Builder updatedAt(LocalDateTime updatedAt) {
+            if (updatedAt != null) {
+                this.updatedAt = updatedAt;
+            }
+            return this;
+        }
+
+        public Order build() {
+            return new Order(this);
+        }
     }
 
 }
