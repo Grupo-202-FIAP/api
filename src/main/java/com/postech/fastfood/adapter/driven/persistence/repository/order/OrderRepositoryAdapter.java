@@ -1,6 +1,5 @@
 package com.postech.fastfood.adapter.driven.persistence.repository.order;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -27,13 +26,15 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
     private final IOrderEntityRepository orderEntityRepository;
     private final ICustomerEntityRepository customerEntityRepository;
     private final IProductRepository productRepository;
+    private final IOrderItemRepository iOrderItemRepository;
 
     public OrderRepositoryAdapter(
             IOrderEntityRepository orderEntityRepository,
-            ICustomerEntityRepository customerEntityRepository, IProductRepository productRepository) {
+            ICustomerEntityRepository customerEntityRepository, IProductRepository productRepository, IOrderItemRepository iOrderItemRepository) {
         this.orderEntityRepository = orderEntityRepository;
         this.customerEntityRepository = customerEntityRepository;
         this.productRepository = productRepository;
+        this.iOrderItemRepository = iOrderItemRepository;
     }
 
     @Override
@@ -52,15 +53,22 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
 
     @Override
     public Order save(Order order) {
+
+        final CustomerEntity customerEntity = customerEntityRepository.findById(order.getCustomer().getId())
+                .orElseThrow(() -> new FastFoodException(
+                        "Cliente não encontrado",
+                        "Cliente com ID " + order.getCustomer().getId() + " não encontrado",
+                        HttpStatus.NOT_FOUND
+                ));
+
+        order.setCustomer(CustomerMapper.toDomain(customerEntity));
+
         final List<Long> productIds = order.getItens()
                 .stream()
                 .map(orderItem -> orderItem.getProduct().getId())
                 .toList();
 
-        final List<Product> products = productRepository.findAllById(productIds)
-                .stream()
-                .map(ProductMapper::toDomain)
-                .toList();
+        final List<Product> products = productRepository.findAllById(productIds).stream().map(ProductMapper::toDomain).toList();
 
         if (productIds.size() != products.size()) {
             throw new FastFoodException(
@@ -78,29 +86,16 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
             if (product != null) {
                 orderItem.setProduct(product);
             }
+        });
+        order.updateTotalPrice();
+        final OrderEntity orderEntity = OrderMapper.toEntity(order);
 
+        orderEntity.getItens().forEach(orderItemEntity -> {
+            orderItemEntity.setOrder(orderEntity);
         });
 
-        final CustomerEntity customerEntity = customerEntityRepository.findById(order.getCustomer().getId())
-                .orElseThrow(() -> new FastFoodException(
-                        "Cliente não encontrado",
-                        "Cliente com ID " + order.getCustomer().getId() + " não encontrado",
-                        HttpStatus.NOT_FOUND
-                ));
-
-
-        order.setCustomer(CustomerMapper.toDomain(customerEntity));
-
-        order.updateTotalPrice();
-
-        final OrderEntity entity = OrderMapper.toEntity(order);
-
-        final List<OrderItemEntity> itens = entity.getItens();
-
-        entity.setItens(new ArrayList<>());
-
-        final OrderEntity orderEntity = orderEntityRepository.save(entity);
-
-        return OrderMapper.toDomain(orderEntity);
+        final OrderEntity save = orderEntityRepository.save(orderEntity);
+        List<OrderItemEntity> all = iOrderItemRepository.findAll();
+        return OrderMapper.toDomain(save);
     }
 }
