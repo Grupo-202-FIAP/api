@@ -40,10 +40,8 @@ public class PaymentEntity {
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
-    private LocalDateTime paymentDateTime;
-
     @CreationTimestamp
-    private LocalDateTime createdAt;
+    private LocalDateTime paymentDateTime;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;

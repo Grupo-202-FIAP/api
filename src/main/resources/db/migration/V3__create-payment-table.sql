@@ -9,5 +9,6 @@ CREATE TABLE tb_payment (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     status payment_status NOT NULL,
     method payment_method NOT NULL,
-    payment_date_time TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
+    payment_date_time TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
 );
