@@ -1,0 +1,1159 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "API FastFood",
+    "version": "1.0.0",
+    "description": "API para gerenciamento de pedidos, produtos e clientes de um sistema de fast food",
+    "contact": {
+      "name": "Suporte Técnico",
+      "email": "suporte@fastfood.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Ambiente de desenvolvimento local"
+    },
+    {
+      "url": "https://api.fastfood.com",
+      "description": "Ambiente de produção"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/auth/employee": {
+      "post": {
+        "tags": ["Autenticação"],
+        "summary": "Autenticar funcionário",
+        "description": "Gera token JWT para funcionários usando email e senha",
+        "operationId": "authenticateEmployee",
+        "requestBody": {
+          "description": "Credenciais do funcionário",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthEmployeeRequest"
+              },
+              "example": {
+                "email": "funcionario@fastfood.com",
+                "password": "SenhaForte123"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Autenticação bem-sucedida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                },
+                "example": {
+                  "token": "eyJhbGciOiJIUzI1NiIs..."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Credenciais inválidas"
+          }
+        }
+      }
+    },
+    "/auth/customer": {
+      "post": {
+        "tags": ["Autenticação"],
+        "summary": "Autenticar cliente",
+        "description": "Gera token JWT para clientes usando CPF",
+        "operationId": "authenticateCustomer",
+        "requestBody": {
+          "description": "CPF do cliente",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthCustomerRequest"
+              },
+              "example": {
+                "cpf": "12345678900"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Autenticação bem-sucedida",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                },
+                "example": {
+                  "token": "eyJhbGciOiJIUzI1NiIs..."
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente não encontrado"
+          }
+        }
+      }
+    },
+    "/product": {
+      "get": {
+        "tags": ["Produtos"],
+        "summary": "Listar todos os produtos",
+        "description": "Retorna todos os produtos disponíveis no sistema",
+        "operationId": "listProducts",
+        "responses": {
+          "200": {
+            "description": "Lista de produtos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Produtos"],
+        "summary": "Criar novo produto",
+        "description": "Cria um novo produto (requer autenticação de ADMIN ou MANAGER)",
+        "operationId": "createProduct",
+        "security": [{"bearerAuth": []}],
+        "requestBody": {
+          "description": "Dados do novo produto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductRequest"
+              },
+              "example": {
+                "name": "X-Burger Especial",
+                "urlImage": "https://exemplo.com/xburger.jpg",
+                "unitPrice": 25.90,
+                "category": "SANDWICHES",
+                "description": "Hambúrguer artesanal com queijo cheddar",
+                "employee_id": "123e4567-e89b-12d3-a456-426614174000"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Produto criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Acesso negado (permissões insuficientes)"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Produtos"],
+        "summary": "Atualizar produto",
+        "description": "Atualiza um produto existente (requer autenticação de ADMIN ou MANAGER)",
+        "operationId": "updateProduct",
+        "security": [{"bearerAuth": []}],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID do produto a ser atualizado",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Dados atualizados do produto",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductUpdateRequest"
+              },
+              "example": {
+                "name": "X-Burger Especial Atualizado",
+                "urlImage": "https://exemplo.com/xburger-v2.jpg",
+                "unitPrice": 27.90,
+                "category": "SANDWICHES",
+                "description": "Hambúrguer artesanal com queijo cheddar e bacon"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Produto atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Produto não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Produtos"],
+        "summary": "Excluir produto",
+        "description": "Exclui um produto (requer autenticação de ADMIN ou MANAGER)",
+        "operationId": "deleteProduct",
+        "security": [{"bearerAuth": []}],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID do produto a ser excluído",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Produto excluído com sucesso"
+          },
+          "404": {
+            "description": "Produto não encontrado"
+          }
+        }
+      }
+    },
+    "/product/category": {
+      "get": {
+        "tags": ["Produtos"],
+        "summary": "Listar produtos por categoria",
+        "description": "Retorna produtos filtrados por categoria",
+        "operationId": "listProductsByCategory",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Categoria dos produtos",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["SANDWICHES", "SIDES", "DRINKS", "DESSERTS"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de produtos da categoria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payment/create": {
+      "post": {
+        "tags": ["Pagamentos"],
+        "summary": "Criar pagamento",
+        "description": "Inicia o processo de pagamento para um pedido (requer autenticação)",
+        "operationId": "createPayment",
+        "security": [{"bearerAuth": []}],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "description": "ID do pedido",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Método de pagamento",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PaymentRequest"
+              },
+              "example": {
+                "paymentMethod": "QR_CODE"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Pagamento criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Pagamento iniciado com sucesso"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/payment/pay": {
+      "post": {
+        "tags": ["Pagamentos"],
+        "summary": "Processar pagamento",
+        "description": "Confirma e processa o pagamento de um pedido (requer autenticação)",
+        "operationId": "processPayment",
+        "security": [{"bearerAuth": []}],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "description": "ID do pedido",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Pagamento processado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "Pagamento aprovado"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/create": {
+      "post": {
+        "tags": ["Pedidos"],
+        "summary": "Criar novo pedido",
+        "description": "Cria um novo pedido para um cliente (requer autenticação)",
+        "operationId": "createOrder",
+        "security": [{"bearerAuth": []}],
+        "requestBody": {
+          "description": "Itens do pedido e informações do cliente",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderRequest"
+              },
+              "example": {
+                "itens": [
+                  {
+                    "productId": 1,
+                    "quantity": 2,
+                    "priceAtPurchase": 25.90
+                  }
+                ],
+                "customerId": "123e4567-e89b-12d3-a456-426614174000"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Pedido criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order": {
+      "get": {
+        "tags": ["Pedidos"],
+        "summary": "Listar todos os pedidos",
+        "description": "Retorna todos os pedidos do sistema (requer autenticação)",
+        "operationId": "listOrders",
+        "security": [{"bearerAuth": []}],
+        "responses": {
+          "200": {
+            "description": "Lista de pedidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/status": {
+      "get": {
+        "tags": ["Pedidos"],
+        "summary": "Listar pedidos por status",
+        "description": "Retorna pedidos filtrados por status (requer autenticação)",
+        "operationId": "listOrdersByStatus",
+        "security": [{"bearerAuth": []}],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status dos pedidos",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": ["RECEIVED", "PREPARING", "READY", "COMPLETED", "CANCELLED"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de pedidos com o status especificado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Order"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employee": {
+      "post": {
+        "tags": ["Funcionários"],
+        "summary": "Criar novo funcionário",
+        "description": "Cria um novo funcionário no sistema",
+        "operationId": "createEmployee",
+        "requestBody": {
+          "description": "Dados do novo funcionário",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmployeeRequest"
+              },
+              "example": {
+                "name": "João Silva",
+                "email": "joao.silva@fastfood.com",
+                "cpf": "98765432100",
+                "password": "SenhaSegura123",
+                "userRole": "ROLE_MANAGER"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Funcionário criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/email": {
+      "post": {
+        "tags": ["Clientes"],
+        "summary": "Criar cliente com email",
+        "description": "Cria um novo cliente usando email e nome",
+        "operationId": "createCustomerWithEmail",
+        "requestBody": {
+          "description": "Dados do cliente",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerEmailRequest"
+              },
+              "example": {
+                "email": "cliente@exemplo.com",
+                "name": "Maria Souza"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Cliente criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Clientes"],
+        "summary": "Buscar cliente por email",
+        "description": "Retorna um cliente pelo email (requer autenticação)",
+        "operationId": "getCustomerByEmail",
+        "security": [{"bearerAuth": []}],
+        "requestBody": {
+          "description": "Email do cliente",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerByEmailRequest"
+              },
+              "example": {
+                "email": "cliente@exemplo.com",
+                "userRole": "ROLE_CUSTOMER"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Cliente encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente não encontrado"
+          }
+        }
+      }
+    },
+    "/customer/cpf": {
+      "post": {
+        "tags": ["Clientes"],
+        "summary": "Criar cliente com CPF",
+        "description": "Cria um novo cliente usando CPF",
+        "operationId": "createCustomerWithCpf",
+        "requestBody": {
+          "description": "CPF do cliente",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerCpfRequest"
+              },
+              "example": {
+                "cpf": "12345678900",
+                "userRole": "ROLE_CUSTOMER"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Cliente criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Clientes"],
+        "summary": "Buscar cliente por CPF",
+        "description": "Retorna um cliente pelo CPF (requer autenticação)",
+        "operationId": "getCustomerByCpf",
+        "security": [{"bearerAuth": []}],
+        "parameters": [
+          {
+            "name": "cpf",
+            "in": "query",
+            "description": "CPF do cliente",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Cliente não encontrado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "HTTP",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Token JWT obtido nos endpoints de autenticação"
+      }
+    },
+    "schemas": {
+      "AuthEmployeeRequest": {
+        "type": "object",
+        "description": "Credenciais de autenticação para funcionários",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email do funcionário",
+            "example": "funcionario@fastfood.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "Senha do funcionário",
+            "minLength": 1,
+            "example": "SenhaSegura123"
+          }
+        },
+        "required": ["password"]
+      },
+      "AuthResponse": {
+        "type": "object",
+        "description": "Resposta de autenticação bem-sucedida",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Token JWT para autenticação",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          }
+        },
+        "required": ["token"]
+      },
+      "AuthCustomerRequest": {
+        "type": "object",
+        "description": "CPF para autenticação de clientes",
+        "properties": {
+          "cpf": {
+            "type": "string",
+            "description": "CPF do cliente (apenas números)",
+            "example": "12345678900"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "description": "Representação de um produto",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "ID único do produto"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do produto",
+            "example": "X-Burger Especial"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["SANDWICHES", "SIDES", "DRINKS", "DESSERTS"],
+            "description": "Categoria do produto"
+          },
+          "unitPrice": {
+            "type": "number",
+            "description": "Preço unitário do produto",
+            "example": 25.90
+          },
+          "urlImage": {
+            "type": "string",
+            "description": "URL da imagem do produto",
+            "example": "https://exemplo.com/produto.jpg"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descrição detalhada do produto"
+          },
+          "createdByEmployee": {
+            "$ref": "#/components/schemas/Employee",
+            "description": "Funcionário que criou o produto"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data de criação do produto"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data da última atualização"
+          }
+        }
+      },
+      "ProductRequest": {
+        "type": "object",
+        "description": "Dados necessários para criar um novo produto",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0,
+            "description": "Nome do produto",
+            "example": "X-Burger Especial"
+          },
+          "urlImage": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "pattern": "^(http|https)://.*$",
+            "description": "URL da imagem do produto",
+            "example": "https://exemplo.com/xburger.jpg"
+          },
+          "unitPrice": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Preço unitário",
+            "example": 25.90
+          },
+          "category": {
+            "type": "string",
+            "enum": ["SANDWICHES", "SIDES", "DRINKS", "DESSERTS"],
+            "description": "Categoria do produto"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 0,
+            "description": "Descrição detalhada"
+          },
+          "employee_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID do funcionário que está criando o produto"
+          }
+        },
+        "required": ["category", "description", "employee_id", "name", "unitPrice", "urlImage"]
+      },
+      "ProductUpdateRequest": {
+        "type": "object",
+        "description": "Dados para atualização de um produto existente",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0,
+            "description": "Novo nome do produto"
+          },
+          "urlImage": {
+            "type": "string",
+            "maxLength": 255,
+            "minLength": 0,
+            "pattern": "^(http|https)://.*$",
+            "description": "Nova URL da imagem"
+          },
+          "unitPrice": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Novo preço unitário"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["SANDWICHES", "SIDES", "DRINKS", "DESSERTS"],
+            "description": "Nova categoria"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 0,
+            "description": "Nova descrição"
+          }
+        },
+        "required": ["category", "description", "name", "unitPrice", "urlImage"]
+      },
+      "Employee": {
+        "type": "object",
+        "description": "Representação de um funcionário",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID único do funcionário"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome completo"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email corporativo"
+          },
+          "cpf": {
+            "type": "string",
+            "description": "CPF (apenas números)"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["ROLE_CUSTOMER", "ROLE_ADMIN", "ROLE_MANAGER", "ROLE_KITCHEN", "ROLE_DELIVERY", "ROLE_GUEST"],
+            "description": "Função/permissões"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data de cadastro"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data da última atualização"
+          }
+        }
+      },
+      "EmployeeRequest": {
+        "type": "object",
+        "description": "Dados para criação de um novo funcionário",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Nome completo",
+            "example": "João Silva"
+          },
+          "email": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Email válido",
+            "example": "joao.silva@fastfood.com"
+          },
+          "cpf": {
+            "type": "string",
+            "minLength": 1,
+            "description": "CPF (apenas números)",
+            "example": "98765432100"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 2147483647,
+            "minLength": 6,
+            "description": "Senha (mínimo 6 caracteres)",
+            "example": "SenhaSegura123"
+          },
+          "userRole": {
+            "type": "string",
+            "enum": ["ROLE_CUSTOMER", "ROLE_ADMIN", "ROLE_MANAGER", "ROLE_KITCHEN", "ROLE_DELIVERY", "ROLE_GUEST"],
+            "description": "Função/permissões",
+            "example": "ROLE_MANAGER"
+          }
+        },
+        "required": ["cpf", "email", "name", "password", "userRole"]
+      },
+      "Order": {
+        "type": "object",
+        "description": "Representação de um pedido",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "description": "ID único do pedido"
+          },
+          "identifier": {
+            "type": "string",
+            "description": "Identificador único do pedido"
+          },
+          "totalPrice": {
+            "type": "number",
+            "description": "Valor total do pedido"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["RECEIVED", "PREPARING", "READY", "COMPLETED", "CANCELLED"],
+            "description": "Status atual do pedido"
+          },
+          "orderDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data e hora do pedido"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer",
+            "description": "Cliente que fez o pedido"
+          },
+          "payment": {
+            "$ref": "#/components/schemas/Payment",
+            "description": "Informações de pagamento"
+          },
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItem"
+            },
+            "description": "Itens do pedido"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data da última atualização"
+          }
+        }
+      },
+      "OrderRequest": {
+        "type": "object",
+        "description": "Dados para criação de um novo pedido",
+        "properties": {
+          "itens": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemRequest"
+            },
+            "description": "Itens do pedido"
+          },
+          "customerId": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID do cliente"
+          }
+        }
+      },
+      "OrderItemRequest": {
+        "type": "object",
+        "description": "Item individual de um pedido",
+        "properties": {
+          "productId": {
+            "type": "integer",
+            "format": "int64",
+            "description": "ID do produto"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Quantidade do item"
+          },
+          "priceAtPurchase": {
+            "type": "number",
+            "description": "Preço unitário no momento da compra"
+          }
+        }
+      },
+      "Payment": {
+        "type": "object",
+        "description": "Representação de um pagamento",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID único do pagamento"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["PENDING", "APPROVED", "AUTHORIZED", "IN_PROCESS", "IN_MEDIATION", "REJECTED", "CANCELLED", "REFUNDED", "CHARGED_BACK"],
+            "description": "Status atual do pagamento"
+          },
+          "paymentMethod": {
+            "type": "string",
+            "enum": ["QR_CODE"],
+            "description": "Método de pagamento"
+          },
+          "paymentDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data e hora do pagamento"
+          }
+        }
+      },
+      "PaymentRequest": {
+        "type": "object",
+        "description": "Dados para criação de um pagamento",
+        "properties": {
+          "paymentMethod": {
+            "type": "string",
+            "enum": ["QR_CODE"],
+            "description": "Método de pagamento",
+            "example": "QR_CODE"
+          }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "description": "Representação de um cliente",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID único do cliente"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome completo"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email do cliente"
+          },
+          "cpf": {
+            "type": "string",
+            "description": "CPF (apenas números)"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["ROLE_CUSTOMER", "ROLE_ADMIN", "ROLE_MANAGER", "ROLE_KITCHEN", "ROLE_DELIVERY", "ROLE_GUEST"],
+            "description": "Perfil de acesso"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data de cadastro"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data da última atualização"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "description": "Representação genérica de um usuário (cliente ou funcionário)",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID único do usuário"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome completo"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email"
+          },
+          "cpf": {
+            "type": "string",
+            "description": "CPF (apenas números)"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["ROLE_CUSTOMER", "ROLE_ADMIN", "ROLE_MANAGER", "ROLE_KITCHEN", "ROLE_DELIVERY", "ROLE_GUEST"],
+            "description": "Perfil de acesso"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data de cadastro"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Data da última atualização"
+          }
+        }
+      },
+      "CustomerEmailRequest": {
+        "type": "object",
+        "description": "Dados para criação de cliente com email",
+        "properties": {
+          "email": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Email válido"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome completo"
+          }
+        },
+        "required": ["email", "name"]
+      },
+      "CustomerCpfRequest": {
+        "type": "object",
+        "description": "Dados para criação de cliente com CPF",
+        "properties": {
+          "cpf": {
+            "type": "string",
+            "description": "CPF (apenas números)"
+          },
+          "userRole": {
+            "type": "string",
+            "enum": ["ROLE_CUSTOMER", "ROLE_ADMIN", "ROLE_MANAGER", "ROLE_KITCHEN", "ROLE_DELIVERY", "ROLE_GUEST"],
+            "description": "Perfil de acesso",
+            "example": "ROLE_CUSTOMER"
+          }
+        },
+        "required": ["userRole"]
+      },
+      "CustomerByEmailRequest": {
+        "type": "object",
+        "description": "Dados para busca de cliente por email",
+        "properties": {
+          "email": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Email do cliente"
+          },
+          "userRole": {
+            "type": "string",
+            "enum": ["ROLE_CUSTOMER", "ROLE_ADMIN", "ROLE_MANAGER", "ROLE_KITCHEN", "ROLE_DELIVERY", "ROLE_GUEST"],
+            "description": "Perfil de acesso"
+          }
+        },
+        "required": ["email"]
+      }
+    }
+  }
+}

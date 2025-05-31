@@ -46,3 +46,7 @@ mercadoPago:
   clientId: ${CLIENT_ID:meu-client-id}
   clientSecret: ${CLIENT_SECRET:meu-client-secret}
 
+springdoc:
+  swagger-ui:
+    enabled: false
+
