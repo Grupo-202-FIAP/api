@@ -5,10 +5,10 @@ INSERT INTO tb_customer (id, name, email, cpf, role) VALUES
 
 -- FUNCIONÁRIOS
 INSERT INTO tb_employee (id, name, email, cpf, role, password) VALUES
-('10000000-0000-0000-0000-000000000001', 'Admin User', 'admin@company.com', '11111111101', 'ROLE_ADMIN', 'senha123'),
-('10000000-0000-0000-0000-000000000002', 'Manager User', 'manager@company.com', '11111111102', 'ROLE_MANAGER', 'senha123'),
-('10000000-0000-0000-0000-000000000003', 'Kitchen User', 'kitchen@company.com', '11111111103', 'ROLE_KITCHEN', 'senha123'),
-('10000000-0000-0000-0000-000000000004', 'Delivery User', 'delivery@company.com', '11111111104', 'ROLE_DELIVERY', 'senha123');
+('10000000-0000-0000-0000-000000000001', 'Admin User', 'admin@company.com', '11111111101', 'ROLE_ADMIN', '$2a$12$FMJfJzFOUovojmLFl4kFa.dSXoe/PEaeLgZOTJxPi.U.HxYs5OHpS'),
+('10000000-0000-0000-0000-000000000002', 'Manager User', 'manager@company.com', '11111111102', 'ROLE_MANAGER', '$2a$12$FMJfJzFOUovojmLFl4kFa.dSXoe/PEaeLgZOTJxPi.U.HxYs5OHpS'),
+('10000000-0000-0000-0000-000000000003', 'Kitchen User', 'kitchen@company.com', '11111111103', 'ROLE_KITCHEN', '$2a$12$FMJfJzFOUovojmLFl4kFa.dSXoe/PEaeLgZOTJxPi.U.HxYs5OHpS'),
+('10000000-0000-0000-0000-000000000004', 'Delivery User', 'delivery@company.com', '11111111104', 'ROLE_DELIVERY', '$2a$12$FMJfJzFOUovojmLFl4kFa.dSXoe/PEaeLgZOTJxPi.U.HxYs5OHpS');
 
 -- PAGAMENTOS
 INSERT INTO tb_payment (id, status, method) VALUES
