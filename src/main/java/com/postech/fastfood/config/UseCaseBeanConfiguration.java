@@ -12,6 +12,8 @@ import com.postech.fastfood.core.service.customer.FindCustomerByCpfUseCaseImpl;
 import com.postech.fastfood.core.service.customer.FindCustomerByEmailUseCaseImpl;
 import com.postech.fastfood.core.service.employee.CreateEmployeeUseCaseImpl;
 import com.postech.fastfood.core.service.order.CreateOrderUseCaseImpl;
+import com.postech.fastfood.core.service.order.ListOrdersByStatusUseCaseImpl;
+import com.postech.fastfood.core.service.order.ListOrdersUseCaseImpl;
 import com.postech.fastfood.core.service.payment.CreatePaymentUseCaseImpl;
 import com.postech.fastfood.core.service.payment.ProccessPaymentUseCaseImpl;
 import com.postech.fastfood.core.service.product.CreateProductUseCaseImpl;
@@ -25,6 +27,8 @@ import com.postech.fastfood.core.usecase.customer.CreateCustomerWithCpfUseCase;
 import com.postech.fastfood.core.usecase.customer.CreateCustomerWithNameAndEmailUseCase;
 import com.postech.fastfood.core.usecase.employee.CreateEmployeeUseCase;
 import com.postech.fastfood.core.usecase.order.CreateOrderUseCase;
+import com.postech.fastfood.core.usecase.order.ListOrdersByStatusUseCase;
+import com.postech.fastfood.core.usecase.order.ListOrdersUseCase;
 import com.postech.fastfood.core.usecase.payment.CreatePaymentUseCase;
 import com.postech.fastfood.core.usecase.payment.ProccessPaymentUseCase;
 import com.postech.fastfood.core.usecase.product.CreateProductUseCase;
@@ -101,6 +105,16 @@ public class UseCaseBeanConfiguration {
     @Bean
     public CreateOrderUseCase createOrderUseCase(OrderRepositoryPort orderRepositoryPort) {
         return new CreateOrderUseCaseImpl(orderRepositoryPort);
+    }
+
+    @Bean
+    public ListOrdersByStatusUseCase listOrdersByStatusUseCase(OrderRepositoryPort orderRepositoryPort) {
+        return new ListOrdersByStatusUseCaseImpl(orderRepositoryPort);
+    }
+
+    @Bean
+    public ListOrdersUseCase listOrdersUseCase(OrderRepositoryPort orderRepositoryPort) {
+        return new ListOrdersUseCaseImpl(orderRepositoryPort);
     }
 
 }

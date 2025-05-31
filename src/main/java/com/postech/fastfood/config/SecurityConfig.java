@@ -24,7 +24,7 @@ public class SecurityConfig {
     private static final String ROLE_ADMIN = "ADMIN";
     private static final String ROLE_MANAGER = "MANAGER";
     private static final String ALL_URIS = "/**";
-//    private final SecurityFilter securityFilter;
+    // private final SecurityFilter securityFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -41,7 +41,7 @@ public class SecurityConfig {
                         .requestMatchers(ORDER_ENDPOINT + ALL_URIS).permitAll()
                         .anyRequest().authenticated()
                 )
-//                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                //.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
