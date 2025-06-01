@@ -3,6 +3,8 @@ package com.postech.fastfood.adapter.driven.persistence.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
+
 import com.postech.fastfood.core.domain.enums.OrderStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -21,6 +23,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -34,14 +37,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class OrderEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private String identifier;
 
     private BigDecimal totalPrice;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItemEntity> itens;
 
     @Enumerated(EnumType.STRING)
@@ -53,11 +56,11 @@ public class OrderEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "customer_id", nullable = true)
     private CustomerEntity customer;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "payment_fk_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
+    @JoinColumn(name = "payment_fk_id", nullable = true)
     private PaymentEntity payment;
 }

@@ -24,11 +24,11 @@ public class PaymentController {
         this.savePayment = savePayment;
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<String> createPayment(@RequestParam ("orderId") UUID orderId,
-                                                @Valid @RequestBody PaymentRequest paymentRequest) {
-        return ResponseEntity.ok(this.createPaymentUseCase.execute(orderId, paymentRequest));
-    }
+//    @PostMapping("/create")
+//    public ResponseEntity<String> createPayment(@RequestParam ("orderId") UUID orderId,
+//                                                @Valid @RequestBody PaymentRequest paymentRequest) {
+//        return ResponseEntity.ok(this.createPaymentUseCase.execute(orderId, paymentRequest));
+//    }
 
     @PostMapping("/pay")
     public ResponseEntity<String> savePayment(@RequestParam ("orderId") UUID orderId) {

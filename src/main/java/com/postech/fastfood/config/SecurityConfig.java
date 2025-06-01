@@ -28,6 +28,7 @@ public class SecurityConfig {
     private static final String ALL_URIS = "/**";
     private final SecurityFilter securityFilter;
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -37,6 +38,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, PRODUCT_ENDPOINT + ALL_URIS).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
                         .requestMatchers(HttpMethod.DELETE, PRODUCT_ENDPOINT + ALL_URIS).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
                         .requestMatchers(HttpMethod.PUT, PRODUCT_ENDPOINT + ALL_URIS).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
+                        .requestMatchers(HttpMethod.GET, PRODUCT_ENDPOINT + ALL_URIS).permitAll()
                         .requestMatchers(CUSTOMER_ENDPOINT + ALL_URIS).permitAll()
                         .requestMatchers(EMPLOYEE_ENDPOINT + ALL_URIS).permitAll()
                         .requestMatchers(AUTH_ENDPOINT + ALL_URIS).permitAll()

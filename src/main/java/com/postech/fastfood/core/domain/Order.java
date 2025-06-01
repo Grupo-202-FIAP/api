@@ -3,10 +3,12 @@ package com.postech.fastfood.core.domain;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
+
 import com.postech.fastfood.core.domain.enums.OrderStatus;
 
 public class Order {
-    private Long id;
+    private UUID id;
     private String identifier;
     private BigDecimal totalPrice;
     private OrderStatus status;
@@ -17,7 +19,7 @@ public class Order {
     private LocalDateTime updatedAt;
 
     public Order(
-            Long id,
+            UUID id,
             String identifier, BigDecimal totalPrice, OrderStatus status, LocalDateTime orderDateTime, Customer customer, Payment payment,
             List<OrderItem> itens, LocalDateTime updatedAt) {
         this.id = id;
@@ -46,11 +48,11 @@ public class Order {
         this.updatedAt = builder.updatedAt;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -134,7 +136,7 @@ public class Order {
     }
 
     public static class Builder {
-        private Long id;
+        private UUID id;
         private BigDecimal totalPrice;
         private OrderStatus status;
         private LocalDateTime orderDateTime;
@@ -144,7 +146,7 @@ public class Order {
         private String identifier;
         private LocalDateTime updatedAt;
 
-        public Builder id(Long id) {
+        public Builder id(UUID id) {
             if (id != null) {
                 this.id = id;
             }

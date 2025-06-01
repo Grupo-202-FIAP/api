@@ -5,6 +5,9 @@ import com.postech.fastfood.adapter.driven.persistence.entity.PaymentEntity;
 import com.postech.fastfood.adapter.driver.controller.dto.request.OrderRequest;
 import com.postech.fastfood.core.domain.Customer;
 import com.postech.fastfood.core.domain.Order;
+import com.postech.fastfood.core.domain.Payment;
+import com.postech.fastfood.core.domain.enums.PaymentMethod;
+import com.postech.fastfood.core.domain.enums.PaymentStatus;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -43,8 +46,10 @@ public class OrderMapper {
 
     public static OrderEntity toEntity(Order order) {
         return OrderEntity.builder()
+                .id(order.getId())
                 .identifier(order.getIdentifier())
                 .customer(CustomerMapper.toEntity(order.getCustomer()))
+                .payment(PaymentMapper.toEntity(order.getPayment()))
                 .itens(order.getItens()
                         .stream()
                         .map(OrderItemMapper::toEntity).toList())
@@ -57,6 +62,10 @@ public class OrderMapper {
 
     public static Order toDomain(OrderRequest orderRequest) {
         return new Order.Builder()
+                .payment(new Payment.Builder()
+                        .status(PaymentStatus.PENDING)
+                        .paymentMethod(PaymentMethod.QR_CODE)
+                        .build())
                 .customer(new Customer.Builder()
                         .id(orderRequest.customerId())
                         .build())

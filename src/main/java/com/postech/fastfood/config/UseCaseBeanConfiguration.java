@@ -14,6 +14,7 @@ import com.postech.fastfood.core.service.employee.CreateEmployeeUseCaseImpl;
 import com.postech.fastfood.core.service.order.CreateOrderUseCaseImpl;
 import com.postech.fastfood.core.service.order.ListOrdersByStatusUseCaseImpl;
 import com.postech.fastfood.core.service.order.ListOrdersUseCaseImpl;
+import com.postech.fastfood.core.service.order.UpdateOrderStatusUseCaseImpl;
 import com.postech.fastfood.core.service.payment.CreatePaymentUseCaseImpl;
 import com.postech.fastfood.core.service.payment.ProccessPaymentUseCaseImpl;
 import com.postech.fastfood.core.service.product.CreateProductUseCaseImpl;
@@ -29,6 +30,7 @@ import com.postech.fastfood.core.usecase.employee.CreateEmployeeUseCase;
 import com.postech.fastfood.core.usecase.order.CreateOrderUseCase;
 import com.postech.fastfood.core.usecase.order.ListOrdersByStatusUseCase;
 import com.postech.fastfood.core.usecase.order.ListOrdersUseCase;
+import com.postech.fastfood.core.usecase.order.UpdateOrderStatusUseCase;
 import com.postech.fastfood.core.usecase.payment.CreatePaymentUseCase;
 import com.postech.fastfood.core.usecase.payment.ProccessPaymentUseCase;
 import com.postech.fastfood.core.usecase.product.CreateProductUseCase;
@@ -103,8 +105,8 @@ public class UseCaseBeanConfiguration {
     }
 
     @Bean
-    public CreateOrderUseCase createOrderUseCase(OrderRepositoryPort orderRepositoryPort) {
-        return new CreateOrderUseCaseImpl(orderRepositoryPort);
+    public CreateOrderUseCase createOrderUseCase(OrderRepositoryPort orderRepositoryPort, CustomerRepositoryPort customerRepositoryPort, ProductRepositoryPort productRepositoryPort) {
+        return new CreateOrderUseCaseImpl(orderRepositoryPort, customerRepositoryPort,productRepositoryPort);
     }
 
     @Bean
@@ -115,6 +117,11 @@ public class UseCaseBeanConfiguration {
     @Bean
     public ListOrdersUseCase listOrdersUseCase(OrderRepositoryPort orderRepositoryPort) {
         return new ListOrdersUseCaseImpl(orderRepositoryPort);
+    }
+
+    @Bean
+    public UpdateOrderStatusUseCase updateOrderStatusUseCase(OrderRepositoryPort orderRepositoryPort){
+        return new UpdateOrderStatusUseCaseImpl(orderRepositoryPort);
     }
 
 }

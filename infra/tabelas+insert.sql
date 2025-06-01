@@ -1,76 +1,76 @@
-CREATE TABLE tb_customer (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(255),
-    email VARCHAR(255) UNIQUE,
-    cpf VARCHAR(20) UNIQUE,
-    role VARCHAR(20) NOT NULL,
-    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
-    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
-);
-
-CREATE TABLE tb_employee (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    cpf VARCHAR(20) NOT NULL UNIQUE,
-    role VARCHAR(20) NOT NULL,
-    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
-    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
-    password VARCHAR(255) NOT NULL
-);
-
-CREATE TYPE payment_status AS ENUM (
-    'PENDING', 'APPROVED', 'AUTHORIZED', 'IN_PROCESS', 'IN_MEDIATION',
-    'REJECTED', 'CANCELLED', 'REFUNDED', 'CHARGED_BACK'
-);
-
-CREATE TYPE payment_method AS ENUM ('QRCODE');
-
-CREATE TABLE tb_payment (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    status payment_status NOT NULL,
-    method payment_method NOT NULL,
-    payment_date_time TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
-    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
-);
-
-CREATE TABLE tb_products (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL UNIQUE,
-    category VARCHAR(255) NOT NULL,
-    unit_price NUMERIC(15, 2),
-    url_image TEXT,
-    description TEXT,
-    created_by_employee_id UUID,
-    created_at TIMESTAMPTZ DEFAULT now(),
-    updated_at TIMESTAMPTZ DEFAULT now(),
-
-    CONSTRAINT fk_created_by_employee FOREIGN KEY (created_by_employee_id) REFERENCES tb_employee(id)
-);
-
-CREATE TABLE tb_order (
-    id SERIAL PRIMARY KEY,
-    identifier VARCHAR(40),
-    total_price NUMERIC(10, 2) NOT NULL,
-    order_status VARCHAR(255) NOT NULL,
-    order_date_time TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
-    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
-    customer_id UUID NOT NULL,
-    payment_fk_id UUID,
-
-    CONSTRAINT fk_payment FOREIGN KEY (payment_fk_id) REFERENCES tb_payment(id) ON DELETE SET NULL,
-    CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES tb_customer(id)
-);
-
-CREATE TABLE tb_order_item(
-    id UUID PRIMARY KEY,
-    quantity INT NOT NULL,
-    price_at_purchase NUMERIC(10, 2),
-    product_id SERIAL NOT NULL,
-    order_id SERIAL ,
-    CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES tb_order(id),
-    CONSTRAINT fk_product FOREIGN KEY (product_id) references tb_products(id)
-);
+--CREATE TABLE tb_customer (
+--    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--    name VARCHAR(255),
+--    email VARCHAR(255) UNIQUE,
+--    cpf VARCHAR(20) UNIQUE,
+--    role VARCHAR(20) NOT NULL,
+--    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+--    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
+--);
+--
+--CREATE TABLE tb_employee (
+--    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--    name VARCHAR(255) NOT NULL,
+--    email VARCHAR(255) NOT NULL UNIQUE,
+--    cpf VARCHAR(20) NOT NULL UNIQUE,
+--    role VARCHAR(20) NOT NULL,
+--    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+--    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+--    password VARCHAR(255) NOT NULL
+--);
+--
+--CREATE TYPE payment_status AS ENUM (
+--    'PENDING', 'APPROVED', 'AUTHORIZED', 'IN_PROCESS', 'IN_MEDIATION',
+--    'REJECTED', 'CANCELLED', 'REFUNDED', 'CHARGED_BACK'
+--);
+--
+--CREATE TYPE payment_method AS ENUM ('QRCODE');
+--
+--CREATE TABLE tb_payment (
+--    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--    status payment_status NOT NULL,
+--    method payment_method NOT NULL,
+--    payment_date_time TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+--    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
+--);
+--
+--CREATE TABLE tb_products (
+--    id SERIAL PRIMARY KEY,
+--    name VARCHAR(255) NOT NULL UNIQUE,
+--    category VARCHAR(255) NOT NULL,
+--    unit_price NUMERIC(15, 2),
+--    url_image TEXT,
+--    description TEXT,
+--    created_by_employee_id UUID,
+--    created_at TIMESTAMPTZ DEFAULT now(),
+--    updated_at TIMESTAMPTZ DEFAULT now(),
+--
+--    CONSTRAINT fk_created_by_employee FOREIGN KEY (created_by_employee_id) REFERENCES tb_employee(id)
+--);
+--
+--CREATE TABLE tb_order (
+--    id SERIAL PRIMARY KEY,
+--    identifier VARCHAR(40),
+--    total_price NUMERIC(10, 2) NOT NULL,
+--    order_status VARCHAR(255) NOT NULL,
+--    order_date_time TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+--    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
+--    customer_id UUID NOT NULL,
+--    payment_fk_id UUID,
+--
+--    CONSTRAINT fk_payment FOREIGN KEY (payment_fk_id) REFERENCES tb_payment(id) ON DELETE SET NULL,
+--    CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES tb_customer(id)
+--);
+--
+--CREATE TABLE tb_order_item(
+--    id UUID PRIMARY KEY,
+--    quantity INT NOT NULL,
+--    price_at_purchase NUMERIC(10, 2),
+--    product_id SERIAL NOT NULL,
+--    order_id SERIAL ,
+--    CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES tb_order(id),
+--    CONSTRAINT fk_product FOREIGN KEY (product_id) references tb_products(id)
+--);
 
 
 -- CLIENTES

@@ -34,7 +34,6 @@ public class CustomerRepositoryAdapter implements CustomerRepositoryPort {
         return CustomerMapper.toDomain(customerEntity);
     }
 
-
     public Customer findByEmail(String email, UserRole role) {
         final CustomerEntity customerEntity = this.customerEntityRepository.findByEmail(email).orElseThrow(
                 () -> new FastFoodException("Customer not found with Email: " + email, CUSTOMER_NOT_FOUND, HttpStatus.NOT_FOUND)

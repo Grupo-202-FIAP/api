@@ -22,7 +22,6 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
     private final ICustomerEntityRepository customerEntityRepository;
     private final IEmployeeEntityRepository employeeEntityRepository;
 
-
     public UserRepositoryAdapter(ICustomerEntityRepository customerEntityRepository, IEmployeeEntityRepository employeeEntityRepository) {
         this.customerEntityRepository = customerEntityRepository;
         this.employeeEntityRepository = employeeEntityRepository;

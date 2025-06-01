@@ -69,6 +69,8 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
 
     @Override
     public void delete(Long idProduct) {
+        final ProductEntity existingEntity = this.productRepository.findById(idProduct)
+                .orElseThrow(() -> new FastFoodException("Product not found with id: " + idProduct, "Product not found", HttpStatus.NOT_FOUND));
         this.productRepository.deleteById(idProduct);
     }
 
@@ -80,6 +82,11 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     @Override
     public List<Product> findProductByCategory(Category category) {
         return this.productRepository.findByCategory(category).stream().map(ProductMapper::toDomain).toList();
+    }
+
+    @Override
+    public List<Product> findAllById(List<Long> productIds) {
+      return this.productRepository.findAllById(productIds).stream().map(ProductMapper::toDomain).toList();
     }
 
 }

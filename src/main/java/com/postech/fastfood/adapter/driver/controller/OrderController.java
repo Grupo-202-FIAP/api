@@ -7,15 +7,13 @@ import com.postech.fastfood.core.domain.enums.OrderStatus;
 import com.postech.fastfood.core.usecase.order.CreateOrderUseCase;
 import com.postech.fastfood.core.usecase.order.ListOrdersByStatusUseCase;
 import com.postech.fastfood.core.usecase.order.ListOrdersUseCase;
+import com.postech.fastfood.core.usecase.order.UpdateOrderStatusUseCase;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.UUID;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
@@ -23,13 +21,16 @@ public class OrderController {
     private final CreateOrderUseCase createOrderUseCase;
     private final ListOrdersUseCase listOrdersUseCase;
     private final ListOrdersByStatusUseCase listOrdersByStatusUseCase;
+    private final UpdateOrderStatusUseCase updateOrderUseCase;
 
     public OrderController(CreateOrderUseCase createOrderUseCase,
                            ListOrdersUseCase listOrdersUseCase,
-                           ListOrdersByStatusUseCase listOrdersByStatusUseCase) {
+                           ListOrdersByStatusUseCase listOrdersByStatusUseCase, UpdateOrderStatusUseCase updateOrderUseCase) {
         this.createOrderUseCase = createOrderUseCase;
         this.listOrdersUseCase = listOrdersUseCase;
         this.listOrdersByStatusUseCase = listOrdersByStatusUseCase;
+
+        this.updateOrderUseCase = updateOrderUseCase;
     }
 
     @PostMapping("/create")
@@ -47,4 +48,11 @@ public class OrderController {
     public ResponseEntity<List<Order>> listOrderByStatus(@Valid @RequestParam ("status") OrderStatus status) {
         return ResponseEntity.ok(this.listOrdersByStatusUseCase.execute(status));
     }
+
+    @PutMapping("/status")
+    public ResponseEntity updateStatus(@RequestParam UUID orderID){
+            updateOrderUseCase.execute(orderID);
+        return ResponseEntity.ok().build();
+    }
+
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomerMapper {
     public static Customer toDomain(CustomerEntity customerEntity) {
+        if(customerEntity == null) return null;
         return new Customer.Builder()
                 .id(customerEntity.getId())
                 .name(customerEntity.getName())
@@ -22,6 +23,7 @@ public class CustomerMapper {
     }
 
     public static CustomerEntity toEntity(Customer customer) {
+        if(customer == null) return null;
         return CustomerEntity.builder()
                 .id(customer.getId())
                 .name(customer.getName())
@@ -34,13 +36,15 @@ public class CustomerMapper {
     }
 
     public static Customer toDomain(CustomerCpfRequest customerCpfRequest) {
+        if(customerCpfRequest == null) return null;
         return new Customer.Builder()
                 .cpf(customerCpfRequest.cpf())
                 .role(customerCpfRequest.userRole())
                 .build();
     }
 
-    public static Customer toDomain(@Valid CustomerEmailRequest customerEmailRequest) {
+    public static Customer toDomain( CustomerEmailRequest customerEmailRequest) {
+        if(customerEmailRequest == null) return null;
         return new Customer.Builder()
                 .email(customerEmailRequest.email())
                 .name(customerEmailRequest.name())

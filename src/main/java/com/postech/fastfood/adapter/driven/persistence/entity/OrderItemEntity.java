@@ -2,13 +2,8 @@ package com.postech.fastfood.adapter.driven.persistence.entity;
 
 import java.math.BigDecimal;
 import java.util.UUID;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,7 +22,7 @@ public class OrderItemEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST) // ou CascadeType.ALL, se apropriado
     @JoinColumn(name = "order_id")
     private OrderEntity order;
 
