@@ -1,17 +1,17 @@
 package com.postech.fastfood.config;
 
-import io.swagger.v3.oas.models.security.SecurityRequirement;
-import io.swagger.v3.oas.models.security.SecurityScheme;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import java.io.IOException;
 
 @Configuration
 public class OpenApiConfig {
@@ -20,8 +20,8 @@ public class OpenApiConfig {
 
     @Bean
     public OpenAPI customOpenAPI(@Value("classpath:openapi.yml") Resource resource) throws IOException {
-        ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
-        OpenAPI customizations = yamlMapper.readValue(resource.getInputStream(), OpenAPI.class);
+        final ObjectMapper yamlMapper = new ObjectMapper(new YAMLFactory());
+        final OpenAPI customizations = yamlMapper.readValue(resource.getInputStream(), OpenAPI.class);
 
         return new OpenAPI()
                 .info(new Info().title("API FastFood").version("1.0.0"))
