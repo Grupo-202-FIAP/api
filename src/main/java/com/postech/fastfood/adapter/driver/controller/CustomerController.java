@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/customer")
+@RequestMapping("/customer")
 public class CustomerController {
 
     private final CreateCustomerWithCpfUseCase createCustomerWithCpfUseCase;
@@ -60,7 +60,7 @@ public class CustomerController {
 
     @GetMapping("/cpf")
     public ResponseEntity<User> getCustomerByCpf(CustomerCpfRequest customerCpfRequest) {
-        final User customerSaved = this.findUserByCpfUseCase.execute(customerCpfRequest.cpf(), customerCpfRequest.userRole());
+        final User customerSaved = this.findUserByCpfUseCase.execute(customerCpfRequest.cpf());
         return ResponseEntity.status(HttpStatus.OK).body(customerSaved);
     }
 

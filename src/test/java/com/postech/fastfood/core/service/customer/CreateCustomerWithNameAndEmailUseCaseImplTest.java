@@ -38,7 +38,7 @@ class CreateCustomerWithNameAndEmailUseCaseImplTest {
         clienteSalvo.setId(clienteId);
         clienteSalvo.setEmail("cliente@teste.com");
         clienteSalvo.setName("Cliente");
-        clienteSalvo.setRole(UserRole.CUSTOMER);
+        clienteSalvo.setRole(UserRole.ROLE_CUSTOMER);
 
         when(userRepositoryPort.save(any(Customer.class))).thenReturn(clienteSalvo);
 
@@ -48,7 +48,7 @@ class CreateCustomerWithNameAndEmailUseCaseImplTest {
         // Assert
         assertNotNull(resultado);
         assertEquals(clienteId, resultado.getId());
-        assertEquals(UserRole.CUSTOMER, resultado.getRole());
+        assertEquals(UserRole.ROLE_CUSTOMER, resultado.getRole());
         verify(userRepositoryPort, times(1)).save(any(Customer.class));
     }
 

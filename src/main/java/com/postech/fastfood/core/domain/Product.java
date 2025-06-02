@@ -1,8 +1,8 @@
 package com.postech.fastfood.core.domain;
 
+import com.postech.fastfood.core.domain.enums.Category;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import com.postech.fastfood.core.domain.enums.Category;
 
 
 public class Product {

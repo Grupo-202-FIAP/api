@@ -1,15 +1,10 @@
 package com.postech.fastfood.adapter.driven.persistence.entity;
 
-import static com.postech.fastfood.core.domain.enums.UserRole.ADMIN;
-import static com.postech.fastfood.core.domain.enums.UserRole.CUSTOMER;
-import static com.postech.fastfood.core.domain.enums.UserRole.GUEST;
+import static com.postech.fastfood.core.domain.enums.UserRole.ROLE_ADMIN;
+import static com.postech.fastfood.core.domain.enums.UserRole.ROLE_CUSTOMER;
+import static com.postech.fastfood.core.domain.enums.UserRole.ROLE_GUEST;
 
-import java.io.Serial;
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
-import com.postech.fastfood.core.domain.enums.UserRole;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -18,6 +13,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import java.io.Serial;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
+import com.postech.fastfood.core.domain.enums.UserRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,7 +44,9 @@ public abstract class UserEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
+    @Column(unique = true)
     private String email;
+    @Column(unique = true)
     private String cpf;
     @Enumerated(EnumType.STRING)
     private UserRole role;
@@ -54,12 +57,12 @@ public abstract class UserEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.role.equals(ADMIN)) {
-            final var roleAdmin = new SimpleGrantedAuthority(ADMIN.getRole());
-            final var roleCustomer = new SimpleGrantedAuthority(CUSTOMER.getRole());
+        if (this.role.equals(ROLE_ADMIN)) {
+            final var roleAdmin = new SimpleGrantedAuthority(ROLE_ADMIN.getRole());
+            final var roleCustomer = new SimpleGrantedAuthority(ROLE_CUSTOMER.getRole());
             return List.of(roleAdmin, roleCustomer);
         } else {
-            final var role = new SimpleGrantedAuthority(GUEST.getRole());
+            final var role = new SimpleGrantedAuthority(ROLE_GUEST.getRole());
             return List.of(role);
         }
     }

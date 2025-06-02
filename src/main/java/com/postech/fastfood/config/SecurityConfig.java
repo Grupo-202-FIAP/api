@@ -18,13 +18,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @AllArgsConstructor
 public class SecurityConfig {
 
-    private static final String PRODUCT_ENDPOINT = "product";
-    private static final String CUSTOMER_ENDPOINT = "customer";
-    private static final String EMPLOYEE_ENDPOINT = "employee";
-    private static final String AUTH_ENDPOINT = "auth";
+    private static final String PRODUCT_ENDPOINT = "/product";
+    private static final String CUSTOMER_ENDPOINT = "/customer";
+    private static final String EMPLOYEE_ENDPOINT = "/employee";
+    private static final String ORDER_ENDPOINT = "/order";
+    private static final String AUTH_ENDPOINT = "/auth";
+    private static final String SWAGGER_UI = "/swagger-ui";
+    private static final String SWAGGER_API_DOCS = "/v3/api-docs";
     private static final String ROLE_ADMIN = "ADMIN";
     private static final String ROLE_MANAGER = "MANAGER";
+    private static final String ALL_URIS = "/**";
     private final SecurityFilter securityFilter;
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -32,12 +37,16 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, PRODUCT_ENDPOINT).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
-                        .requestMatchers(HttpMethod.DELETE, PRODUCT_ENDPOINT).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
-                        .requestMatchers(HttpMethod.PUT, PRODUCT_ENDPOINT).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
-                        .requestMatchers(CUSTOMER_ENDPOINT).permitAll()
-                        .requestMatchers(EMPLOYEE_ENDPOINT).permitAll()
-                        .requestMatchers(AUTH_ENDPOINT).permitAll()
+                        .requestMatchers(HttpMethod.POST, PRODUCT_ENDPOINT + ALL_URIS).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
+                        .requestMatchers(HttpMethod.DELETE, PRODUCT_ENDPOINT + ALL_URIS).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
+                        .requestMatchers(HttpMethod.PUT, PRODUCT_ENDPOINT + ALL_URIS).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
+                        .requestMatchers(HttpMethod.GET, PRODUCT_ENDPOINT + ALL_URIS).permitAll()
+                        .requestMatchers(CUSTOMER_ENDPOINT + ALL_URIS).permitAll()
+                        .requestMatchers(EMPLOYEE_ENDPOINT + ALL_URIS).permitAll()
+                        .requestMatchers(AUTH_ENDPOINT + ALL_URIS).permitAll()
+                        .requestMatchers(ORDER_ENDPOINT + ALL_URIS).permitAll()
+                        .requestMatchers(SWAGGER_UI + ALL_URIS).permitAll()
+                        .requestMatchers(SWAGGER_API_DOCS + ALL_URIS).permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

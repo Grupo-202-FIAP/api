@@ -5,7 +5,6 @@ import com.postech.fastfood.adapter.driven.persistence.entity.PaymentEntity;
 import com.postech.fastfood.adapter.driven.persistence.repository.order.IOrderEntityRepository;
 import com.postech.fastfood.adapter.driver.controller.dto.request.PaymentRequest;
 import com.postech.fastfood.core.domain.enums.OrderStatus;
-import com.postech.fastfood.core.domain.enums.PaymentMethod;
 import com.postech.fastfood.core.domain.enums.PaymentStatus;
 import com.postech.fastfood.core.exception.FastFoodException;
 import com.postech.fastfood.core.ports.PaymentRepositoryPort;
@@ -26,20 +25,20 @@ public class PaymentRepositoryAdapter implements PaymentRepositoryPort {
 
     @Override
     public String create(UUID orderId, PaymentRequest paymentRequest) {
-        final OrderEntity orderEntity = getOrderById(orderId);
-
-        if (paymentRequest.paymentMethod() != PaymentMethod.QR_CODE) {
-            throw new FastFoodException(
-                    "Method not accepted" + paymentRequest.paymentMethod(),
-                    "Method not accepted",
-                    HttpStatus.BAD_REQUEST
-            );
-        }
-
-        validatePaymentStatus(orderEntity.getPayment(), orderId);
-
-        orderEntity.getPayment().setStatus(PaymentStatus.PENDING);
-        orderEntity.getPayment().setPaymentMethod(paymentRequest.paymentMethod());
+        //        final OrderEntity orderEntity = getOrderById(orderId);
+        //
+        //        if (paymentRequest.paymentMethod() != PaymentMethod.QR_CODE) {
+        //            throw new FastFoodException(
+        //                    "Method not accepted" + paymentRequest.paymentMethod(),
+        //                    "Method not accepted",
+        //                    HttpStatus.BAD_REQUEST
+        //            );
+        //        }
+        //
+        //        validatePaymentStatus(orderEntity.getPayment(), orderId);
+        //
+        //        orderEntity.getPayment().setStatus(PaymentStatus.PENDING);
+        //        orderEntity.getPayment().setPaymentMethod(paymentRequest.paymentMethod());
 
         return "Payment Created";
     }
@@ -49,19 +48,17 @@ public class PaymentRepositoryAdapter implements PaymentRepositoryPort {
         final OrderEntity orderEntity = getOrderById(orderId);
 
         validatePaymentStatus(orderEntity.getPayment(), orderId);
-
-        orderEntity.getPayment().setStatus(PaymentStatus.AUTHORIZED);
         orderEntity.setOrderStatus(OrderStatus.RECEIVED);
+        orderEntity.getPayment().setStatus(PaymentStatus.AUTHORIZED);
 
-        paymentEntityRepository.save(orderEntity.getPayment());
-        orderEntityRepository.save(orderEntity);
+        this.orderEntityRepository.save(orderEntity);
 
         return "Payment Realized";
     }
 
 
     private OrderEntity getOrderById(UUID orderId) {
-        return orderEntityRepository.findByOrderId(orderId)
+        return orderEntityRepository.findById(orderId)
                 .orElseThrow(() -> new FastFoodException(
                         "Order not found for ID: " + orderId,
                         "Order Not Found",
@@ -70,7 +67,7 @@ public class PaymentRepositoryAdapter implements PaymentRepositoryPort {
     }
 
     private void validatePaymentStatus(PaymentEntity payment, UUID orderId) {
-        if (payment.getStatus() == PaymentStatus.PENDING || payment.getStatus() == PaymentStatus.APPROVED) {
+        if (payment.getStatus() == PaymentStatus.CANCELLED || payment.getStatus() == PaymentStatus.APPROVED) {
             throw new FastFoodException(
                     "Payment already exists for Order ID: " + orderId,
                     "Payment Already Exists",

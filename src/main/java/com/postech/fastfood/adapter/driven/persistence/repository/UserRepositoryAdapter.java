@@ -2,6 +2,8 @@ package com.postech.fastfood.adapter.driven.persistence.repository;
 
 import com.postech.fastfood.adapter.driven.persistence.entity.CustomerEntity;
 import com.postech.fastfood.adapter.driven.persistence.entity.EmployeeEntity;
+import com.postech.fastfood.adapter.driven.persistence.repository.customer.ICustomerEntityRepository;
+import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
 import com.postech.fastfood.application.mapper.CustomerMapper;
 import com.postech.fastfood.application.mapper.EmployeeMapper;
 import com.postech.fastfood.core.domain.Customer;
@@ -10,6 +12,7 @@ import com.postech.fastfood.core.domain.User;
 import com.postech.fastfood.core.domain.enums.UserRole;
 import com.postech.fastfood.core.exception.FastFoodException;
 import com.postech.fastfood.core.ports.UserRepositoryPort;
+import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +21,6 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
 
     private final ICustomerEntityRepository customerEntityRepository;
     private final IEmployeeEntityRepository employeeEntityRepository;
-
 
     public UserRepositoryAdapter(ICustomerEntityRepository customerEntityRepository, IEmployeeEntityRepository employeeEntityRepository) {
         this.customerEntityRepository = customerEntityRepository;
@@ -39,7 +41,7 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
 
     public User findByCpf(String cpf, UserRole role) {
         User user = null;
-        if (role != UserRole.GUEST && role != UserRole.CUSTOMER) {
+        if (role != UserRole.ROLE_GUEST && role != UserRole.ROLE_CUSTOMER) {
             final EmployeeEntity employee = this.employeeEntityRepository
                     .findByCpf(cpf)
                     .orElseThrow(() -> new FastFoodException(
@@ -64,7 +66,7 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
 
     public User findByEmail(String email, UserRole role) {
         User user = null;
-        if (role != UserRole.GUEST && role != UserRole.CUSTOMER) {
+        if (role != UserRole.ROLE_GUEST && role != UserRole.ROLE_CUSTOMER) {
             final EmployeeEntity employee = this.employeeEntityRepository
                     .findByEmail(email)
                     .orElseThrow(() -> new FastFoodException(
@@ -86,5 +88,17 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
         return user;
     }
 
-
+    public User findById(UUID id) {
+        return customerEntityRepository.findById(id)
+                .map(CustomerMapper::toDomain)
+                .map(User.class::cast)
+                .or(() -> employeeEntityRepository.findById(id)
+                        .map(EmployeeMapper::toDomain)
+                        .map(User.class::cast))
+                .orElseThrow(() -> new FastFoodException(
+                        "User not found with ID: " + id,
+                        "User Not Found",
+                        HttpStatus.NOT_FOUND
+                ));
+    }
 }

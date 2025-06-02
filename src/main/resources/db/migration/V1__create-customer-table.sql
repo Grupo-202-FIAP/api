@@ -1,9 +1,11 @@
-CREATE TABLE tb_customer (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(255) ,
-    email VARCHAR(255) UNIQUE,
-    cpf VARCHAR(20) UNIQUE,
-    role VARCHAR(20) NOT NULL,
-    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
-    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
+CREATE TABLE public.tb_customer (
+	id uuid NOT NULL,
+	cpf varchar(20) NULL,
+	created_at timestamp(6) NULL,
+	email varchar(255) NULL,
+	"name" varchar(255) NULL,
+	"role" varchar(20) NULL,
+	updated_at timestamp(6) NULL,
+	CONSTRAINT tb_customer_pkey PRIMARY KEY (id),
+	CONSTRAINT tb_customer_role_check CHECK (((role)::text = ANY ((ARRAY['ROLE_CUSTOMER'::character varying, 'ROLE_ADMIN'::character varying, 'ROLE_MANAGER'::character varying, 'ROLE_KITCHEN'::character varying, 'ROLE_DELIVERY'::character varying, 'ROLE_GUEST'::character varying])::text[])))
 );

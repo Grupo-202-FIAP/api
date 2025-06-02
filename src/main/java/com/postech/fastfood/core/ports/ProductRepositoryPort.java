@@ -1,7 +1,8 @@
 package com.postech.fastfood.core.ports;
 
-import java.util.List;
 import com.postech.fastfood.core.domain.Product;
+import com.postech.fastfood.core.domain.enums.Category;
+import java.util.List;
 
 public interface ProductRepositoryPort {
     Product save(Product product);
@@ -11,4 +12,8 @@ public interface ProductRepositoryPort {
     void delete(Long idProduct);
 
     List<Product> findAll();
+
+    List<Product> findProductByCategory(Category category);
+
+    List<Product> findAllById(List<Long> productIds);
 }

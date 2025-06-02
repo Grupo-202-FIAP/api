@@ -1,21 +1,20 @@
 package com.postech.fastfood.core.service.customer;
 
 import com.postech.fastfood.core.domain.User;
-import com.postech.fastfood.core.domain.enums.UserRole;
-import com.postech.fastfood.core.ports.UserRepositoryPort;
+import com.postech.fastfood.core.ports.CustomerRepositoryPort;
 import com.postech.fastfood.core.usecase.FindUserByCpfUseCase;
 
 public class FindCustomerByCpfUseCaseImpl implements FindUserByCpfUseCase {
 
-    private final UserRepositoryPort userRepositoryPort;
+    private final CustomerRepositoryPort customerRepositoryPort;
 
-    public FindCustomerByCpfUseCaseImpl(UserRepositoryPort userRepositoryPort) {
-        this.userRepositoryPort = userRepositoryPort;
+    public FindCustomerByCpfUseCaseImpl(CustomerRepositoryPort customerRepositoryPort) {
+        this.customerRepositoryPort = customerRepositoryPort;
     }
 
     @Override
-    public User execute(String cpf, UserRole userRole) {
-        return this.userRepositoryPort.findByCpf(cpf,userRole);
+    public User execute(String cpf) {
+        return this.customerRepositoryPort.findByCpf(cpf);
     }
 
 }

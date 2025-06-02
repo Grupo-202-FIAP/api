@@ -1,26 +1,24 @@
----
 spring:
   application:
     name: fastfood
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/fastfood}
+    url: ${DB_URL:jdbc:postgresql://0.0.0.0:5432/fastfood}
     username: ${DB_USER:postgres}
     password: ${DB_PASS:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
-    hibernate:
-    # ddl-auto: update # create-drop
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+    ddl-auto: update
     show-sql: true
   flyway:
     enabled: true
-    classpath: db/migration
-    location: classpath:db/migration
+#    classpath: db/migration
+#    location: classpath:db/migration
+  #    server:
+  #      servlet:
+  #        context-path: /api/v1/
 
-  server:
-    servlet:
-      context-path: /api/v1
   management:
     endpoints:
       web:
@@ -43,4 +41,8 @@ mercadoPago:
   accessToken: ${ACCESS_TOKEN:meu-access-token}
   clientId: ${CLIENT_ID:meu-client-id}
   clientSecret: ${CLIENT_SECRET:meu-client-secret}
+
+springdoc:
+  swagger-ui:
+    enabled: false
 

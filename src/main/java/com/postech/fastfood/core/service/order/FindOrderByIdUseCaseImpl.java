@@ -15,6 +15,6 @@ public class FindOrderByIdUseCaseImpl implements FindOrderByIdUseCase {
 
     @Override
     public Order execute(UUID orderId) {
-        return this.orderRepositoryPort.findByOrderId(orderId);
+        return this.orderRepositoryPort.findById(orderId);
     }
 }

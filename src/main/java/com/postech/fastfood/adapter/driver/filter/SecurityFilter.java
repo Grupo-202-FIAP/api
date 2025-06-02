@@ -1,6 +1,7 @@
 package com.postech.fastfood.adapter.driver.filter;
 
-import com.postech.fastfood.adapter.driven.persistence.repository.IEmployeeEntityRepository;
+import java.io.IOException;
+import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
 import com.postech.fastfood.adapter.driven.security.TokenServiceAdapter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -11,7 +12,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import java.io.IOException;
 
 @Component
 @AllArgsConstructor
