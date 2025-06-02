@@ -1,5 +1,5 @@
 CREATE TABLE public.tb_payment (
-	id uuid NOT NULL,
+    id uuid DEFAULT gen_random_uuid(),
 	payment_date_time timestamp(6) NULL,
 	payment_method varchar(255) NULL,
 	status varchar(255) NULL,

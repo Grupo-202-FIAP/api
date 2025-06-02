@@ -13,11 +13,8 @@ spring:
     show-sql: true
   flyway:
     enabled: true
-#    classpath: db/migration
-#    location: classpath:db/migration
-  #    server:
-  #      servlet:
-  #        context-path: /api/v1/
+    classpath: db/migration
+    location: classpath:db/migration
 
   management:
     endpoints:
