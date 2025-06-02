@@ -1,11 +1,10 @@
 package com.postech.fastfood.core.domain;
 
+import com.postech.fastfood.core.domain.enums.OrderStatus;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-
-import com.postech.fastfood.core.domain.enums.OrderStatus;
 
 public class Order {
     private UUID id;

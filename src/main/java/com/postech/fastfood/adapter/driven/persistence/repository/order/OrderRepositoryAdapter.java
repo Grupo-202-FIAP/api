@@ -1,24 +1,16 @@
 package com.postech.fastfood.adapter.driven.persistence.repository.order;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import com.postech.fastfood.adapter.driven.persistence.entity.CustomerEntity;
 import com.postech.fastfood.adapter.driven.persistence.entity.OrderEntity;
-import com.postech.fastfood.adapter.driven.persistence.entity.OrderItemEntity;
 import com.postech.fastfood.adapter.driven.persistence.repository.customer.ICustomerEntityRepository;
 import com.postech.fastfood.adapter.driven.persistence.repository.product.IProductRepository;
-import com.postech.fastfood.application.mapper.CustomerMapper;
 import com.postech.fastfood.application.mapper.OrderMapper;
-import com.postech.fastfood.application.mapper.ProductMapper;
 import com.postech.fastfood.core.domain.Order;
-import com.postech.fastfood.core.domain.Product;
 import com.postech.fastfood.core.domain.enums.OrderStatus;
 import com.postech.fastfood.core.exception.FastFoodException;
 import com.postech.fastfood.core.ports.OrderRepositoryPort;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -28,15 +20,15 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
     private final IOrderEntityRepository orderEntityRepository;
     private final ICustomerEntityRepository customerEntityRepository;
     private final IProductRepository productRepository;
-    private final IOrderItemRepository iOrderItemRepository;
+    private final IOrderItemRepository orderItemRepository;
 
     public OrderRepositoryAdapter(
             IOrderEntityRepository orderEntityRepository,
-            ICustomerEntityRepository customerEntityRepository, IProductRepository productRepository, IOrderItemRepository iOrderItemRepository) {
+            ICustomerEntityRepository customerEntityRepository, IProductRepository productRepository, IOrderItemRepository orderItemRepository) {
         this.orderEntityRepository = orderEntityRepository;
         this.customerEntityRepository = customerEntityRepository;
         this.productRepository = productRepository;
-        this.iOrderItemRepository = iOrderItemRepository;
+        this.orderItemRepository = orderItemRepository;
     }
 
     @Override

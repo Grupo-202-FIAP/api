@@ -8,11 +8,11 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   jpa:
-    generate-ddl: true
-    ddl-auto: create
+    generate-ddl: false
+    ddl-auto: update
     show-sql: true
   flyway:
-    enabled: false
+    enabled: true
 #    classpath: db/migration
 #    location: classpath:db/migration
   #    server:

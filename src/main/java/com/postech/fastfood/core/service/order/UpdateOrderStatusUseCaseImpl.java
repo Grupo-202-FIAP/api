@@ -18,10 +18,10 @@ public class UpdateOrderStatusUseCaseImpl implements UpdateOrderStatusUseCase {
 
     @Override
     public Order execute(UUID orderID) {
-        Order order = orderRepositoryPort.findById(orderID);
+        final Order order = orderRepositoryPort.findById(orderID);
         switch (order.getStatus()) {
             case RECEIVED:
-                PaymentStatus status = order.getPayment().getStatus();
+                final PaymentStatus status = order.getPayment().getStatus();
                 if (status == PaymentStatus.APPROVED) {
                     order.setStatus(OrderStatus.PREPARING);
                 } else {

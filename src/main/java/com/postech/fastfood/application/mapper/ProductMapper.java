@@ -3,6 +3,7 @@ package com.postech.fastfood.application.mapper;
 import com.postech.fastfood.adapter.driven.persistence.entity.ProductEntity;
 import com.postech.fastfood.adapter.driver.controller.dto.request.ProductRequest;
 import com.postech.fastfood.adapter.driver.controller.dto.request.ProductUpdateRequest;
+import com.postech.fastfood.adapter.driver.controller.dto.response.ProductsResponse;
 import com.postech.fastfood.core.domain.Employee;
 import com.postech.fastfood.core.domain.Product;
 import org.springframework.stereotype.Component;
@@ -65,4 +66,17 @@ public class ProductMapper {
                 .build();
     }
 
+    public static ProductsResponse toResponse(Product product) {
+        return ProductsResponse.builder()
+                .id(product.getId())
+                .name(product.getName())
+                .category(product.getCategory())
+                .unitPrice(product.getUnitPrice())
+                .urlImage(product.getUrlImage())
+                .description(product.getDescription())
+                .employeeCreatorId(product.getCreatedByEmployee().getId())
+                .createdAt(product.getCreatedAt())
+                .updatedAt(product.getUpdatedAt())
+                .build();
+    }
 }

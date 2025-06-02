@@ -105,8 +105,9 @@ public class UseCaseBeanConfiguration {
     }
 
     @Bean
-    public CreateOrderUseCase createOrderUseCase(OrderRepositoryPort orderRepositoryPort, CustomerRepositoryPort customerRepositoryPort, ProductRepositoryPort productRepositoryPort) {
-        return new CreateOrderUseCaseImpl(orderRepositoryPort, customerRepositoryPort,productRepositoryPort);
+    public CreateOrderUseCase createOrderUseCase(OrderRepositoryPort orderRepositoryPort, CustomerRepositoryPort customerRepositoryPort,
+                                                 ProductRepositoryPort productRepositoryPort) {
+        return new CreateOrderUseCaseImpl(orderRepositoryPort, customerRepositoryPort, productRepositoryPort);
     }
 
     @Bean
@@ -120,7 +121,7 @@ public class UseCaseBeanConfiguration {
     }
 
     @Bean
-    public UpdateOrderStatusUseCase updateOrderStatusUseCase(OrderRepositoryPort orderRepositoryPort){
+    public UpdateOrderStatusUseCase updateOrderStatusUseCase(OrderRepositoryPort orderRepositoryPort) {
         return new UpdateOrderStatusUseCaseImpl(orderRepositoryPort);
     }
 

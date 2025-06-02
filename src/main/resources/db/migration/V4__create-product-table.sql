@@ -1,14 +1,14 @@
-CREATE TABLE tb_products (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL UNIQUE,
-    category VARCHAR(255) NOT NULL,
-    unit_price NUMERIC(15, 2),
-    url_image TEXT,
-    description TEXT,
-    created_by_employee_id UUID,
-    created_at TIMESTAMPTZ DEFAULT now(),
-    updated_at TIMESTAMPTZ DEFAULT now(),
-
-    CONSTRAINT fk_created_by_employee FOREIGN KEY (created_by_employee_id) REFERENCES tb_employee(id)
+CREATE TABLE public.tb_products (
+	id bigserial NOT NULL,
+	"name" varchar(255) NOT NULL,
+	category varchar(255) NOT NULL,
+	unit_price numeric(38, 2) NULL,
+	url_image varchar(255) NULL,
+	description varchar(255) NULL,
+	created_by_employee_id uuid NULL,
+	created_at timestamptz DEFAULT now() NULL,
+	updated_at timestamptz DEFAULT now() NULL,
+	CONSTRAINT tb_products_name_key UNIQUE (name),
+	CONSTRAINT tb_products_pkey PRIMARY KEY (id),
+	CONSTRAINT fk_created_by_employee FOREIGN KEY (created_by_employee_id) REFERENCES public.tb_employee(id)
 );
-

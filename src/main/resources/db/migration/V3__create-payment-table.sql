@@ -1,14 +1,10 @@
-CREATE TYPE payment_status AS ENUM (
-    'PENDING', 'APPROVED', 'AUTHORIZED', 'IN_PROCESS', 'IN_MEDIATION',
-    'REJECTED', 'CANCELLED', 'REFUNDED', 'CHARGED_BACK'
-);
-
-CREATE TYPE payment_method AS ENUM ('QRCODE');
-
-CREATE TABLE tb_payment (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    status payment_status NOT NULL,
-    method payment_method NOT NULL,
-    payment_date_time TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
-    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
+CREATE TABLE public.tb_payment (
+	id uuid DEFAULT gen_random_uuid() NOT NULL,
+	status varchar(255) NOT NULL,
+	"method" public."payment_method" NOT NULL,
+	payment_date_time timestamp DEFAULT now() NOT NULL,
+	updated_at timestamp DEFAULT now() NOT NULL,
+	"payment_method" varchar(255) NULL,
+	CONSTRAINT tb_payment_payment_method_check CHECK (((payment_method)::text = 'QR_CODE'::text)),
+	CONSTRAINT tb_payment_pkey PRIMARY KEY (id)
 );

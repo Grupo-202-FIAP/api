@@ -1,5 +1,6 @@
 package com.postech.fastfood.adapter.driver.controller;
 
+import com.postech.fastfood.adapter.driver.controller.dto.response.ProductsResponse;
 import com.postech.fastfood.core.domain.enums.Category;
 import com.postech.fastfood.core.usecase.product.CreateProductUseCase;
 import com.postech.fastfood.core.usecase.product.DeleteProductUseCase;
@@ -46,27 +47,37 @@ public class ProductController {
     }
 
     @GetMapping("/category")
-    public ResponseEntity<List<Product>> listProductByCategory(@RequestParam Category category) {
-        return ResponseEntity.status(HttpStatus.OK).body(listProductByCategoryUseCase.execute(category));
+    public ResponseEntity<List<ProductsResponse>> listProductByCategory(@RequestParam Category category) {
+        final List<Product> products = listProductByCategoryUseCase.execute(category);
+        final List<ProductsResponse> response = products.stream()
+                .map(ProductMapper::toResponse)
+                .toList();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest) {
+    public ResponseEntity<ProductsResponse> createProduct(@RequestBody @Valid ProductRequest productRequest) {
         final Product domain = ProductMapper.toDomain(productRequest);
         final Product productCreated = createProductUseCase.execute(domain);
-        return ResponseEntity.status(HttpStatus.CREATED).body(productCreated);
+        final ProductsResponse productCreatedResponse = ProductMapper.toResponse(productCreated);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productCreatedResponse);
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> listProduct() {
-        return ResponseEntity.status(HttpStatus.OK).body(listProductsUseCase.execute());
+    public ResponseEntity<List<ProductsResponse>> listProduct() {
+        final List<Product> products = listProductsUseCase.execute();
+        final List<ProductsResponse> response = products.stream()
+                .map(ProductMapper::toResponse)
+                .toList();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PutMapping
-    public ResponseEntity<Product> updateProduct(@RequestBody @Valid ProductUpdateRequest productRequest, @RequestParam Long id) {
+    public ResponseEntity<ProductsResponse> updateProduct(@RequestBody @Valid ProductUpdateRequest productRequest, @RequestParam Long id) {
         final Product domain = ProductMapper.toDomain(productRequest);
         final Product execute = this.updateProductUseCase.execute(domain, id);
-        return ResponseEntity.status(HttpStatus.OK).body(execute);
+        final ProductsResponse response = ProductMapper.toResponse(execute);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping

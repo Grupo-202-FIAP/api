@@ -3,11 +3,13 @@ package com.postech.fastfood.application.mapper;
 import com.postech.fastfood.adapter.driven.persistence.entity.OrderEntity;
 import com.postech.fastfood.adapter.driven.persistence.entity.PaymentEntity;
 import com.postech.fastfood.adapter.driver.controller.dto.request.OrderRequest;
+import com.postech.fastfood.adapter.driver.controller.dto.response.OrderResponse;
 import com.postech.fastfood.core.domain.Customer;
 import com.postech.fastfood.core.domain.Order;
 import com.postech.fastfood.core.domain.Payment;
 import com.postech.fastfood.core.domain.enums.PaymentMethod;
 import com.postech.fastfood.core.domain.enums.PaymentStatus;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -85,4 +87,20 @@ public class OrderMapper {
                 .totalPrice(order.getTotalPrice())
                 .build();
     }
+
+    public static OrderResponse toResponse(Order order) {
+        return OrderResponse.builder()
+                .id(order.getId())
+                .identifier(order.getIdentifier())
+                .totalPrice(order.getTotalPrice())
+                .status(order.getStatus())
+                .orderDateTime(order.getOrderDateTime())
+                .customerId(order.getCustomer() == null ? null : order.getCustomer().getId())
+                .paymentId(order.getPayment() == null ? null : order.getPayment().getId())
+                .items(order.getItens().stream()
+                        .map(OrderItemMapper::toResponse)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
 }

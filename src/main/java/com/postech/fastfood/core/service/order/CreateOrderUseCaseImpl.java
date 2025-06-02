@@ -1,17 +1,7 @@
 package com.postech.fastfood.core.service.order;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import com.postech.fastfood.adapter.driven.persistence.entity.CustomerEntity;
-import com.postech.fastfood.application.mapper.CustomerMapper;
-import com.postech.fastfood.application.mapper.ProductMapper;
 import com.postech.fastfood.core.domain.Customer;
 import com.postech.fastfood.core.domain.Order;
-import com.postech.fastfood.core.domain.Payment;
 import com.postech.fastfood.core.domain.Product;
 import com.postech.fastfood.core.domain.enums.OrderStatus;
 import com.postech.fastfood.core.exception.FastFoodException;
@@ -19,6 +9,15 @@ import com.postech.fastfood.core.ports.CustomerRepositoryPort;
 import com.postech.fastfood.core.ports.OrderRepositoryPort;
 import com.postech.fastfood.core.ports.ProductRepositoryPort;
 import com.postech.fastfood.core.usecase.order.CreateOrderUseCase;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 
 public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
@@ -28,7 +27,10 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
     private final CustomerRepositoryPort customerRepositoryPort;
     private final ProductRepositoryPort productRepositoryPort;
 
-    public CreateOrderUseCaseImpl(OrderRepositoryPort orderRepositoryPort, CustomerRepositoryPort customerRepositoryPort, ProductRepositoryPort productRepositoryPort) {
+    public CreateOrderUseCaseImpl(
+            OrderRepositoryPort orderRepositoryPort,
+            CustomerRepositoryPort customerRepositoryPort,
+            ProductRepositoryPort productRepositoryPort) {
         this.orderRepositoryPort = orderRepositoryPort;
         this.customerRepositoryPort = customerRepositoryPort;
         this.productRepositoryPort = productRepositoryPort;
@@ -58,7 +60,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
                         HttpStatus.NOT_FOUND
                 );
             }
-        }else{
+        } else {
             order.setCustomer(null);
         }
 

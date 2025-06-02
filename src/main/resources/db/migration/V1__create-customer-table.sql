@@ -1,9 +1,12 @@
-CREATE TABLE tb_customer (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR(255),
-    email VARCHAR(255) UNIQUE,
-    cpf VARCHAR(20) UNIQUE,
-    role VARCHAR(20) NOT NULL,
-    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL,
-    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW() NOT NULL
+CREATE TABLE public.tb_customer (
+	id uuid DEFAULT gen_random_uuid() NOT NULL,
+	name varchar(255) NULL,
+	email varchar(255) NULL,
+	cpf varchar(255) NULL,
+	"role" varchar(255) NOT NULL,
+	created_at timestamp DEFAULT now() NOT NULL,
+	updated_at timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT tb_customer_cpf_key UNIQUE (cpf),
+	CONSTRAINT tb_customer_email_key UNIQUE (email),
+	CONSTRAINT tb_customer_pkey PRIMARY KEY (id)
 );
