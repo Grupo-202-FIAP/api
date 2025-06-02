@@ -1,13 +1,12 @@
 CREATE TABLE public.tb_employee (
-	id uuid DEFAULT gen_random_uuid() NOT NULL,
-	"name" varchar(255) NOT NULL,
-	email varchar(255) NOT NULL,
-	cpf varchar(255) NOT NULL,
-	"role" varchar(255) NOT NULL,
-	created_at timestamp DEFAULT now() NOT NULL,
-	updated_at timestamp DEFAULT now() NOT NULL,
-	"password" varchar(255) NOT NULL,
-	CONSTRAINT tb_employee_cpf_key UNIQUE (cpf),
-	CONSTRAINT tb_employee_email_key UNIQUE (email),
-	CONSTRAINT tb_employee_pkey PRIMARY KEY (id)
+	id uuid NOT NULL,
+	cpf varchar(20) NULL,
+	created_at timestamp(6) NULL,
+	email varchar(255) NULL,
+	"name" varchar(255) NULL,
+	"role" varchar(20) NULL,
+	updated_at timestamp(6) NULL,
+	"password" varchar(255) NULL,
+	CONSTRAINT tb_employee_pkey PRIMARY KEY (id),
+	CONSTRAINT tb_employee_role_check CHECK (((role)::text = ANY ((ARRAY['ROLE_CUSTOMER'::character varying, 'ROLE_ADMIN'::character varying, 'ROLE_MANAGER'::character varying, 'ROLE_KITCHEN'::character varying, 'ROLE_DELIVERY'::character varying, 'ROLE_GUEST'::character varying])::text[])))
 );
