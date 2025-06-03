@@ -1,16 +1,16 @@
 package com.postech.fastfood.adapter.driven.persistence.repository.product;
 
-import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
-import com.postech.fastfood.core.domain.enums.Category;
-import java.util.List;
-import java.util.UUID;
 import com.postech.fastfood.adapter.driven.persistence.entity.EmployeeEntity;
 import com.postech.fastfood.adapter.driven.persistence.entity.ProductEntity;
+import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
 import com.postech.fastfood.application.mapper.EmployeeMapper;
 import com.postech.fastfood.application.mapper.ProductMapper;
 import com.postech.fastfood.core.domain.Product;
+import com.postech.fastfood.core.domain.enums.Category;
 import com.postech.fastfood.core.exception.FastFoodException;
 import com.postech.fastfood.core.ports.ProductRepositoryPort;
+import java.util.List;
+import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -86,7 +86,7 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
 
     @Override
     public List<Product> findAllById(List<Long> productIds) {
-      return this.productRepository.findAllById(productIds).stream().map(ProductMapper::toDomain).toList();
+        return this.productRepository.findAllById(productIds).stream().map(ProductMapper::toDomain).toList();
     }
 
 }
