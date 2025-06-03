@@ -1,5 +1,5 @@
 CREATE TABLE public.tb_order_item (
-    id uuid DEFAULT gen_random_uuid(),
+  id uuid DEFAULT gen_random_uuid(),
 	price_at_purchase numeric(38, 2) NULL,
 	quantity int4 NULL,
 	order_id uuid NULL,

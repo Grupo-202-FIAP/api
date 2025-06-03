@@ -1,5 +1,5 @@
 CREATE TABLE public.tb_order (
-    id uuid DEFAULT gen_random_uuid(),
+  id uuid DEFAULT gen_random_uuid(),
 	identifier varchar(255) NULL,
 	order_date_time timestamp(6) NULL,
 	order_status varchar(255) NULL,
