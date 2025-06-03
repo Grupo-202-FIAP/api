@@ -1,17 +1,15 @@
----
 spring:
   application:
     name: fastfood
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/fastfood}
+    url: ${DB_URL:jdbc:postgresql://0.0.0.0:5432/fastfood}
     username: ${DB_USER:postgres}
     password: ${DB_PASS:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
-    hibernate:
-    # ddl-auto: update # create-drop
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+    ddl-auto: update
     show-sql: true
   flyway:
     enabled: true
@@ -30,17 +28,18 @@ spring:
       export:
         prometheus:
           enabled: true
+api:
+  security:
+    token:
+      secret: ${JWT_SECRET:minha-secret}
 
+mercadoPago:
+  publicKey: ${PUBLIC_KEY:minha-public-key}
+  accessToken: ${ACCESS_TOKEN:meu-access-token}
+  clientId: ${CLIENT_ID:meu-client-id}
+  clientSecret: ${CLIENT_SECRET:meu-client-secret}
 
-  management:
-    endpoints:
-      web:
-        exposure:
-          include: health,info,prometheus
-    endpoint:
-      prometheus:
-        enabled: true
-    metrics:
-      export:
-        prometheus:
-          enabled: true
+springdoc:
+  swagger-ui:
+    enabled: false
+
