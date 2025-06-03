@@ -38,7 +38,7 @@ class FindCustomerByCpfUseCaseImplTest {
         when(userRepositoryPort.findByCpf(cpf, role)).thenReturn(cliente);
 
         // Act
-        Customer resultado = (Customer) useCase.execute(cpf, role);
+        Customer resultado = (Customer) useCase.execute(cpf);
 
         // Assert
         assertNotNull(resultado);
@@ -57,7 +57,7 @@ class FindCustomerByCpfUseCaseImplTest {
         when(userRepositoryPort.findByCpf(cpf, role)).thenReturn(null);
 
         // Act
-        var resultado = useCase.execute(cpf, role);
+        var resultado = useCase.execute(cpf);
 
         // Assert
         assertNull(resultado);

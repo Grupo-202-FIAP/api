@@ -1,0 +1,30 @@
+@startuml
+title Sequência: Pedido no sistema de autoatendimento
+
+actor Cliente
+participant "Interface Autoatendimento" as Interface
+participant "Sistema de Pedidos" as PedidoSystem
+participant "Cozinha"
+participant "Monitor Cliente"
+participant "Pagamento (Mercado Pago)"
+
+Cliente -> Interface: Acessa interface
+Cliente -> Interface: Monta pedido (opcional: lanche, acompanhamento, bebida, sobremesa)
+Interface -> PedidoSystem: Envia pedido
+PedidoSystem -> Pagamento: Gera QRCode para pagamento
+Pagamento --> PedidoSystem: Confirma pagamento
+PedidoSystem -> Cozinha: Envia pedido para preparo
+PedidoSystem -> "Monitor Cliente": Atualiza status: "Recebido"
+
+Cozinha -> PedidoSystem: Atualiza status: "Em preparação"
+PedidoSystem -> "Monitor Cliente": Atualiza status: "Em preparação"
+
+Cozinha -> PedidoSystem: Pedido pronto
+PedidoSystem -> "Monitor Cliente": Atualiza status: "Pronto"
+PedidoSystem -> Cliente: Notifica pedido pronto para retirada
+
+Cliente -> Cozinha: Retira pedido
+Cozinha -> PedidoSystem: Confirma retirada
+PedidoSystem -> "Monitor Cliente": Atualiza status: "Finalizado"
+
+@enduml

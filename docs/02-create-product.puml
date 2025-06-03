@@ -1,0 +1,23 @@
+@startuml
+title Criação de Produto (somente Employees) com validação de dados
+
+actor EmployeeUser as User
+participant "Sistema de Gestão" as System
+participant "Banco de Dados" as DB
+
+User -> System: Solicita criação de Produto
+System -> System: Verifica se User é Employee válido
+alt User é Employee válido
+    System -> System: Valida dados do produto
+    alt Valida categoria do produto
+        System -> DB: Insere novo Produto
+        DB --> System: Confirmação de criação
+        System -> User: Produto criado com sucesso
+    else Dados inválidos ou categoria inválida
+        System -> User: Erro - Dados do produto inválidos ou categoria inválida
+    end
+else User não autorizado
+    System -> User: Erro - Permissão negada
+end
+
+@enduml
