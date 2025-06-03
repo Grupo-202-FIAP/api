@@ -4,6 +4,7 @@ import static com.postech.fastfood.core.domain.enums.UserRole.ROLE_ADMIN;
 import static com.postech.fastfood.core.domain.enums.UserRole.ROLE_CUSTOMER;
 import static com.postech.fastfood.core.domain.enums.UserRole.ROLE_GUEST;
 
+import com.postech.fastfood.core.domain.enums.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,7 +19,6 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import com.postech.fastfood.core.domain.enums.UserRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

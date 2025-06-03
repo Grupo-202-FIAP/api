@@ -55,7 +55,6 @@ $ mvn clean package -DskipTests
 
 # Subindo o ambiente completo
 $ docker compose -f infra/docker-compose.yml up -d --build
-
 ```
 
 ## 🌐 Serviços disponíveis
