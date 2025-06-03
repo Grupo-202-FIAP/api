@@ -46,16 +46,15 @@ O desafio propõe a criação de um sistema de autoatendimento para uma lanchone
 ### Passos
 
 ```bash
-# Clonagem do projeto
+# Clone o projeto
 $ git clone https://github.com/Grupo-202-FIAP/api.git
 $ cd api
 
-# Geração do JAR da aplicação sem testes
+# Gere o JAR (se preferir fora do GitHub Actions)
 $ mvn clean package -DskipTests
 
-# Subindo o ambiente completo
+# Suba o ambiente completo
 $ docker compose -f infra/docker-compose.yml up -d --build
-
 ```
 
 ## 🌐 Serviços disponíveis
