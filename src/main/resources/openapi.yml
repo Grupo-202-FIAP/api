@@ -466,6 +466,38 @@
             }
           }
         }
+      },
+      put: {
+        "tags": ["Pedidos"],
+        "summary": "Atualizar status do pedido",
+        "description": "Atualiza o status de um pedido existente (requer autenticação)",
+        "operationId": "updateOrderStatus",
+        "security": [{"bearerAuth": []}],
+        "parameters": [{
+            "name": "orderID",
+            "in": "query",
+            "description": "ID do pedido a ser atualizado",
+            "required": true,
+            "schema": {
+              "type": "UUID",
+              "format": "int64"
+            }
+        }],
+        "responses": {
+          "200": {
+            "description": "Status do pedido atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Order"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pedido não encontrado"
+          }
+        }
       }
     },
     "/employee": {
