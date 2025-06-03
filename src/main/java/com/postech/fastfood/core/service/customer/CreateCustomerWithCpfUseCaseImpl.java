@@ -1,6 +1,7 @@
 package com.postech.fastfood.core.service.customer;
 
 import com.postech.fastfood.core.domain.User;
+import com.postech.fastfood.core.domain.enums.UserRole;
 import com.postech.fastfood.core.exception.FastFoodException;
 import com.postech.fastfood.core.ports.UserRepositoryPort;
 import com.postech.fastfood.core.usecase.customer.CreateCustomerWithCpfUseCase;
@@ -20,6 +21,7 @@ public class CreateCustomerWithCpfUseCaseImpl implements CreateCustomerWithCpfUs
         final User userSaved;
         try {
             user.setCpf(FormatCpf.formatCpfToEntity(user.getCpf()));
+            user.setRole(UserRole.ROLE_CUSTOMER);
             userSaved = this.userRepositoryPort.save(user);
         } catch (DataIntegrityViolationException e) {
             throw new FastFoodException(

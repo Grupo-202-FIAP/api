@@ -6,5 +6,5 @@ import java.util.UUID;
 public interface PaymentRepositoryPort {
     String create(UUID orderId, PaymentRequest paymentRequest);
 
-    String save(UUID orderId);
+    void save(UUID orderId);
 }

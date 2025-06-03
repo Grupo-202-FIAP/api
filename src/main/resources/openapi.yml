@@ -40,7 +40,7 @@
               },
               "example": {
                 "email": "funcionario@fastfood.com",
-                "password": "SenhaForte123"
+                "password": "SenhaSegura123"
               }
             }
           },
@@ -479,8 +479,8 @@
             "description": "ID do pedido a ser atualizado",
             "required": true,
             "schema": {
-              "type": "UUID",
-              "format": "int64"
+              "type": "string",
+              "format": "uuid"
             }
         }],
         "responses": {

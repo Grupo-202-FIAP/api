@@ -44,7 +44,7 @@ public class PaymentRepositoryAdapter implements PaymentRepositoryPort {
     }
 
     @Override
-    public String save(UUID orderId) {
+    public void save(UUID orderId) {
         final OrderEntity orderEntity = getOrderById(orderId);
 
         validatePaymentStatus(orderEntity.getPayment(), orderId);
@@ -52,8 +52,6 @@ public class PaymentRepositoryAdapter implements PaymentRepositoryPort {
         orderEntity.getPayment().setStatus(PaymentStatus.AUTHORIZED);
 
         this.orderEntityRepository.save(orderEntity);
-
-        return "Payment Realized";
     }
 
 

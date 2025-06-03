@@ -4,7 +4,6 @@ import com.postech.fastfood.adapter.driven.persistence.entity.CustomerEntity;
 import com.postech.fastfood.adapter.driven.persistence.repository.customer.ICustomerEntityRepository;
 import com.postech.fastfood.application.mapper.CustomerMapper;
 import com.postech.fastfood.core.domain.Customer;
-import com.postech.fastfood.core.domain.enums.UserRole;
 import com.postech.fastfood.core.exception.FastFoodException;
 import com.postech.fastfood.core.ports.CustomerRepositoryPort;
 import java.util.UUID;
@@ -34,10 +33,8 @@ public class CustomerRepositoryAdapter implements CustomerRepositoryPort {
         return CustomerMapper.toDomain(customerEntity);
     }
 
-    public Customer findByEmail(String email, UserRole role) {
-        final CustomerEntity customerEntity = this.customerEntityRepository.findByEmail(email).orElseThrow(
-                () -> new FastFoodException("Customer not found with Email: " + email, CUSTOMER_NOT_FOUND, HttpStatus.NOT_FOUND)
-        );
+    public Customer findByEmail(String email) {
+        final CustomerEntity customerEntity = this.customerEntityRepository.findByEmail(email).orElse(null);
         return CustomerMapper.toDomain(customerEntity);
     }
 

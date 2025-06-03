@@ -28,8 +28,9 @@ public class PaymentController {
     //    }
 
     @PostMapping("/pay")
-    public ResponseEntity<String> savePayment(@RequestParam ("orderId") UUID orderId) {
-        return ResponseEntity.ok(this.savePayment.execute(orderId));
+    public ResponseEntity savePayment(@RequestParam ("orderId") UUID orderId) {
+        savePayment.execute(orderId);
+        return ResponseEntity.ok().build();
     }
 
 
