@@ -11,14 +11,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
-import com.postech.fastfood.adapter.driven.persistence.repository.product.IProductRepository;
-import com.postech.fastfood.adapter.driven.persistence.repository.product.ProductRepositoryAdapter;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import com.postech.fastfood.adapter.driven.persistence.entity.EmployeeEntity;
 import com.postech.fastfood.adapter.driven.persistence.entity.ProductEntity;
+import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
+import com.postech.fastfood.adapter.driven.persistence.repository.product.IProductRepository;
+import com.postech.fastfood.adapter.driven.persistence.repository.product.ProductRepositoryAdapter;
 import com.postech.fastfood.application.mapper.EmployeeMapper;
 import com.postech.fastfood.application.mapper.ProductMapper;
 import com.postech.fastfood.core.domain.Employee;
@@ -166,6 +166,7 @@ class ProductRepositoryAdapterTest {
         // Arrange
         Long productId = 1L;
 
+        when(productRepository.findById(productId)).thenReturn(Optional.of(ProductEntity.builder().id(productId).build()));
         // Act
         adapter.delete(productId);
 

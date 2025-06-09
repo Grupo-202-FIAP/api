@@ -1,5 +1,15 @@
 package com.postech.fastfood.core.service.employee;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.sql.SQLException;
+import java.util.UUID;
 import com.postech.fastfood.core.domain.Employee;
 import com.postech.fastfood.core.domain.enums.UserRole;
 import com.postech.fastfood.core.exception.FastFoodException;
@@ -12,12 +22,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
-
-import java.sql.SQLException;
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CreateEmployeeUseCaseImplTest {
@@ -85,7 +89,7 @@ class CreateEmployeeUseCaseImplTest {
                 () -> useCase.execute(employee)
         );
 
-        assertEquals("Email já cadastrado", exception.getMessage());
+        assertEquals("Email already exists", exception.getMessage());
     }
 
     @Test
@@ -103,6 +107,6 @@ class CreateEmployeeUseCaseImplTest {
                 () -> useCase.execute(employee)
         );
 
-        assertEquals("CPF já cadastrado", exception.getMessage());
+        assertEquals("CPF already exists", exception.getMessage());
     }
 }
