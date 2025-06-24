@@ -1,12 +1,6 @@
 spring:
   application:
     name: fastfood
-  datasource:
-    url: ${DB_URL:jdbc:postgresql://0.0.0.0:5432/fastfood}
-    username: ${DB_USER:postgres}
-    password: ${DB_PASS:postgres}
-    driver-class-name: org.postgresql.Driver
-
   jpa:
     generate-ddl: false
     ddl-auto: update
@@ -18,16 +12,14 @@ spring:
 
   management:
     endpoints:
-      web:
-        exposure:
-          include: health,info,prometheus
-    endpoint:
-      prometheus:
-        enabled: true
-    metrics:
-      export:
-        prometheus:
-          enabled: true
+      web.exposure.include: health,info,prometheus
+    endpoint.prometheus.enabled: true
+    metrics.export.prometheus.enabled: true
+
+springdoc:
+  swagger-ui:
+    enabled: false
+
 api:
   security:
     token:
@@ -38,8 +30,3 @@ mercadoPago:
   accessToken: ${ACCESS_TOKEN:meu-access-token}
   clientId: ${CLIENT_ID:meu-client-id}
   clientSecret: ${CLIENT_SECRET:meu-client-secret}
-
-springdoc:
-  swagger-ui:
-    enabled: false
-

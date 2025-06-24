@@ -23,6 +23,13 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
+        final String uri = request.getRequestURI();
+        if (uri.startsWith("/actuator")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         final var token = recoverToken(request);
         if (token != null) {
             final var validateToken = tokenService.validateToken(token);

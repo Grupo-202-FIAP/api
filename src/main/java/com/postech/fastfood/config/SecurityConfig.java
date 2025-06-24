@@ -47,9 +47,14 @@ public class SecurityConfig {
                         .requestMatchers(ORDER_ENDPOINT + ALL_URIS).permitAll()
                         .requestMatchers(SWAGGER_UI + ALL_URIS).permitAll()
                         .requestMatchers(SWAGGER_API_DOCS + ALL_URIS).permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .anonymous(anon -> anon
+                        .principal("anonymousUser")
+                        .authorities("ROLE_ANONYMOUS")
+                )
                 .build();
     }
 
