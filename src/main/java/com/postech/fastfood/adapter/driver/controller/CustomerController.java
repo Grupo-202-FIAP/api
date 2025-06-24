@@ -68,7 +68,7 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(userFound);
     }
 
-    @GetMapping("/cpf")
+    @GetMapping("/cpf/{cpf}")
     public ResponseEntity<User> getCustomerByCpf(CustomerCpfRequest customerCpfRequest) {
         logger.info("[Customer] Buscando cliente por CPF");
         final User userFound = this.findUserByCpfUseCase.execute(customerCpfRequest.cpf());

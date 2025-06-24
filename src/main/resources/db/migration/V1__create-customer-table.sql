@@ -1,5 +1,5 @@
 CREATE TABLE public.tb_customer (
-    id uuid DEFAULT gen_random_uuid(),
+  id uuid DEFAULT gen_random_uuid(),
 	cpf varchar(255) NULL,
 	created_at timestamp(6) NULL,
 	email varchar(255) NULL,

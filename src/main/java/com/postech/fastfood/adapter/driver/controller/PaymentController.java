@@ -34,9 +34,9 @@ public class PaymentController {
     @PostMapping("/pay")
     public ResponseEntity<String> savePayment(@RequestParam ("orderId") UUID orderId) {
         logger.info("[Payment] Iniciando processamento de pagamento para pedido id={}", orderId);
-        final String status = savePayment.execute(orderId);
+        savePayment.execute(orderId);
         logger.info("[Payment] Pagamento processado com sucesso para pedido id={}", orderId);
-        return ResponseEntity.ok(status);
+        return ResponseEntity.ok().build();
     }
 
 

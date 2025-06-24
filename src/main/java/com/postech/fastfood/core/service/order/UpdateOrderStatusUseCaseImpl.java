@@ -22,7 +22,7 @@ public class UpdateOrderStatusUseCaseImpl implements UpdateOrderStatusUseCase {
         switch (order.getStatus()) {
             case RECEIVED:
                 final PaymentStatus status = order.getPayment().getStatus();
-                if (status == PaymentStatus.APPROVED) {
+                if (status == PaymentStatus.AUTHORIZED) {
                     order.setStatus(OrderStatus.PREPARING);
                 } else {
                     throw new IllegalStateException("Cannot complete order: payment not completed");

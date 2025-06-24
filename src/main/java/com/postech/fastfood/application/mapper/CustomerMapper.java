@@ -44,7 +44,6 @@ public class CustomerMapper {
         }
         return new Customer.Builder()
                 .cpf(customerCpfRequest.cpf())
-                .role(customerCpfRequest.userRole())
                 .build();
     }
 

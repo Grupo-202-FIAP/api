@@ -4,7 +4,6 @@ import com.postech.fastfood.adapter.driven.persistence.entity.CustomerEntity;
 import com.postech.fastfood.adapter.driven.persistence.repository.customer.ICustomerEntityRepository;
 import com.postech.fastfood.application.mapper.CustomerMapper;
 import com.postech.fastfood.core.domain.Customer;
-import com.postech.fastfood.core.domain.enums.UserRole;
 import com.postech.fastfood.core.exception.FastFoodException;
 import com.postech.fastfood.core.ports.CustomerRepositoryPort;
 import com.postech.fastfood.core.ports.LoggerPort;
@@ -48,8 +47,8 @@ public class CustomerRepositoryAdapter implements CustomerRepositoryPort {
         return CustomerMapper.toDomain(customerEntity);
     }
 
-    public Customer findByEmail(String email, UserRole role) {
-        logger.info("[Repository][Customer] Buscando cliente com email={} e role={}", email, role);
+    public Customer findByEmail(String email) {
+        logger.info("[Repository][Customer] Buscando cliente com email={}", email);
 
         final CustomerEntity customerEntity = this.customerEntityRepository.findByEmail(email)
                 .orElseThrow(() -> {

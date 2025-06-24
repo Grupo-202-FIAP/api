@@ -50,7 +50,7 @@ public class PaymentRepositoryAdapter implements PaymentRepositoryPort {
     }
 
     @Override
-    public String save(UUID orderId) {
+    public void save(UUID orderId) {
         logger.info("[Repository][Payment] Processando pagamento para pedido id={}", orderId);
 
         final OrderEntity orderEntity = getOrderById(orderId);
@@ -63,8 +63,6 @@ public class PaymentRepositoryAdapter implements PaymentRepositoryPort {
 
         logger.info("[Repository][Payment] Pagamento autorizado e status do pedido atualizado: id={}, status={}",
                 orderId, orderEntity.getOrderStatus());
-
-        return "Payment Realized";
     }
 
 
