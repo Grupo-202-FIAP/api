@@ -115,11 +115,6 @@ services:
       - fastfood
     depends_on:
       - loki
-    healthcheck:
-      test: [ "CMD-SHELL", "wget --spider -q http://localhost:9080/ready || exit 1" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
 volumes:
   pgdata:

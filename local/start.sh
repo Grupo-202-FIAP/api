@@ -23,10 +23,10 @@ spinner() {
 
 start_with_spinner() {
   print_message "Iniciando o processo do Docker Compose..."
-  docker-compose pull &
+  docker compose pull &
   spinner $!
 
-  docker-compose up -d --build &
+  docker compose up -d --build &
   spinner $!
 
   if [ $? -eq 0 ]; then

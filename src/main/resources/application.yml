@@ -1,20 +1,29 @@
 spring:
   application:
     name: fastfood
+
   jpa:
     generate-ddl: false
     ddl-auto: update
     show-sql: true
+
   flyway:
     enabled: true
     classpath: db/migration
     location: classpath:db/migration
 
-  management:
-    endpoints:
-      web.exposure.include: health,info,prometheus
-    endpoint.prometheus.enabled: true
-    metrics.export.prometheus.enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
 
 springdoc:
   swagger-ui:
