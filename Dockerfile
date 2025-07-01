@@ -1,5 +1,5 @@
 # ----- BUILD PHASE -----
-FROM maven:3.8.4-openjdk-17-slim AS build
+FROM maven:3.8.4-amazoncorretto-17 as build
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # ----- RUNTIME PHASE -----
-FROM amazoncorretto:17-alpine
+FROM amazoncorretto:17
 
 WORKDIR /app
 
