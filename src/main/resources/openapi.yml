@@ -40,7 +40,7 @@
               },
               "example": {
                 "email": "funcionario@fastfood.com",
-                "password": "SenhaForte123"
+                "password": "SenhaSegura123"
               }
             }
           },
@@ -479,8 +479,8 @@
             "description": "ID do pedido a ser atualizado",
             "required": true,
             "schema": {
-              "type": "UUID",
-              "format": "int64"
+              "type": "string",
+              "format": "uuid"
             }
         }],
         "responses": {
@@ -612,7 +612,7 @@
     },
     "/customer/cpf": {
       "post": {
-        "tags": ["Clientes"],
+        "tags": [ "Clientes" ],
         "summary": "Criar cliente com CPF",
         "description": "Cria um novo cliente usando CPF",
         "operationId": "createCustomerWithCpf",
@@ -624,8 +624,7 @@
                 "$ref": "#/components/schemas/CustomerCpfRequest"
               },
               "example": {
-                "cpf": "12345678900",
-                "userRole": "ROLE_CUSTOMER"
+                "cpf": "12345678900"
               }
             }
           },
@@ -644,6 +643,8 @@
           }
         }
       },
+    },
+    "/customer/cpf/{cpf}": {
       "get": {
         "tags": ["Clientes"],
         "summary": "Buscar cliente por CPF",
@@ -653,7 +654,7 @@
         "parameters": [
           {
             "name": "cpf",
-            "in": "query",
+            "in": "path",
             "description": "CPF do cliente",
             "required": true,
             "schema": {
@@ -1159,32 +1160,9 @@
           "cpf": {
             "type": "string",
             "description": "CPF (apenas números)"
-          },
-          "userRole": {
-            "type": "string",
-            "enum": ["ROLE_CUSTOMER", "ROLE_ADMIN", "ROLE_MANAGER", "ROLE_KITCHEN", "ROLE_DELIVERY", "ROLE_GUEST"],
-            "description": "Perfil de acesso",
-            "example": "ROLE_CUSTOMER"
           }
         },
-        "required": ["userRole"]
-      },
-      "CustomerByEmailRequest": {
-        "type": "object",
-        "description": "Dados para busca de cliente por email",
-        "properties": {
-          "email": {
-            "type": "string",
-            "minLength": 1,
-            "description": "Email do cliente"
-          },
-          "userRole": {
-            "type": "string",
-            "enum": ["ROLE_CUSTOMER", "ROLE_ADMIN", "ROLE_MANAGER", "ROLE_KITCHEN", "ROLE_DELIVERY", "ROLE_GUEST"],
-            "description": "Perfil de acesso"
-          }
-        },
-        "required": ["email"]
+      "required": ["cpf"]
       }
     }
   }

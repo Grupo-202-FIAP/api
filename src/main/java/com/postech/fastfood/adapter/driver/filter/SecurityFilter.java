@@ -1,12 +1,12 @@
 package com.postech.fastfood.adapter.driver.filter;
 
-import java.io.IOException;
 import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
 import com.postech.fastfood.adapter.driven.security.TokenServiceAdapter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +23,13 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
+        final String uri = request.getRequestURI();
+        if (uri.startsWith("/actuator")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         final var token = recoverToken(request);
         if (token != null) {
             final var validateToken = tokenService.validateToken(token);

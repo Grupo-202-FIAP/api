@@ -2,6 +2,7 @@ package com.postech.fastfood.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import com.postech.fastfood.adapter.driver.controller.dto.request.PaymentRequest;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -34,6 +35,10 @@ public class OpenApiConfig {
                                         .type(SecurityScheme.Type.HTTP)
                                         .scheme("bearer")
                                         .bearerFormat("JWT")
-                                        .description("Insira o token JWT obtido no endpoint de autenticação")));
+                                        .description("Insira o token JWT obtido no endpoint de autenticação"))
+                        .addSchemas("PaymentRequest",
+                                new io.swagger.v3.oas.models.media.Schema<PaymentRequest>()
+                                        .description("Payment request DTO")
+                        ));
     }
 }

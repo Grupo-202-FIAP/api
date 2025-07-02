@@ -15,9 +15,9 @@ public class ProccessPaymentUseCaseImpl implements ProccessPaymentUseCase {
     }
 
     @Override
-    public String execute(UUID orderId) {
+    public void execute(UUID orderId) {
         try {
-            return this.paymentRepositoryPort.save(orderId);
+            this.paymentRepositoryPort.save(orderId);
         } catch (FastFoodException e) {
             throw new FastFoodException(
                     e.getMessage(),
