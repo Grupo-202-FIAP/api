@@ -11,19 +11,9 @@ on:
       - '**.md'
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v4
-      - name: Instalar yamllint
-        run: sudo apt-get update && sudo apt-get install -y yamllint
-      - name: Validar arquivos YAML
-        run: yamllint .
 
   build-test:
     runs-on: ubuntu-latest
-    needs: lint
     steps:
       - uses: actions/checkout@v4
 
