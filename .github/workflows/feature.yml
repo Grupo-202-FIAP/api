@@ -74,10 +74,10 @@ jobs:
           chmod +x ~/.docker/cli-plugins/docker-compose
 
       - name: Validar docker-compose
-        run: docker compose -f infra/docker-compose.yml config
+        run: docker compose -f docker-compose.yml config
 
       - name: Build da imagem com Docker Compose
-        run: docker compose -f infra/docker-compose.yml build app
+        run: docker compose -f docker-compose.yml build app
 
   pr-dev:
     runs-on: ubuntu-latest
