@@ -1,5 +1,5 @@
 package com.postech.fastfood.infrastructure.repository.customer;
-;
+
 import com.postech.fastfood.infrastructure.repository.entity.CustomerEntity;
 import java.util.Optional;
 import java.util.UUID;

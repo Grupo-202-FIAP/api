@@ -32,7 +32,7 @@ public class OrderRepositoryAdapter implements OrderRepository {
 
     @Override
     public Order findById(UUID orderId) {
-        Order order;
+        final Order order;
         final OrderEntity orderEntity = this.orderEntityRepository.findById(orderId)
                 .orElseThrow(() -> new FastFoodException("Order not found with id:" + orderId, "Order Not Found", HttpStatus.NOT_FOUND));
         order = OrderMapper.toDomain(orderEntity);
