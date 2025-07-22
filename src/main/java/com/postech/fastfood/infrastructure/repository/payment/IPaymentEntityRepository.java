@@ -1,6 +1,6 @@
 package com.postech.fastfood.infrastructure.repository.payment;
 
-import com.postech.fastfood.adapter.driven.persistence.entity.PaymentEntity;
+import com.postech.fastfood.infrastructure.repository.entity.PaymentEntity;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

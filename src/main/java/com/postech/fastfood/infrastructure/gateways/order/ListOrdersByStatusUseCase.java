@@ -1,7 +1,7 @@
 package com.postech.fastfood.infrastructure.gateways.order;
 
-import com.postech.fastfood.core.domain.Order;
-import com.postech.fastfood.core.domain.enums.OrderStatus;
+import com.postech.fastfood.domain.Order;
+import com.postech.fastfood.domain.enums.OrderStatus;
 import java.util.List;
 
 public interface ListOrdersByStatusUseCase {

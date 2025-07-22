@@ -1,6 +1,6 @@
 package com.postech.fastfood.infrastructure.controller.dto.request;
 
-import com.postech.fastfood.core.domain.enums.PaymentMethod;
+import com.postech.fastfood.domain.enums.PaymentMethod;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Enumerated;
 

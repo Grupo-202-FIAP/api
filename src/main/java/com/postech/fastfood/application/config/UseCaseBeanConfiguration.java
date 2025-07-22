@@ -3,7 +3,7 @@ package com.postech.fastfood.application.config;
 
 import com.postech.fastfood.application.gateways.CustomerRepository;
 import com.postech.fastfood.application.gateways.OrderRepository;
-import com.postech.fastfood.application.gateways.PasswordEncoder;
+import com.postech.fastfood.application.gateways.PasswordEncoderPort;
 import com.postech.fastfood.application.gateways.PaymentRepository;
 import com.postech.fastfood.application.gateways.ProductRepository;
 import com.postech.fastfood.application.gateways.UserRepository;
@@ -66,8 +66,8 @@ public class UseCaseBeanConfiguration {
     }
 
     @Bean
-    public CreateEmployeeUseCase createEmployeeUseCase(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        return new CreateEmployeeUseCaseImpl(userRepository, passwordEncoder);
+    public CreateEmployeeUseCase createEmployeeUseCase(UserRepository userRepository, PasswordEncoderPort passwordEncoderPort) {
+        return new CreateEmployeeUseCaseImpl(userRepository, passwordEncoderPort);
     }
 
     @Bean

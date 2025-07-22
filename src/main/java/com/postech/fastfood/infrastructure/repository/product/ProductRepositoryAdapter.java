@@ -1,21 +1,21 @@
 package com.postech.fastfood.infrastructure.repository.product;
 
-import com.postech.fastfood.adapter.driven.persistence.entity.EmployeeEntity;
-import com.postech.fastfood.adapter.driven.persistence.entity.ProductEntity;
-import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
+import com.postech.fastfood.application.gateways.ProductRepository;
 import com.postech.fastfood.application.mapper.EmployeeMapper;
 import com.postech.fastfood.application.mapper.ProductMapper;
-import com.postech.fastfood.core.domain.Product;
-import com.postech.fastfood.core.domain.enums.Category;
-import com.postech.fastfood.core.exception.FastFoodException;
-import com.postech.fastfood.core.ports.ProductRepositoryPort;
+import com.postech.fastfood.domain.Product;
+import com.postech.fastfood.domain.enums.Category;
+import com.postech.fastfood.domain.exception.FastFoodException;
+import com.postech.fastfood.infrastructure.repository.employee.IEmployeeEntityRepository;
+import com.postech.fastfood.infrastructure.repository.entity.EmployeeEntity;
+import com.postech.fastfood.infrastructure.repository.entity.ProductEntity;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProductRepositoryAdapter implements ProductRepositoryPort {
+public class ProductRepositoryAdapter implements ProductRepository {
 
     private final IProductRepository productRepository;
     private final IEmployeeEntityRepository employeeEntityRepository;

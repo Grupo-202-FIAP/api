@@ -42,22 +42,12 @@ public class UserRepositoryImpl implements UserRepository {
     public User findByCpf(String cpf, UserRole role) {
         User user = null;
         if (role != UserRole.ROLE_GUEST && role != UserRole.ROLE_CUSTOMER) {
-            final EmployeeEntity employee = this.employeeEntityRepository
-                    .findByCpf(cpf)
-                    .orElseThrow(() -> new FastFoodException(
-                            "Employee not found with CPF: " + cpf,
-                            "Employee Not Found",
-                            HttpStatus.NOT_FOUND
-                    ));
+            final EmployeeEntity employee = this.employeeEntityRepository.findByCpf(cpf)
+                    .orElseThrow(() -> new FastFoodException("Employee not found with CPF: " + cpf, "Employee Not Found", HttpStatus.NOT_FOUND));
             user = EmployeeMapper.toDomain(employee);
         } else {
-            final CustomerEntity customer = this.customerEntityRepository
-                    .findByCpf(cpf)
-                    .orElseThrow(() -> new FastFoodException(
-                            "Customer not found with CPF: " + cpf,
-                            "Customer Not Found",
-                            HttpStatus.NOT_FOUND
-                    ));
+            final CustomerEntity customer = this.customerEntityRepository.findByCpf(cpf)
+                    .orElseThrow(() -> new FastFoodException("Customer not found with CPF: " + cpf, "Customer Not Found", HttpStatus.NOT_FOUND));
             user = CustomerMapper.toDomain(customer);
         }
         return user;
@@ -67,38 +57,20 @@ public class UserRepositoryImpl implements UserRepository {
     public User findByEmail(String email, UserRole role) {
         User user = null;
         if (role != UserRole.ROLE_GUEST && role != UserRole.ROLE_CUSTOMER) {
-            final EmployeeEntity employee = this.employeeEntityRepository
-                    .findByEmail(email)
-                    .orElseThrow(() -> new FastFoodException(
-                            "Employee not found with Email: " + email,
-                            "Employee Not Found",
-                            HttpStatus.NOT_FOUND
-                    ));
+            final EmployeeEntity employee = this.employeeEntityRepository.findByEmail(email)
+                    .orElseThrow(() -> new FastFoodException("Employee not found with Email: " + email, "Employee Not Found", HttpStatus.NOT_FOUND));
             user = EmployeeMapper.toDomain(employee);
         } else {
-            final CustomerEntity customer = this.customerEntityRepository
-                    .findByEmail(email)
-                    .orElseThrow(() -> new FastFoodException(
-                            "Customer not found with Email: " + email,
-                            "Customer Not Found",
-                            HttpStatus.NOT_FOUND
-                    ));
+            final CustomerEntity customer = this.customerEntityRepository.findByEmail(email)
+                    .orElseThrow(() -> new FastFoodException("Customer not found with Email: " + email, "Customer Not Found", HttpStatus.NOT_FOUND));
             user = CustomerMapper.toDomain(customer);
         }
         return user;
     }
 
     public User findById(UUID id) {
-        return customerEntityRepository.findById(id)
-                .map(CustomerMapper::toDomain)
-                .map(User.class::cast)
-                .or(() -> employeeEntityRepository.findById(id)
-                        .map(EmployeeMapper::toDomain)
-                        .map(User.class::cast))
-                .orElseThrow(() -> new FastFoodException(
-                        "User not found with ID: " + id,
-                        "User Not Found",
-                        HttpStatus.NOT_FOUND
-                ));
+        return customerEntityRepository.findById(id).map(CustomerMapper::toDomain).map(User.class::cast)
+                .or(() -> employeeEntityRepository.findById(id).map(EmployeeMapper::toDomain).map(User.class::cast))
+                .orElseThrow(() -> new FastFoodException("User not found with ID: " + id, "User Not Found", HttpStatus.NOT_FOUND));
     }
 }

@@ -1,20 +1,20 @@
 package com.postech.fastfood.application.usecases.order;
 
-import com.postech.fastfood.core.domain.Order;
-import com.postech.fastfood.core.ports.OrderRepositoryPort;
-import com.postech.fastfood.core.usecase.order.FindOrderByIdUseCase;
+import com.postech.fastfood.application.gateways.OrderRepository;
+import com.postech.fastfood.domain.Order;
+import com.postech.fastfood.infrastructure.gateways.order.FindOrderByIdUseCase;
 import java.util.UUID;
 
 public class FindOrderByIdUseCaseImpl implements FindOrderByIdUseCase {
 
-    private final OrderRepositoryPort orderRepositoryPort;
+    private final OrderRepository orderRepository;
 
-    public FindOrderByIdUseCaseImpl(OrderRepositoryPort orderRepositoryPort) {
-        this.orderRepositoryPort = orderRepositoryPort;
+    public FindOrderByIdUseCaseImpl(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
     }
 
     @Override
     public Order execute(UUID orderId) {
-        return this.orderRepositoryPort.findById(orderId);
+        return this.orderRepository.findById(orderId);
     }
 }

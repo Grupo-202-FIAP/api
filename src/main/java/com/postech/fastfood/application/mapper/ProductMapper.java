@@ -1,11 +1,12 @@
 package com.postech.fastfood.application.mapper;
 
-import com.postech.fastfood.adapter.driven.persistence.entity.ProductEntity;
-import com.postech.fastfood.adapter.driver.controller.dto.request.ProductRequest;
-import com.postech.fastfood.adapter.driver.controller.dto.request.ProductUpdateRequest;
-import com.postech.fastfood.adapter.driver.controller.dto.response.ProductsResponse;
-import com.postech.fastfood.core.domain.Employee;
-import com.postech.fastfood.core.domain.Product;
+
+import com.postech.fastfood.domain.Employee;
+import com.postech.fastfood.domain.Product;
+import com.postech.fastfood.infrastructure.controller.dto.request.ProductRequest;
+import com.postech.fastfood.infrastructure.controller.dto.request.ProductUpdateRequest;
+import com.postech.fastfood.infrastructure.controller.dto.response.ProductsResponse;
+import com.postech.fastfood.infrastructure.repository.entity.ProductEntity;
 import org.springframework.stereotype.Component;
 
 @Component

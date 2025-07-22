@@ -1,5 +1,6 @@
 package com.postech.fastfood.application.config;
 
+import com.postech.fastfood.application.usecases.security.SecurityFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

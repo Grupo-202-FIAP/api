@@ -1,16 +1,16 @@
 package com.postech.fastfood.infrastructure.controller;
 
-import com.postech.fastfood.adapter.driver.controller.dto.request.ProductRequest;
-import com.postech.fastfood.adapter.driver.controller.dto.request.ProductUpdateRequest;
-import com.postech.fastfood.adapter.driver.controller.dto.response.ProductsResponse;
 import com.postech.fastfood.application.mapper.ProductMapper;
-import com.postech.fastfood.core.domain.Product;
-import com.postech.fastfood.core.domain.enums.Category;
-import com.postech.fastfood.core.usecase.product.CreateProductUseCase;
-import com.postech.fastfood.core.usecase.product.DeleteProductUseCase;
-import com.postech.fastfood.core.usecase.product.ListProductByCategoryUseCase;
-import com.postech.fastfood.core.usecase.product.ListProductsUseCase;
-import com.postech.fastfood.core.usecase.product.UpdateProductUseCase;
+import com.postech.fastfood.domain.Product;
+import com.postech.fastfood.domain.enums.Category;
+import com.postech.fastfood.infrastructure.controller.dto.request.ProductRequest;
+import com.postech.fastfood.infrastructure.controller.dto.request.ProductUpdateRequest;
+import com.postech.fastfood.infrastructure.controller.dto.response.ProductsResponse;
+import com.postech.fastfood.infrastructure.gateways.product.CreateProductUseCase;
+import com.postech.fastfood.infrastructure.gateways.product.DeleteProductUseCase;
+import com.postech.fastfood.infrastructure.gateways.product.ListProductByCategoryUseCase;
+import com.postech.fastfood.infrastructure.gateways.product.ListProductsUseCase;
+import com.postech.fastfood.infrastructure.gateways.product.UpdateProductUseCase;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.http.HttpStatus;

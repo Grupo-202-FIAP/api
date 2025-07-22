@@ -1,24 +1,23 @@
 package com.postech.fastfood.application.usecases.order;
 
-import com.postech.fastfood.core.domain.Order;
-import com.postech.fastfood.core.domain.enums.OrderStatus;
-import com.postech.fastfood.core.domain.enums.PaymentStatus;
-import com.postech.fastfood.core.ports.OrderRepositoryPort;
-import com.postech.fastfood.core.usecase.order.UpdateOrderStatusUseCase;
+import com.postech.fastfood.application.gateways.OrderRepository;
+import com.postech.fastfood.domain.Order;
+import com.postech.fastfood.domain.enums.OrderStatus;
+import com.postech.fastfood.domain.enums.PaymentStatus;
+import com.postech.fastfood.infrastructure.gateways.order.UpdateOrderStatusUseCase;
 import java.util.UUID;
 
 public class UpdateOrderStatusUseCaseImpl implements UpdateOrderStatusUseCase {
 
-    private final OrderRepositoryPort orderRepositoryPort;
+    private final OrderRepository orderRepository;
 
-    public UpdateOrderStatusUseCaseImpl(OrderRepositoryPort orderRepositoryPort) {
-
-        this.orderRepositoryPort = orderRepositoryPort;
+    public UpdateOrderStatusUseCaseImpl(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
     }
 
     @Override
     public Order execute(UUID orderID) {
-        final Order order = orderRepositoryPort.findById(orderID);
+        final Order order = orderRepository.findById(orderID);
         switch (order.getStatus()) {
             case RECEIVED:
                 final PaymentStatus status = order.getPayment().getStatus();
@@ -39,6 +38,6 @@ public class UpdateOrderStatusUseCaseImpl implements UpdateOrderStatusUseCase {
             default:
                 throw new IllegalStateException("Unknown order status: " + order.getStatus());
         }
-        return orderRepositoryPort.save(order);
+        return orderRepository.save(order);
     }
 }

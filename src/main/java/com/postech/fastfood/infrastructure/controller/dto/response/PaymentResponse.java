@@ -1,7 +1,7 @@
 package com.postech.fastfood.infrastructure.controller.dto.response;
 
-import com.postech.fastfood.core.domain.enums.PaymentMethod;
-import com.postech.fastfood.core.domain.enums.PaymentStatus;
+import com.postech.fastfood.domain.enums.PaymentMethod;
+import com.postech.fastfood.domain.enums.PaymentStatus;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.Builder;

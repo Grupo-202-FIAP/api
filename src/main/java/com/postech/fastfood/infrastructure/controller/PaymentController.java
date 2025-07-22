@@ -1,7 +1,7 @@
 package com.postech.fastfood.infrastructure.controller;
 
-import com.postech.fastfood.core.usecase.payment.CreatePaymentUseCase;
-import com.postech.fastfood.core.usecase.payment.ProccessPaymentUseCase;
+import com.postech.fastfood.infrastructure.gateways.payment.CreatePaymentUseCase;
+import com.postech.fastfood.infrastructure.gateways.payment.ProccessPaymentUseCase;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

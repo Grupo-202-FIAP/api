@@ -1,6 +1,6 @@
 package com.postech.fastfood.infrastructure.controller.dto.request;
 
-import com.postech.fastfood.core.domain.enums.Category;
+import com.postech.fastfood.domain.enums.Category;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;

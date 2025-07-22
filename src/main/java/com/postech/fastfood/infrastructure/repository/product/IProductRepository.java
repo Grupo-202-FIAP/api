@@ -1,7 +1,7 @@
 package com.postech.fastfood.infrastructure.repository.product;
 
-import com.postech.fastfood.adapter.driven.persistence.entity.ProductEntity;
-import com.postech.fastfood.core.domain.enums.Category;
+import com.postech.fastfood.domain.enums.Category;
+import com.postech.fastfood.infrastructure.repository.entity.ProductEntity;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 

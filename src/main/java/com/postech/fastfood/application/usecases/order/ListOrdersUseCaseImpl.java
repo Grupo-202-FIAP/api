@@ -1,20 +1,20 @@
 package com.postech.fastfood.application.usecases.order;
 
-import com.postech.fastfood.core.domain.Order;
-import com.postech.fastfood.core.ports.OrderRepositoryPort;
-import com.postech.fastfood.core.usecase.order.ListOrdersUseCase;
+import com.postech.fastfood.application.gateways.OrderRepository;
+import com.postech.fastfood.domain.Order;
+import com.postech.fastfood.infrastructure.gateways.order.ListOrdersUseCase;
 import java.util.List;
 
 public class ListOrdersUseCaseImpl implements ListOrdersUseCase {
 
-    private final OrderRepositoryPort orderRepositoryPort;
+    private final OrderRepository orderRepository;
 
-    public ListOrdersUseCaseImpl(OrderRepositoryPort orderRepositoryPort) {
-        this.orderRepositoryPort = orderRepositoryPort;
+    public ListOrdersUseCaseImpl(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
     }
 
     @Override
     public List<Order> execute() {
-        return this.orderRepositoryPort.findAll();
+        return this.orderRepository.findAll();
     }
 }

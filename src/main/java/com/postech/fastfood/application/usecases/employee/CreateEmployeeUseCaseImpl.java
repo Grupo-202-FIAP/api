@@ -1,6 +1,6 @@
 package com.postech.fastfood.application.usecases.employee;
 
-import com.postech.fastfood.application.gateways.PasswordEncoder;
+import com.postech.fastfood.application.gateways.PasswordEncoderPort;
 import com.postech.fastfood.application.gateways.UserRepository;
 import com.postech.fastfood.application.usecases.FormatCpf;
 import com.postech.fastfood.domain.Employee;
@@ -12,11 +12,11 @@ import org.springframework.http.HttpStatus;
 public class CreateEmployeeUseCaseImpl implements CreateEmployeeUseCase {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoderPort passwordEncoderPort;
 
-    public CreateEmployeeUseCaseImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public CreateEmployeeUseCaseImpl(UserRepository userRepository, PasswordEncoderPort passwordEncoderPort) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.passwordEncoderPort = passwordEncoderPort;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class CreateEmployeeUseCaseImpl implements CreateEmployeeUseCase {
         Employee userSaved = null;
         try {
             user.setCpf(FormatCpf.formatCpfToEntity(user.getCpf()));
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPassword(passwordEncoderPort.encode(user.getPassword()));
             userSaved = (Employee) this.userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
             final String message = e.getMostSpecificCause().getMessage();

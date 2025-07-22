@@ -1,5 +1,5 @@
 package com.postech.fastfood.application.gateways;
 
-public interface PasswordEncoder {
+public interface PasswordEncoderPort {
     String encode(String rawPassword);
 }
