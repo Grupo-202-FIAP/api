@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastfood-app
+  labels:
+    app: fastfood
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastfood
+  template:
+    metadata:
+      labels:
+        app: fastfood
+    spec:
+      containers:
+        - name: fastfood-api
+          image:
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
+            - name: DB_URL
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: DB_URL
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: DB_USER
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: DB_PASS
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
