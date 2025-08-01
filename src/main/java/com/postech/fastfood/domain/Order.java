@@ -1,6 +1,6 @@
-package com.postech.fastfood.core.domain;
+package com.postech.fastfood.domain;
 
-import com.postech.fastfood.core.domain.enums.OrderStatus;
+import com.postech.fastfood.domain.enums.OrderStatus;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;

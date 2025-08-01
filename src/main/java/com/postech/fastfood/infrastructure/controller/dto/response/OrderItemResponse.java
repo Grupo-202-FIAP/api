@@ -1,4 +1,4 @@
-package com.postech.fastfood.adapter.driver.controller.dto.response;
+package com.postech.fastfood.infrastructure.controller.dto.response;
 
 import java.math.BigDecimal;
 import java.util.UUID;

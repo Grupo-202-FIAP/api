@@ -1,11 +1,11 @@
-package com.postech.fastfood.core.service.customer;
+package com.postech.fastfood.application.usecases.customer;
 
-import com.postech.fastfood.core.domain.User;
-import com.postech.fastfood.core.domain.enums.UserRole;
-import com.postech.fastfood.core.exception.FastFoodException;
-import com.postech.fastfood.core.ports.UserRepositoryPort;
-import com.postech.fastfood.core.usecase.customer.CreateCustomerWithCpfUseCase;
-import com.postech.fastfood.core.utils.FormatCpf;
+import com.postech.fastfood.application.gateways.UserRepositoryPort;
+import com.postech.fastfood.domain.User;
+import com.postech.fastfood.domain.enums.UserRole;
+import com.postech.fastfood.domain.exception.FastFoodException;
+import com.postech.fastfood.infrastructure.gateways.customer.CreateCustomerWithCpfUseCase;
+import com.postech.fastfood.utils.FormatCpf;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 
@@ -24,11 +24,7 @@ public class CreateCustomerWithCpfUseCaseImpl implements CreateCustomerWithCpfUs
             user.setRole(UserRole.ROLE_CUSTOMER);
             userSaved = this.userRepositoryPort.save(user);
         } catch (DataIntegrityViolationException e) {
-            throw new FastFoodException(
-                    e.getMessage(),
-                    "CPF already in use",
-                    HttpStatus.CONFLICT
-            );
+            throw new FastFoodException(e.getMessage(), "CPF already in use", HttpStatus.CONFLICT);
         }
         return userSaved;
     }

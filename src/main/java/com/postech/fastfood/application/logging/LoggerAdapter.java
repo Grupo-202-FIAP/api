@@ -1,6 +1,6 @@
-package com.postech.fastfood.adapter.driven.logging;
+package com.postech.fastfood.application.logging;
 
-import com.postech.fastfood.core.ports.LoggerPort;
+import com.postech.fastfood.application.gateways.LoggerPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

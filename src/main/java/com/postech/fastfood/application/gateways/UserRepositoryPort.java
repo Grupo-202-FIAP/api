@@ -1,7 +1,7 @@
-package com.postech.fastfood.core.ports;
+package com.postech.fastfood.application.gateways;
 
-import com.postech.fastfood.core.domain.User;
-import com.postech.fastfood.core.domain.enums.UserRole;
+import com.postech.fastfood.domain.User;
+import com.postech.fastfood.domain.enums.UserRole;
 import java.util.UUID;
 
 public interface UserRepositoryPort {

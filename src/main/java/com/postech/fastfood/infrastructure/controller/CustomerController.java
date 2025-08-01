@@ -1,15 +1,15 @@
-package com.postech.fastfood.adapter.driver.controller;
+package com.postech.fastfood.infrastructure.controller;
 
-import com.postech.fastfood.adapter.driver.controller.dto.request.CustomerByEmailRequest;
-import com.postech.fastfood.adapter.driver.controller.dto.request.CustomerCpfRequest;
-import com.postech.fastfood.adapter.driver.controller.dto.request.CustomerEmailRequest;
+import com.postech.fastfood.application.gateways.LoggerPort;
 import com.postech.fastfood.application.mapper.CustomerMapper;
-import com.postech.fastfood.core.domain.User;
-import com.postech.fastfood.core.ports.LoggerPort;
-import com.postech.fastfood.core.usecase.FindUserByCpfUseCase;
-import com.postech.fastfood.core.usecase.FindUserByEmailUseCase;
-import com.postech.fastfood.core.usecase.customer.CreateCustomerWithCpfUseCase;
-import com.postech.fastfood.core.usecase.customer.CreateCustomerWithNameAndEmailUseCase;
+import com.postech.fastfood.domain.User;
+import com.postech.fastfood.infrastructure.controller.dto.request.CustomerByEmailRequest;
+import com.postech.fastfood.infrastructure.controller.dto.request.CustomerCpfRequest;
+import com.postech.fastfood.infrastructure.controller.dto.request.CustomerEmailRequest;
+import com.postech.fastfood.infrastructure.gateways.FindUserByCpfUseCase;
+import com.postech.fastfood.infrastructure.gateways.FindUserByEmailUseCase;
+import com.postech.fastfood.infrastructure.gateways.customer.CreateCustomerWithCpfUseCase;
+import com.postech.fastfood.infrastructure.gateways.customer.CreateCustomerWithNameAndEmailUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

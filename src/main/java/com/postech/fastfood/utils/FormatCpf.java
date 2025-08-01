@@ -1,4 +1,4 @@
-package com.postech.fastfood.core.utils;
+package com.postech.fastfood.utils;
 
 public class FormatCpf {
 

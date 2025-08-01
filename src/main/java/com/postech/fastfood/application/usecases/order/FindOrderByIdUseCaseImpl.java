@@ -1,8 +1,8 @@
-package com.postech.fastfood.core.service.order;
+package com.postech.fastfood.application.usecases.order;
 
-import com.postech.fastfood.core.domain.Order;
-import com.postech.fastfood.core.ports.OrderRepositoryPort;
-import com.postech.fastfood.core.usecase.order.FindOrderByIdUseCase;
+import com.postech.fastfood.application.gateways.OrderRepositoryPort;
+import com.postech.fastfood.domain.Order;
+import com.postech.fastfood.infrastructure.gateways.order.FindOrderByIdUseCase;
 import java.util.UUID;
 
 public class FindOrderByIdUseCaseImpl implements FindOrderByIdUseCase {

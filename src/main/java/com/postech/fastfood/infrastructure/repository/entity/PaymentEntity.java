@@ -1,7 +1,7 @@
-package com.postech.fastfood.adapter.driven.persistence.entity;
+package com.postech.fastfood.infrastructure.repository.entity;
 
-import com.postech.fastfood.core.domain.enums.PaymentMethod;
-import com.postech.fastfood.core.domain.enums.PaymentStatus;
+import com.postech.fastfood.domain.enums.PaymentMethod;
+import com.postech.fastfood.domain.enums.PaymentStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

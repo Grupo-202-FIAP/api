@@ -1,8 +1,8 @@
-package com.postech.fastfood.core.service.payment;
+package com.postech.fastfood.application.usecases.payment;
 
-import com.postech.fastfood.core.exception.FastFoodException;
-import com.postech.fastfood.core.ports.PaymentRepositoryPort;
-import com.postech.fastfood.core.usecase.payment.ProccessPaymentUseCase;
+import com.postech.fastfood.application.gateways.PaymentRepositoryPort;
+import com.postech.fastfood.domain.exception.FastFoodException;
+import com.postech.fastfood.infrastructure.gateways.payment.ProccessPaymentUseCase;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 
@@ -19,11 +19,7 @@ public class ProccessPaymentUseCaseImpl implements ProccessPaymentUseCase {
         try {
             this.paymentRepositoryPort.save(orderId);
         } catch (FastFoodException e) {
-            throw new FastFoodException(
-                    e.getMessage(),
-                    "Error realizing payment",
-                    HttpStatus.INTERNAL_SERVER_ERROR
-            );
+            throw new FastFoodException(e.getMessage(), "Error realizing payment", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

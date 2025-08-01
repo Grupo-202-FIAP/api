@@ -1,14 +1,14 @@
-package com.postech.fastfood.core.service.order;
+package com.postech.fastfood.application.usecases.order;
 
-import com.postech.fastfood.core.domain.Customer;
-import com.postech.fastfood.core.domain.Order;
-import com.postech.fastfood.core.domain.Product;
-import com.postech.fastfood.core.domain.enums.OrderStatus;
-import com.postech.fastfood.core.exception.FastFoodException;
-import com.postech.fastfood.core.ports.CustomerRepositoryPort;
-import com.postech.fastfood.core.ports.OrderRepositoryPort;
-import com.postech.fastfood.core.ports.ProductRepositoryPort;
-import com.postech.fastfood.core.usecase.order.CreateOrderUseCase;
+import com.postech.fastfood.application.gateways.CustomerRepositoryPort;
+import com.postech.fastfood.application.gateways.OrderRepositoryPort;
+import com.postech.fastfood.application.gateways.ProductRepositoryPort;
+import com.postech.fastfood.domain.Customer;
+import com.postech.fastfood.domain.Order;
+import com.postech.fastfood.domain.Product;
+import com.postech.fastfood.domain.enums.OrderStatus;
+import com.postech.fastfood.domain.exception.FastFoodException;
+import com.postech.fastfood.infrastructure.gateways.order.CreateOrderUseCase;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -27,10 +27,8 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
     private final CustomerRepositoryPort customerRepositoryPort;
     private final ProductRepositoryPort productRepositoryPort;
 
-    public CreateOrderUseCaseImpl(
-            OrderRepositoryPort orderRepositoryPort,
-            CustomerRepositoryPort customerRepositoryPort,
-            ProductRepositoryPort productRepositoryPort) {
+    public CreateOrderUseCaseImpl(OrderRepositoryPort orderRepositoryPort, CustomerRepositoryPort customerRepositoryPort,
+                                  ProductRepositoryPort productRepositoryPort) {
         this.orderRepositoryPort = orderRepositoryPort;
         this.customerRepositoryPort = customerRepositoryPort;
         this.productRepositoryPort = productRepositoryPort;
@@ -40,10 +38,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
     public Order execute(Order order) {
 
         if (order.getItens() == null || order.getItens().isEmpty()) {
-            throw new FastFoodException(
-                    "Order item list cannot be null or empty",
-                    "Order item NULL or EMPTY",
-                    HttpStatus.BAD_REQUEST);
+            throw new FastFoodException("Order item list cannot be null or empty", "Order item NULL or EMPTY", HttpStatus.BAD_REQUEST);
         }
 
         order.setIdentifier(generateOrderId());
@@ -54,33 +49,22 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
             if (customer != null) {
                 order.setCustomer(customer);
             } else {
-                throw new FastFoodException(
-                        "Cliente não encontrado",
-                        "Cliente com ID " + order.getCustomer().getId() + " não encontrado",
-                        HttpStatus.NOT_FOUND
-                );
+                throw new FastFoodException("Cliente não encontrado", "Cliente com ID " + order.getCustomer().getId() + " não encontrado",
+                        HttpStatus.NOT_FOUND);
             }
         } else {
             order.setCustomer(null);
         }
 
-        final List<Long> productIds = order.getItens()
-                .stream()
-                .map(orderItem -> orderItem.getProduct().getId())
-                .toList();
+        final List<Long> productIds = order.getItens().stream().map(orderItem -> orderItem.getProduct().getId()).toList();
 
-        final List<Product > products = productRepositoryPort.findAllById(productIds);
+        final List<Product> products = productRepositoryPort.findAllById(productIds);
 
         if (productIds.size() != products.size()) {
-            throw new FastFoodException(
-                    "Produto não encontrado",
-                    "Um ou mais produtos não existem",
-                    HttpStatus.NOT_FOUND
-            );
+            throw new FastFoodException("Produto não encontrado", "Um ou mais produtos não existem", HttpStatus.NOT_FOUND);
         }
 
-        final Map<Long, Product> productMap = products.stream()
-                .collect(Collectors.toMap(Product::getId, Function.identity()));
+        final Map<Long, Product> productMap = products.stream().collect(Collectors.toMap(Product::getId, Function.identity()));
 
         order.getItens().forEach(orderItem -> {
             final Product product = productMap.get(orderItem.getProduct().getId());

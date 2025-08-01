@@ -1,6 +1,6 @@
-package com.postech.fastfood.core.usecase.order;
+package com.postech.fastfood.infrastructure.gateways.order;
 
-import com.postech.fastfood.core.domain.Order;
+import com.postech.fastfood.domain.Order;
 import java.util.UUID;
 
 public interface FindOrderByIdUseCase {

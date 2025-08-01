@@ -1,4 +1,4 @@
-package com.postech.fastfood.adapter.driven.persistence.entity;
+package com.postech.fastfood.infrastructure.repository.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

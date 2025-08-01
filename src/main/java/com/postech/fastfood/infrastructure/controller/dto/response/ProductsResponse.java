@@ -1,6 +1,6 @@
-package com.postech.fastfood.adapter.driver.controller.dto.response;
+package com.postech.fastfood.infrastructure.controller.dto.response;
 
-import com.postech.fastfood.core.domain.enums.Category;
+import com.postech.fastfood.domain.enums.Category;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import java.math.BigDecimal;

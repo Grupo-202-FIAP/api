@@ -1,4 +1,4 @@
-package com.postech.fastfood.core.domain.enums;
+package com.postech.fastfood.domain.enums;
 
 public enum PaymentStatus {
     PENDING("PENDING"),

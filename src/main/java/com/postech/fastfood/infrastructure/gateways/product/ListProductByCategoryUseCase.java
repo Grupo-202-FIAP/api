@@ -1,7 +1,7 @@
-package com.postech.fastfood.core.usecase.product;
+package com.postech.fastfood.infrastructure.gateways.product;
 
-import com.postech.fastfood.core.domain.Product;
-import com.postech.fastfood.core.domain.enums.Category;
+import com.postech.fastfood.domain.Product;
+import com.postech.fastfood.domain.enums.Category;
 import java.util.List;
 
 public interface ListProductByCategoryUseCase {

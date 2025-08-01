@@ -1,10 +1,10 @@
-package com.postech.fastfood.core.service.order;
+package com.postech.fastfood.application.usecases.order;
 
-import com.postech.fastfood.core.domain.Order;
-import com.postech.fastfood.core.domain.enums.OrderStatus;
-import com.postech.fastfood.core.domain.enums.PaymentStatus;
-import com.postech.fastfood.core.ports.OrderRepositoryPort;
-import com.postech.fastfood.core.usecase.order.UpdateOrderStatusUseCase;
+import com.postech.fastfood.application.gateways.OrderRepositoryPort;
+import com.postech.fastfood.domain.Order;
+import com.postech.fastfood.domain.enums.OrderStatus;
+import com.postech.fastfood.domain.enums.PaymentStatus;
+import com.postech.fastfood.infrastructure.gateways.order.UpdateOrderStatusUseCase;
 import java.util.UUID;
 
 public class UpdateOrderStatusUseCaseImpl implements UpdateOrderStatusUseCase {

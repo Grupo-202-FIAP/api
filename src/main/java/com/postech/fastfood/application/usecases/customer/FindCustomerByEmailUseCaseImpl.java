@@ -1,9 +1,9 @@
-package com.postech.fastfood.core.service.customer;
+package com.postech.fastfood.application.usecases.customer;
 
-import com.postech.fastfood.core.domain.User;
-import com.postech.fastfood.core.domain.enums.UserRole;
-import com.postech.fastfood.core.ports.UserRepositoryPort;
-import com.postech.fastfood.core.usecase.FindUserByEmailUseCase;
+import com.postech.fastfood.application.gateways.UserRepositoryPort;
+import com.postech.fastfood.domain.User;
+import com.postech.fastfood.domain.enums.UserRole;
+import com.postech.fastfood.infrastructure.gateways.FindUserByEmailUseCase;
 
 public class FindCustomerByEmailUseCaseImpl implements FindUserByEmailUseCase {
 

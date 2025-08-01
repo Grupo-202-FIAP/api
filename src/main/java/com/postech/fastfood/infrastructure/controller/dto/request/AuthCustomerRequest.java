@@ -1,4 +1,4 @@
-package com.postech.fastfood.adapter.driver.controller.dto.request;
+package com.postech.fastfood.infrastructure.controller.dto.request;
 
 import org.hibernate.validator.constraints.br.CPF;
 

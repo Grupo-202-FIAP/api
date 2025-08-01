@@ -1,6 +1,6 @@
-package com.postech.fastfood.core.usecase.payment;
+package com.postech.fastfood.infrastructure.gateways.payment;
 
-import com.postech.fastfood.adapter.driver.controller.dto.request.PaymentRequest;
+import com.postech.fastfood.infrastructure.controller.dto.request.PaymentRequest;
 import java.util.UUID;
 
 public interface CreatePaymentUseCase {

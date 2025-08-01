@@ -12,7 +12,7 @@ spring:
     ddl-auto: update
     show-sql: true
   flyway:
-    enabled: true
+    enabled: false
     classpath: db/migration
     location: classpath:db/migration
 

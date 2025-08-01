@@ -1,8 +1,8 @@
-package com.postech.fastfood.config;
+package com.postech.fastfood.application.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.postech.fastfood.adapter.driver.controller.dto.request.PaymentRequest;
+import com.postech.fastfood.infrastructure.controller.dto.request.PaymentRequest;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

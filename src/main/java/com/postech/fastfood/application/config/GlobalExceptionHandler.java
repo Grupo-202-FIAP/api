@@ -1,6 +1,6 @@
-package com.postech.fastfood.config;
+package com.postech.fastfood.application.config;
 
-import com.postech.fastfood.core.exception.FastFoodException;
+import com.postech.fastfood.domain.exception.FastFoodException;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;

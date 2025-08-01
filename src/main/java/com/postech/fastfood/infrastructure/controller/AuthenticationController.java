@@ -1,12 +1,12 @@
-package com.postech.fastfood.adapter.driver.controller;
+package com.postech.fastfood.infrastructure.controller;
 
-import com.postech.fastfood.adapter.driven.security.AuthorizeUserServiceAdapter;
-import com.postech.fastfood.adapter.driven.security.TokenServiceAdapter;
-import com.postech.fastfood.adapter.driver.controller.dto.request.AuthCustomerRequest;
-import com.postech.fastfood.adapter.driver.controller.dto.request.AuthEmployeeRequest;
-import com.postech.fastfood.adapter.driver.controller.dto.response.AuthResponse;
-import com.postech.fastfood.core.exception.FastFoodException;
-import com.postech.fastfood.core.ports.LoggerPort;
+import com.postech.fastfood.application.gateways.LoggerPort;
+import com.postech.fastfood.application.usecases.security.AuthorizeUserServiceAdapter;
+import com.postech.fastfood.application.usecases.security.TokenServiceAdapter;
+import com.postech.fastfood.domain.exception.FastFoodException;
+import com.postech.fastfood.infrastructure.controller.dto.request.AuthCustomerRequest;
+import com.postech.fastfood.infrastructure.controller.dto.request.AuthEmployeeRequest;
+import com.postech.fastfood.infrastructure.controller.dto.response.AuthResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

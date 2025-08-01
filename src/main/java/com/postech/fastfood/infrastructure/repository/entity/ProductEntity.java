@@ -1,6 +1,6 @@
-package com.postech.fastfood.adapter.driven.persistence.entity;
+package com.postech.fastfood.infrastructure.repository.entity;
 
-import com.postech.fastfood.core.domain.enums.Category;
+import com.postech.fastfood.domain.enums.Category;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

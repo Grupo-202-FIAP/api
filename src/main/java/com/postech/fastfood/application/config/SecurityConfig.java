@@ -1,6 +1,6 @@
-package com.postech.fastfood.config;
+package com.postech.fastfood.application.config;
 
-import com.postech.fastfood.adapter.driver.filter.SecurityFilter;
+import com.postech.fastfood.infrastructure.filter.SecurityFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

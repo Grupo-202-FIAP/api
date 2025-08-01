@@ -1,8 +1,8 @@
-package com.postech.fastfood.core.service.customer;
+package com.postech.fastfood.application.usecases.customer;
 
-import com.postech.fastfood.core.domain.User;
-import com.postech.fastfood.core.ports.CustomerRepositoryPort;
-import com.postech.fastfood.core.usecase.FindUserByCpfUseCase;
+import com.postech.fastfood.application.gateways.CustomerRepositoryPort;
+import com.postech.fastfood.domain.User;
+import com.postech.fastfood.infrastructure.gateways.FindUserByCpfUseCase;
 
 public class FindCustomerByCpfUseCaseImpl implements FindUserByCpfUseCase {
 

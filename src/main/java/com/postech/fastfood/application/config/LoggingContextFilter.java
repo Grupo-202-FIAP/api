@@ -1,12 +1,12 @@
-package com.postech.fastfood.config;
+package com.postech.fastfood.application.config;
 
+import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import java.io.IOException;
 import java.util.UUID;
-import jakarta.servlet.Filter;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 

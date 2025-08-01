@@ -1,10 +1,10 @@
-package com.postech.fastfood.adapter.driven.security;
+package com.postech.fastfood.application.usecases.security;
 
-import com.postech.fastfood.adapter.driven.persistence.entity.UserEntity;
-import com.postech.fastfood.adapter.driven.persistence.repository.customer.ICustomerEntityRepository;
-import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
-import com.postech.fastfood.core.domain.exception.FastFoodException;
-import com.postech.fastfood.core.ports.LoggerPort;
+import com.postech.fastfood.application.gateways.LoggerPort;
+import com.postech.fastfood.domain.exception.FastFoodException;
+import com.postech.fastfood.infrastructure.repository.customer.ICustomerEntityRepository;
+import com.postech.fastfood.infrastructure.repository.employee.IEmployeeEntityRepository;
+import com.postech.fastfood.infrastructure.repository.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetailsService;

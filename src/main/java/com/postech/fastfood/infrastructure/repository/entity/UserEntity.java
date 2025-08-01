@@ -1,10 +1,10 @@
-package com.postech.fastfood.adapter.driven.persistence.entity;
+package com.postech.fastfood.infrastructure.repository.entity;
 
-import static com.postech.fastfood.core.domain.enums.UserRole.ROLE_ADMIN;
-import static com.postech.fastfood.core.domain.enums.UserRole.ROLE_CUSTOMER;
-import static com.postech.fastfood.core.domain.enums.UserRole.ROLE_GUEST;
+import static com.postech.fastfood.domain.enums.UserRole.ROLE_ADMIN;
+import static com.postech.fastfood.domain.enums.UserRole.ROLE_CUSTOMER;
+import static com.postech.fastfood.domain.enums.UserRole.ROLE_GUEST;
 
-import com.postech.fastfood.core.domain.enums.UserRole;
+import com.postech.fastfood.domain.enums.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

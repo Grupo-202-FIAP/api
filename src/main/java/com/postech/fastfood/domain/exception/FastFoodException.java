@@ -1,4 +1,4 @@
-package com.postech.fastfood.core.exception;
+package com.postech.fastfood.domain.exception;
 
 import org.springframework.http.HttpStatus;
 

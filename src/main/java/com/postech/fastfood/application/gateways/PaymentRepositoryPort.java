@@ -1,6 +1,6 @@
-package com.postech.fastfood.core.ports;
+package com.postech.fastfood.application.gateways;
 
-import com.postech.fastfood.adapter.driver.controller.dto.request.PaymentRequest;
+import com.postech.fastfood.infrastructure.controller.dto.request.PaymentRequest;
 import java.util.UUID;
 
 public interface PaymentRepositoryPort {

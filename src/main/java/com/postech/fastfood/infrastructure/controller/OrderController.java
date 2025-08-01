@@ -1,15 +1,15 @@
-package com.postech.fastfood.adapter.driver.controller;
+package com.postech.fastfood.infrastructure.controller;
 
-import com.postech.fastfood.adapter.driver.controller.dto.request.OrderRequest;
-import com.postech.fastfood.adapter.driver.controller.dto.response.OrderResponse;
+import com.postech.fastfood.application.gateways.LoggerPort;
 import com.postech.fastfood.application.mapper.OrderMapper;
-import com.postech.fastfood.core.domain.Order;
-import com.postech.fastfood.core.domain.enums.OrderStatus;
-import com.postech.fastfood.core.ports.LoggerPort;
-import com.postech.fastfood.core.usecase.order.CreateOrderUseCase;
-import com.postech.fastfood.core.usecase.order.ListOrdersByStatusUseCase;
-import com.postech.fastfood.core.usecase.order.ListOrdersUseCase;
-import com.postech.fastfood.core.usecase.order.UpdateOrderStatusUseCase;
+import com.postech.fastfood.domain.Order;
+import com.postech.fastfood.domain.enums.OrderStatus;
+import com.postech.fastfood.infrastructure.controller.dto.request.OrderRequest;
+import com.postech.fastfood.infrastructure.controller.dto.response.OrderResponse;
+import com.postech.fastfood.infrastructure.gateways.order.CreateOrderUseCase;
+import com.postech.fastfood.infrastructure.gateways.order.ListOrdersByStatusUseCase;
+import com.postech.fastfood.infrastructure.gateways.order.ListOrdersUseCase;
+import com.postech.fastfood.infrastructure.gateways.order.UpdateOrderStatusUseCase;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;

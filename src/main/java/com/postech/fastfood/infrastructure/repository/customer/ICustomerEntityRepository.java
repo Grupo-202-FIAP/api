@@ -1,6 +1,6 @@
-package com.postech.fastfood.adapter.driven.persistence.repository.customer;
+package com.postech.fastfood.infrastructure.repository.customer;
 
-import com.postech.fastfood.adapter.driven.persistence.entity.CustomerEntity;
+import com.postech.fastfood.infrastructure.repository.entity.CustomerEntity;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;

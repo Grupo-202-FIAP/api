@@ -1,6 +1,6 @@
-package com.postech.fastfood.core.usecase.employee;
+package com.postech.fastfood.infrastructure.gateways.employee;
 
-import com.postech.fastfood.core.domain.Employee;
+import com.postech.fastfood.domain.Employee;
 
 public interface CreateEmployeeUseCase {
 

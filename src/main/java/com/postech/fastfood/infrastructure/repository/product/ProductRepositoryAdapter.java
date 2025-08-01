@@ -1,15 +1,15 @@
-package com.postech.fastfood.adapter.driven.persistence.repository.product;
+package com.postech.fastfood.infrastructure.repository.product;
 
-import com.postech.fastfood.adapter.driven.persistence.entity.EmployeeEntity;
-import com.postech.fastfood.adapter.driven.persistence.entity.ProductEntity;
-import com.postech.fastfood.adapter.driven.persistence.repository.employee.IEmployeeEntityRepository;
+import com.postech.fastfood.application.gateways.LoggerPort;
+import com.postech.fastfood.application.gateways.ProductRepositoryPort;
 import com.postech.fastfood.application.mapper.EmployeeMapper;
 import com.postech.fastfood.application.mapper.ProductMapper;
-import com.postech.fastfood.core.domain.Product;
-import com.postech.fastfood.core.domain.enums.Category;
-import com.postech.fastfood.core.domain.exception.FastFoodException;
-import com.postech.fastfood.core.ports.LoggerPort;
-import com.postech.fastfood.core.ports.ProductRepositoryPort;
+import com.postech.fastfood.domain.Product;
+import com.postech.fastfood.domain.enums.Category;
+import com.postech.fastfood.domain.exception.FastFoodException;
+import com.postech.fastfood.infrastructure.repository.employee.IEmployeeEntityRepository;
+import com.postech.fastfood.infrastructure.repository.entity.EmployeeEntity;
+import com.postech.fastfood.infrastructure.repository.entity.ProductEntity;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
@@ -22,10 +22,7 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     private final IEmployeeEntityRepository employeeEntityRepository;
     private final LoggerPort logger;
 
-    public ProductRepositoryAdapter(
-            IProductRepository productRepository,
-            IEmployeeEntityRepository employeeEntityRepository,
-            LoggerPort logger) {
+    public ProductRepositoryAdapter(IProductRepository productRepository, IEmployeeEntityRepository employeeEntityRepository, LoggerPort logger) {
         this.productRepository = productRepository;
         this.employeeEntityRepository = employeeEntityRepository;
         this.logger = logger;
@@ -38,12 +35,11 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
         final UUID employeeId = product.getCreatedByEmployee().getId();
         logger.debug("[Repository][Product] Buscando funcionário criador com id={}", employeeId);
 
-        final EmployeeEntity employeeEntity = this.employeeEntityRepository.findById(employeeId)
-                .orElseThrow(() -> {
-                    logger.warn("[Repository][Product] Funcionário não encontrado: id={}", employeeId);
+        final EmployeeEntity employeeEntity = this.employeeEntityRepository.findById(employeeId).orElseThrow(() -> {
+            logger.warn("[Repository][Product] Funcionário não encontrado: id={}", employeeId);
 
-                    return new FastFoodException("Employee not found with id: " + employeeId, "Employee not found ", HttpStatus.NOT_FOUND);
-                });
+            return new FastFoodException("Employee not found with id: " + employeeId, "Employee not found ", HttpStatus.NOT_FOUND);
+        });
 
         product.setCreatedByEmployee(EmployeeMapper.toDomain(employeeEntity));
         final ProductEntity savedEntity = this.productRepository.save(ProductMapper.toEntity(product));
@@ -59,12 +55,11 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
 
         logger.info("[Repository][Product] Iniciando atualização do produto id={}", productId);
 
-        final ProductEntity existingEntity = this.productRepository.findById(productId)
-                .orElseThrow(() -> {
-                    logger.warn("[Repository][Product] Produto não encontrado: id={}", productId);
+        final ProductEntity existingEntity = this.productRepository.findById(productId).orElseThrow(() -> {
+            logger.warn("[Repository][Product] Produto não encontrado: id={}", productId);
 
-                    return new FastFoodException("Product not found with id: " + productId, "Product not found", HttpStatus.NOT_FOUND);
-                });
+            return new FastFoodException("Product not found with id: " + productId, "Product not found", HttpStatus.NOT_FOUND);
+        });
 
         if (product.getName() != null) {
             existingEntity.setName(product.getName());
@@ -92,12 +87,11 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
     @Override
     public void delete(Long idProduct) {
         logger.info("[Repository][Product] Iniciando exclusão do produto id={}", idProduct);
-        final ProductEntity existingEntity = this.productRepository.findById(idProduct)
-                .orElseThrow(() -> {
-                    logger.warn("[Repository][Product] Produto não encontrado para exclusão: id={}", idProduct);
+        final ProductEntity existingEntity = this.productRepository.findById(idProduct).orElseThrow(() -> {
+            logger.warn("[Repository][Product] Produto não encontrado para exclusão: id={}", idProduct);
 
-                    return new FastFoodException("Product not found with id: " + idProduct, "Product not found", HttpStatus.NOT_FOUND);
-                });
+            return new FastFoodException("Product not found with id: " + idProduct, "Product not found", HttpStatus.NOT_FOUND);
+        });
 
         logger.info("[Repository][Product] Produto excluído com sucesso: id={}", idProduct);
 
@@ -127,11 +121,7 @@ public class ProductRepositoryAdapter implements ProductRepositoryPort {
 
         if (result.isEmpty()) {
             logger.warn("[Repository][Product] Nenhum produto encontrado com os IDs: {}", productIds);
-            throw new FastFoodException(
-                    "Nenhum produto encontrado com os IDs fornecidos",
-                    "Produtos não encontrados",
-                    HttpStatus.NOT_FOUND
-            );
+            throw new FastFoodException("Nenhum produto encontrado com os IDs fornecidos", "Produtos não encontrados", HttpStatus.NOT_FOUND);
         }
 
         logger.info("[Repository][Product] {} produtos encontrados pelos IDs", result.size());

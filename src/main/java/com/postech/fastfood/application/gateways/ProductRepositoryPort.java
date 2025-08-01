@@ -1,7 +1,7 @@
-package com.postech.fastfood.core.ports;
+package com.postech.fastfood.application.gateways;
 
-import com.postech.fastfood.core.domain.Product;
-import com.postech.fastfood.core.domain.enums.Category;
+import com.postech.fastfood.domain.Product;
+import com.postech.fastfood.domain.enums.Category;
 import java.util.List;
 
 public interface ProductRepositoryPort {

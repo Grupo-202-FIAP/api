@@ -1,6 +1,6 @@
-package com.postech.fastfood.core.ports;
+package com.postech.fastfood.application.gateways;
 
-import com.postech.fastfood.core.domain.Customer;
+import com.postech.fastfood.domain.Customer;
 import java.util.UUID;
 
 public interface CustomerRepositoryPort {

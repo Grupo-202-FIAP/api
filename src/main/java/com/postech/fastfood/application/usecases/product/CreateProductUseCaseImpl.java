@@ -1,9 +1,9 @@
-package com.postech.fastfood.core.service.product;
+package com.postech.fastfood.application.usecases.product;
 
-import com.postech.fastfood.core.domain.Product;
-import com.postech.fastfood.core.exception.FastFoodException;
-import com.postech.fastfood.core.ports.ProductRepositoryPort;
-import com.postech.fastfood.core.usecase.product.CreateProductUseCase;
+import com.postech.fastfood.application.gateways.ProductRepositoryPort;
+import com.postech.fastfood.domain.Product;
+import com.postech.fastfood.domain.exception.FastFoodException;
+import com.postech.fastfood.infrastructure.gateways.product.CreateProductUseCase;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 
@@ -20,11 +20,7 @@ public class CreateProductUseCaseImpl implements CreateProductUseCase {
         try {
             return productRepositoryPort.save(product);
         } catch (DataIntegrityViolationException ex) {
-            throw new FastFoodException(
-                    "Product name already in use",
-                    "Product name already in use",
-                    HttpStatus.CONFLICT
-            );
+            throw new FastFoodException("Product name already in use", "Product name already in use", HttpStatus.CONFLICT);
         }
     }
 }

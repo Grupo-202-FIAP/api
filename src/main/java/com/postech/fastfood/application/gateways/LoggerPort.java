@@ -1,4 +1,4 @@
-package com.postech.fastfood.core.ports;
+package com.postech.fastfood.application.gateways;
 
 public interface LoggerPort {
     void info(String msg, Object... args);

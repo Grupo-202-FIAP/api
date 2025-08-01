@@ -1,7 +1,7 @@
-package com.postech.fastfood.adapter.driven.persistence.repository.order;
+package com.postech.fastfood.infrastructure.repository.order;
 
-import com.postech.fastfood.adapter.driven.persistence.entity.OrderEntity;
-import com.postech.fastfood.core.domain.enums.OrderStatus;
+import com.postech.fastfood.domain.enums.OrderStatus;
+import com.postech.fastfood.infrastructure.repository.entity.OrderEntity;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;

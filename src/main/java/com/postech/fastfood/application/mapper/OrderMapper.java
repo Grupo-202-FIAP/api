@@ -1,14 +1,14 @@
 package com.postech.fastfood.application.mapper;
 
-import com.postech.fastfood.adapter.driven.persistence.entity.OrderEntity;
-import com.postech.fastfood.adapter.driven.persistence.entity.PaymentEntity;
-import com.postech.fastfood.adapter.driver.controller.dto.request.OrderRequest;
-import com.postech.fastfood.adapter.driver.controller.dto.response.OrderResponse;
-import com.postech.fastfood.core.domain.Customer;
-import com.postech.fastfood.core.domain.Order;
-import com.postech.fastfood.core.domain.Payment;
-import com.postech.fastfood.core.domain.enums.PaymentMethod;
-import com.postech.fastfood.core.domain.enums.PaymentStatus;
+import com.postech.fastfood.domain.Customer;
+import com.postech.fastfood.domain.Order;
+import com.postech.fastfood.domain.Payment;
+import com.postech.fastfood.domain.enums.PaymentMethod;
+import com.postech.fastfood.domain.enums.PaymentStatus;
+import com.postech.fastfood.infrastructure.controller.dto.request.OrderRequest;
+import com.postech.fastfood.infrastructure.controller.dto.response.OrderResponse;
+import com.postech.fastfood.infrastructure.repository.entity.OrderEntity;
+import com.postech.fastfood.infrastructure.repository.entity.PaymentEntity;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 

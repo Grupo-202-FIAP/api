@@ -1,4 +1,4 @@
-package com.postech.fastfood.core.domain;
+package com.postech.fastfood.domain;
 
 import java.math.BigDecimal;
 import java.util.UUID;

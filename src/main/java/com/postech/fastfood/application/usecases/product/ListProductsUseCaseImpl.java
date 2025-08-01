@@ -1,8 +1,8 @@
-package com.postech.fastfood.core.service.product;
+package com.postech.fastfood.application.usecases.product;
 
-import com.postech.fastfood.core.domain.Product;
-import com.postech.fastfood.core.ports.ProductRepositoryPort;
-import com.postech.fastfood.core.usecase.product.ListProductsUseCase;
+import com.postech.fastfood.application.gateways.ProductRepositoryPort;
+import com.postech.fastfood.domain.Product;
+import com.postech.fastfood.infrastructure.gateways.product.ListProductsUseCase;
 import java.util.List;
 
 public class ListProductsUseCaseImpl implements ListProductsUseCase {

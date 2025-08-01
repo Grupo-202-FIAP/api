@@ -1,12 +1,12 @@
-package com.postech.fastfood.adapter.driven.persistence.repository;
+package com.postech.fastfood.infrastructure.repository;
 
-import com.postech.fastfood.adapter.driven.persistence.entity.CustomerEntity;
-import com.postech.fastfood.adapter.driven.persistence.repository.customer.ICustomerEntityRepository;
+import com.postech.fastfood.application.gateways.CustomerRepositoryPort;
+import com.postech.fastfood.application.gateways.LoggerPort;
 import com.postech.fastfood.application.mapper.CustomerMapper;
-import com.postech.fastfood.core.domain.Customer;
-import com.postech.fastfood.core.domain.exception.FastFoodException;
-import com.postech.fastfood.core.ports.CustomerRepositoryPort;
-import com.postech.fastfood.core.ports.LoggerPort;
+import com.postech.fastfood.domain.Customer;
+import com.postech.fastfood.domain.exception.FastFoodException;
+import com.postech.fastfood.infrastructure.repository.customer.ICustomerEntityRepository;
+import com.postech.fastfood.infrastructure.repository.entity.CustomerEntity;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -18,9 +18,7 @@ public class CustomerRepositoryAdapter implements CustomerRepositoryPort {
     private final ICustomerEntityRepository customerEntityRepository;
     private final LoggerPort logger;
 
-    public CustomerRepositoryAdapter(
-            ICustomerEntityRepository customerEntityRepository,
-            LoggerPort logger) {
+    public CustomerRepositoryAdapter(ICustomerEntityRepository customerEntityRepository, LoggerPort logger) {
         this.customerEntityRepository = customerEntityRepository;
         this.logger = logger;
     }
@@ -35,13 +33,11 @@ public class CustomerRepositoryAdapter implements CustomerRepositoryPort {
 
     public Customer findByCpf(String cpf) {
         logger.info("[Repository][Customer] Buscando cliente com CPF={}", cpf);
-        final var customerEntity = customerEntityRepository.findByCpf(cpf)
-                .orElseThrow(() -> {
-                            logger.warn("[Repository][Customer] Cliente não encontrado com CPF={}", cpf);
+        final var customerEntity = customerEntityRepository.findByCpf(cpf).orElseThrow(() -> {
+            logger.warn("[Repository][Customer] Cliente não encontrado com CPF={}", cpf);
 
-                            return new FastFoodException("Customer not found with CPF: " + cpf, CUSTOMER_NOT_FOUND, HttpStatus.NOT_FOUND);
-                        }
-                );
+            return new FastFoodException("Customer not found with CPF: " + cpf, CUSTOMER_NOT_FOUND, HttpStatus.NOT_FOUND);
+        });
         logger.info("[Repository][Customer] Cliente encontrado: id={}, email={}", customerEntity.getId(), customerEntity.getEmail());
 
         return CustomerMapper.toDomain(customerEntity);
@@ -50,13 +46,11 @@ public class CustomerRepositoryAdapter implements CustomerRepositoryPort {
     public Customer findByEmail(String email) {
         logger.info("[Repository][Customer] Buscando cliente com email={}", email);
 
-        final CustomerEntity customerEntity = this.customerEntityRepository.findByEmail(email)
-                .orElseThrow(() -> {
-                            logger.warn("[Repository][Customer] Cliente não encontrado com email={}", email);
+        final CustomerEntity customerEntity = this.customerEntityRepository.findByEmail(email).orElseThrow(() -> {
+            logger.warn("[Repository][Customer] Cliente não encontrado com email={}", email);
 
-                            return new FastFoodException("Customer not found with Email: " + email, CUSTOMER_NOT_FOUND, HttpStatus.NOT_FOUND);
-                        }
-                );
+            return new FastFoodException("Customer not found with Email: " + email, CUSTOMER_NOT_FOUND, HttpStatus.NOT_FOUND);
+        });
         logger.info("[Repository][Customer] Cliente encontrado: id={}, email={}", customerEntity.getId(), customerEntity.getEmail());
 
         return CustomerMapper.toDomain(customerEntity);
@@ -65,12 +59,11 @@ public class CustomerRepositoryAdapter implements CustomerRepositoryPort {
     public Customer findById(UUID id) {
         logger.info("[Repository][Customer] Buscando cliente por id={}", id);
 
-        final var customerEntity = customerEntityRepository.findById(id)
-                .orElseThrow(() -> {
-                    logger.warn("[Repository][Customer] Cliente não encontrado com id={}", id);
+        final var customerEntity = customerEntityRepository.findById(id).orElseThrow(() -> {
+            logger.warn("[Repository][Customer] Cliente não encontrado com id={}", id);
 
-                    return new FastFoodException("User not found with ID: " + id, CUSTOMER_NOT_FOUND, HttpStatus.NOT_FOUND);
-                });
+            return new FastFoodException("User not found with ID: " + id, CUSTOMER_NOT_FOUND, HttpStatus.NOT_FOUND);
+        });
         logger.info("[Repository][Customer] Cliente encontrado: email={}", customerEntity.getEmail());
 
         return CustomerMapper.toDomain(customerEntity);

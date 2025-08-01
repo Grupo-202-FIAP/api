@@ -1,7 +1,7 @@
-package com.postech.fastfood.core.ports;
+package com.postech.fastfood.application.gateways;
 
-import com.postech.fastfood.core.domain.Order;
-import com.postech.fastfood.core.domain.enums.OrderStatus;
+import com.postech.fastfood.domain.Order;
+import com.postech.fastfood.domain.enums.OrderStatus;
 import java.util.List;
 import java.util.UUID;
 

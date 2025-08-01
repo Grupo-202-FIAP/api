@@ -1,12 +1,12 @@
-package com.postech.fastfood.adapter.driven.security;
+package com.postech.fastfood.application.usecases.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.postech.fastfood.adapter.driven.persistence.entity.UserEntity;
-import com.postech.fastfood.core.domain.exception.FastFoodException;
-import com.postech.fastfood.core.ports.LoggerPort;
+import com.postech.fastfood.application.gateways.LoggerPort;
+import com.postech.fastfood.domain.exception.FastFoodException;
+import com.postech.fastfood.infrastructure.repository.entity.UserEntity;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;

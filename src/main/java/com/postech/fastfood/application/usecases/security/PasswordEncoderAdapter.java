@@ -1,6 +1,6 @@
-package com.postech.fastfood.adapter.driven.security;
+package com.postech.fastfood.application.usecases.security;
 
-import com.postech.fastfood.core.ports.PasswordEncoderPort;
+import com.postech.fastfood.application.gateways.PasswordEncoderPort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

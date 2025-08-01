@@ -1,4 +1,4 @@
-package com.postech.fastfood.core.usecase.payment;
+package com.postech.fastfood.infrastructure.gateways.payment;
 
 import java.util.UUID;
 
