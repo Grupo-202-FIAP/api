@@ -30,6 +30,7 @@ public class SecurityConfig {
     private static final String ROLE_ADMIN = "ADMIN";
     private static final String ROLE_MANAGER = "MANAGER";
     private static final String ALL_URIS = "/**";
+    private static final String ACTUATOR = "/actuator";
     private final SecurityFilter securityFilter;
 
 
@@ -50,6 +51,7 @@ public class SecurityConfig {
                         .requestMatchers(ORDER_ENDPOINT + ALL_URIS).permitAll()
                         .requestMatchers(SWAGGER_UI + ALL_URIS).permitAll()
                         .requestMatchers(SWAGGER_API_DOCS + ALL_URIS).permitAll()
+                        .requestMatchers(ACTUATOR + ALL_URIS).permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
@@ -66,5 +68,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
-
 
