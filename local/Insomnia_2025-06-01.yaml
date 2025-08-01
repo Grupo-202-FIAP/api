@@ -1,0 +1,663 @@
+type: collection.insomnia.rest/5.0
+name: Scratch Pad
+meta:
+  id: wrk_6f79739b62a74bf49dfece729d69aef9
+  created: 1748367878430
+  modified: 1748556423858
+collection:
+  - name: User
+    meta:
+      id: fld_892b2057bca4463bb53ec942b1549bd4
+      created: 1745950493456
+      modified: 1748556423837
+      sortKey: -1745950493456
+    children:
+      - name: Customer
+        meta:
+          id: fld_67ff47aef6d44b2e871f769616aeb50f
+          created: 1748364141342
+          modified: 1748556423834
+          sortKey: -1748364141342
+        children:
+          - url: "  {{ _.base_path }}customer/email"
+            name: Create Customer Name Email
+            meta:
+              id: req_6e9f939815d24a09a7ee52d79d0849aa
+              created: 1744852673312
+              modified: 1748556423849
+              isPrivate: false
+              sortKey: -1748364239671
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "name": "sergiosa",
+                  "email": "testssssRo@gmail.com"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.2
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "  {{ _.base_path }}customer/cpf"
+            name: Create Customer CPF
+            meta:
+              id: req_f18637d73bee4c2a807e957720dc6c7b
+              created: 1745881569029
+              modified: 1748804302576
+              isPrivate: false
+              sortKey: -1748364239571
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "cpf": "74615812019",
+                	"userRole": "ROLE_CUSTOMER"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.2
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "  {{ _.base_path }}customer/email"
+            name: Get Customer Email
+            meta:
+              id: req_0a87cb990aa148eaac14716e764c1347
+              created: 1747160526173
+              modified: 1748556423845
+              isPrivate: false
+              sortKey: -1748364239771
+            method: GET
+            body:
+              mimeType: application/json
+              text: " "
+            parameters:
+              - disabled: false
+                id: pair_d88d24921e6e430a8c7942c9fdfafe44
+                name: email
+                value: testRo@gmail.com
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.2
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+          - url: "  {{ _.base_path }}customer/cpf"
+            name: Get Customer Cpf
+            meta:
+              id: req_7440d6ff230448a69cf24991f78dad5f
+              created: 1747161155375
+              modified: 1748556423850
+              isPrivate: false
+              sortKey: -1748364239871
+            method: GET
+            body:
+              mimeType: application/json
+              text: " "
+            parameters:
+              - disabled: false
+                id: pair_d88d24921e6e430a8c7942c9fdfafe44
+                name: cpf
+                value: 382.823.770-31
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.2
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - name: Employee
+        meta:
+          id: fld_9823416c23564f80acd50e9d1a16f644
+          created: 1748364255925
+          modified: 1748556423840
+          sortKey: -1748364255925
+        children:
+          - url: "{{ _.base_path }}employee"
+            name: Create Employee
+            meta:
+              id: req_fd75ff2dc2c4405ebecfff7d34ff6058
+              created: 1747325462682
+              modified: 1748709547997
+              isPrivate: false
+              sortKey: -1748364270536
+            method: POST
+            body:
+              mimeType: application/json
+              text: |-
+                {
+                  "name": "Leonardo Brito",
+                  "email": "leobsssritso@gmail.com",
+                  "cpf": "870.597.730-45",
+                  "password": "janela1234",
+                  "userRole": "ROLE_ADMIN"
+                }
+            headers:
+              - name: Content-Type
+                value: application/json
+              - name: User-Agent
+                value: insomnia/11.0.2
+            settings:
+              renderRequestBody: true
+              encodeUrl: true
+              followRedirects: global
+              cookies:
+                send: true
+                store: true
+              rebuildPath: true
+      - url: localhost:8080/auth/employee
+        name: Auth
+        meta:
+          id: req_54b0cf347da04a839109f902df917fae
+          created: 1747451414067
+          modified: 1748715132629
+          isPrivate: false
+          sortKey: -1745950499256
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "email":"admin@company.com",
+            	"password":"janela1234"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Product
+    meta:
+      id: fld_4cd8b004353246b9a623d64f0e8cccda
+      created: 1748026711091
+      modified: 1748556423833
+      sortKey: -1748026711091
+    children:
+      - url: " {{ _.base_path }}product"
+        name: Create Product
+        meta:
+          id: req_09d7cfe9688d47f3aa66435f297bce94
+          created: 1747883161304
+          modified: 1748805349799
+          isPrivate: false
+          sortKey: -1748026717842
+        method: POST
+        body:
+          mimeType: application/json
+          text: >-
+            {
+              "name": "Megaa fg-Tudo",
+              "urlImage": "https://example.com/images/mega-x-tudo.png",
+              "unitPrice": 35.60,
+              "category": "SANDWICHES",
+              "description": "Um lanche gigante com hambúrguer, bacon, frango, calabresa, queijo, presunto, alface, tomate, milho e batata palha.",
+              "employee_id": "2d12216d-3292-40e2-b5ab-cd9ba20628b2"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          token: "{{ _.employee_token }}"
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: " {{ _.base_path }}product"
+        name: List Products
+        meta:
+          id: req_8fe8a220b3504b95b6e05d8c0b4b94a8
+          created: 1748026735837
+          modified: 1748718517729
+          isPrivate: false
+          sortKey: -1747779789559
+        method: GET
+        body:
+          mimeType: application/json
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          token: "{{ _.employee_token }}"
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: " {{ _.base_path }}product"
+        name: Delete Product
+        meta:
+          id: req_b6dd712f6a5f426e85d4efc3ea526f89
+          created: 1748026881702
+          modified: 1748805746778
+          isPrivate: false
+          sortKey: -1747903253700.5
+        method: DELETE
+        body:
+          mimeType: application/json
+          text: >-
+            {
+              "name": "Megaa Z-Tudo",
+              "urlImage": "https://example.com/images/mega-x-tudo.png",
+              "unitPrice": 35.60,
+              "category": "LANCHES",
+              "description": "Um lanche gigante com hambúrguer, bacon, frango, calabresa, queijo, presunto, alface, tomate, milho e batata palha.",
+              "employee_id": "7c1b0e2e-e89b-41fe-9380-1a4ac0eda5f2"
+            }
+        parameters:
+          - disabled: false
+            id: pair_a2028a5f9db14216ae261182f30eaef6
+            name: id
+            value: "9"
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          token: "{{ _.employee_token }}"
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: " {{ _.base_path }}product"
+        name: PUT Product
+        meta:
+          id: req_7bb043c8c5f7400f9a64bc34835bbc20
+          created: 1748026993291
+          modified: 1748805486518
+          isPrivate: false
+          sortKey: -1747964985771.25
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "name": "Megaa h-Tudo",
+              "urlImage": "https://example.com/images/mega-x-tudo.png",
+              "unitPrice": 22.50,
+              "category": "SANDWICHES",
+              "description": "Something"
+            }
+        parameters:
+          - disabled: false
+            id: pair_37e256d15ea04aea8ce155c98839990b
+            name: id
+            value: "5"
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        authentication:
+          token: "{{ _.employee_token }}"
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_path }}product/category?category=DRINKS"
+        name: List By Category
+        meta:
+          id: req_eca2ad29c370412eae0c6ac65b1b5816
+          created: 1748365486908
+          modified: 1748805093446
+          isPrivate: false
+          sortKey: -1748365486908
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        authentication:
+          type: bearer
+          token: "{{ _.employee_token }}"
+          disabled: true
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Order
+    meta:
+      id: fld_7bdc4215e5414bfd985dc8d95f802867
+      created: 1748364290592
+      modified: 1748556423836
+      sortKey: -1748364290592
+    children:
+      - url: "{{ _.base_path }}order/create"
+        name: CreateOrder
+        meta:
+          id: req_1a4c440b858d400fb1425c4e9cff5640
+          created: 1748364332912
+          modified: 1748808339950
+          isPrivate: false
+          sortKey: -1748364334473
+        method: POST
+        body:
+          mimeType: application/json
+          text: "{
+
+            \t\"customerId\":\"061cc255-d1d8-4307-b9bd-418ff07aa183\",
+
+            \  \"itens\": [
+
+            \    {
+
+            \      \"productId\": 1,
+
+            \      \"quantity\": 2    \ 
+
+            \    },
+
+            \    {
+
+            \      \"productId\": 2,
+
+            \      \"quantity\": 3
+
+            \    }
+
+            \  ]
+
+            }
+
+            \ "
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        authentication:
+          type: bearer
+          token: "{{ _.employee_token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_path }}order/create"
+        name: CreateOrder no customer
+        meta:
+          id: req_66ecfd448dbf4c0cbc6b552b8c9e8b8a
+          created: 1748716329811
+          modified: 1748716341097
+          isPrivate: false
+          sortKey: -1748364302504.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: "{
+
+            \  \"itens\": [
+
+            \    {
+
+            \      \"productId\": 1,
+
+            \      \"quantity\": 2    \ 
+
+            \    },
+
+            \    {
+
+            \      \"productId\": 2,
+
+            \      \"quantity\": 3
+
+            \    }
+
+            \  ]
+
+            }
+
+            \ "
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        authentication:
+          type: bearer
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_path }}order"
+        name: List
+        meta:
+          id: req_fa9ebac3c4f447d4acc4f42b414b7443
+          created: 1748808414409
+          modified: 1748808492428
+          isPrivate: false
+          sortKey: -1748808414409
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        authentication:
+          type: bearer
+          token: "{{ _.employee_token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_path }}order/status"
+        name: List by category
+        meta:
+          id: req_79209a17bb594e149ba538b085b314f8
+          created: 1748808503810
+          modified: 1748808579827
+          isPrivate: false
+          sortKey: -1748586950658.5
+        method: GET
+        parameters:
+          - id: pair_ffe645bfb73c48009c67bb7e1f9814d7
+            name: status
+            value: PREPARING
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        authentication:
+          type: bearer
+          token: "{{ _.employee_token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_path }}order/status"
+        name: New Request
+        meta:
+          id: req_4cf7c121f70d418daf4769cddac6801c
+          created: 1748808728925
+          modified: 1748808889409
+          isPrivate: false
+          sortKey: -1748808728925
+        method: PUT
+        parameters:
+          - id: pair_526c277879174af9b4e62a2cf11fbacb
+            name: orderID
+            value: 98104250-6fb1-44dc-a4db-59278c8466b5
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        authentication:
+          type: bearer
+          token: "{{ _.employee_token }}"
+          disabled: true
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Payment
+    meta:
+      id: fld_95ea41ebd8b7460ea2daa21d06028072
+      created: 1748365246068
+      modified: 1748556423839
+      sortKey: -1748365246068
+    children:
+      - url: "{{ _.base_path
+          }}payment/create?orderId=f91d51c3-09a8-4822-92fb-88c846d6f532"
+        name: Create Payment
+        meta:
+          id: req_b07ba3037b1f4d25b404864e948167b9
+          created: 1748365257375
+          modified: 1748720088581
+          isPrivate: false
+          sortKey: -1748365257375
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "paymentMethod": "QR_CODE"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        authentication:
+          type: bearer
+          token: "{{ _.employee_token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_path }}payment/pay"
+        name: Pay
+        meta:
+          id: req_0677013d107c42c78e44c89532ac70ce
+          created: 1748365406186
+          modified: 1748809916227
+          isPrivate: false
+          sortKey: -1748365406187
+        method: POST
+        parameters:
+          - id: pair_120a7d0173c8420f8bd4bd9d8d0f62b5
+            name: orderId
+            value: dd3a4aa7-006c-45da-aba1-c097d18b623d
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        authentication:
+          type: bearer
+          token: "{{ _.employee_token }}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Auth
+    meta:
+      id: fld_9089dc902d754476bb6124b15eff43e5
+      created: 1748804333597
+      modified: 1748810003800
+      sortKey: -1748804333597
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_b505b126af0cc9ada75f698832907664fd10de13
+    created: 1748556424047
+    modified: 1748556424047
+environments:
+  name: Base Environment
+  meta:
+    id: env_c250a664ec304b0684b810694e071816
+    created: 1748363828755
+    modified: 1748805318823
+    isPrivate: false
+  data:
+    base_path: localhost:8080/
+    employee_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJGYXN0Rm9vZCIsInN1YiI6ImFkbWluQGNvbXBhbnkuY29tIiwiaWQiOiIxMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDEiLCJuYW1lIjoiQWRtaW4gVXNlciIsImNwZiI6IjExMTExMTExMTAxIiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE3NDg4MTI0ODZ9.5JXiYANMWBl3E1qYmWJJumDe2l2oe9mACKYTwm6Kkzg

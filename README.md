@@ -89,10 +89,10 @@ Este projeto utiliza **Dependabot** para manter as dependências Maven e Docker 
 
 ## 🧠 Documentação da Fase 1
 
-A documentação completa com Event Storming, Diagrama de Contexto, Fluxos e Modelos Ubiquamente nomeados está disponível em **[LINK_DO_MIRO]**
+A documentação completa com Event Storming, Diagrama de Contexto, Fluxos e Modelos Ubiquamente nomeados está disponível em **[MIRO](https://miro.com/app/board/uXjVIGITNZs=/)**
 
 ## 📹 Demonstração
 
-Vídeo com a arquitetura e execução via Docker Compose disponível em: **[LINK_DO_VÍDEO]**
+Vídeo com a arquitetura e execução via Docker Compose disponível em: **[VÍDEO](https://www.youtube.com/watch?v=O0kyaD-p7C8&ab_channel=Fernandeeess)**
 
 
