@@ -1,7 +1,7 @@
 package com.postech.fastfood.infrastructure.filter;
 
-import com.postech.fastfood.application.usecases.security.TokenServiceAdapter;
-import com.postech.fastfood.infrastructure.repository.employee.IEmployeeEntityRepository;
+import com.postech.fastfood.infrastructure.adapters.security.TokenServiceAdapter;
+import com.postech.fastfood.infrastructure.persistence.repository.employee.IEmployeeEntityRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

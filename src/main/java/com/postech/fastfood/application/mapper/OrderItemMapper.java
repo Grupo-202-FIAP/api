@@ -4,7 +4,7 @@ import com.postech.fastfood.domain.OrderItem;
 import com.postech.fastfood.domain.Product;
 import com.postech.fastfood.infrastructure.controller.dto.request.OrderItemRequest;
 import com.postech.fastfood.infrastructure.controller.dto.response.OrderItemResponse;
-import com.postech.fastfood.infrastructure.repository.entity.OrderItemEntity;
+import com.postech.fastfood.infrastructure.persistence.entity.OrderItemEntity;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -2,7 +2,7 @@ package com.postech.fastfood.application.mapper;
 
 import com.postech.fastfood.domain.Payment;
 import com.postech.fastfood.infrastructure.controller.dto.request.PaymentRequest;
-import com.postech.fastfood.infrastructure.repository.entity.PaymentEntity;
+import com.postech.fastfood.infrastructure.persistence.entity.PaymentEntity;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 

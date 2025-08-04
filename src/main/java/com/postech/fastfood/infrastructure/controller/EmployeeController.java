@@ -4,7 +4,7 @@ import com.postech.fastfood.application.gateways.LoggerPort;
 import com.postech.fastfood.application.mapper.EmployeeMapper;
 import com.postech.fastfood.domain.Employee;
 import com.postech.fastfood.infrastructure.controller.dto.request.EmployeeRequest;
-import com.postech.fastfood.infrastructure.gateways.employee.CreateEmployeeUseCase;
+import com.postech.fastfood.application.usecases.interfaces.employee.CreateEmployeeUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
