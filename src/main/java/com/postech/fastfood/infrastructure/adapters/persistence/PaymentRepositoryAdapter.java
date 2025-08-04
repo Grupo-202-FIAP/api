@@ -5,49 +5,25 @@ import com.postech.fastfood.application.gateways.PaymentRepositoryPort;
 import com.postech.fastfood.domain.enums.OrderStatus;
 import com.postech.fastfood.domain.enums.PaymentStatus;
 import com.postech.fastfood.domain.exception.FastFoodException;
-import com.postech.fastfood.infrastructure.controller.dto.request.PaymentRequest;
 import com.postech.fastfood.infrastructure.persistence.entity.OrderEntity;
 import com.postech.fastfood.infrastructure.persistence.entity.PaymentEntity;
 import com.postech.fastfood.infrastructure.persistence.repository.order.IOrderEntityRepository;
 import java.util.UUID;
-
-import com.postech.fastfood.infrastructure.persistence.repository.payment.IPaymentEntityRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PaymentRepositoryAdapter implements PaymentRepositoryPort {
 
-    private final IPaymentEntityRepository paymentEntityRepository;
     private final IOrderEntityRepository orderEntityRepository;
     private final LoggerPort logger;
 
-    public PaymentRepositoryAdapter(IPaymentEntityRepository paymentEntityRepository, IOrderEntityRepository orderEntityRepository,
+    public PaymentRepositoryAdapter( IOrderEntityRepository orderEntityRepository,
                                     LoggerPort logger) {
-        this.paymentEntityRepository = paymentEntityRepository;
         this.orderEntityRepository = orderEntityRepository;
         this.logger = logger;
     }
 
-    @Override
-    public String create(UUID orderId, PaymentRequest paymentRequest) {
-        //        final OrderEntity orderEntity = getOrderById(orderId);
-        //
-        //        if (paymentRequest.paymentMethod() != PaymentMethod.QR_CODE) {
-        //            throw new FastFoodException(
-        //                    "Method not accepted" + paymentRequest.paymentMethod(),
-        //                    "Method not accepted",
-        //                    HttpStatus.BAD_REQUEST
-        //            );
-        //        }
-        //
-        //        validatePaymentStatus(orderEntity.getPayment(), orderId);
-        //
-        //        orderEntity.getPayment().setStatus(PaymentStatus.PENDING);
-        //        orderEntity.getPayment().setPaymentMethod(paymentRequest.paymentMethod());
-
-        return "Payment Created";
-    }
 
     @Override
     public void save(UUID orderId) {
