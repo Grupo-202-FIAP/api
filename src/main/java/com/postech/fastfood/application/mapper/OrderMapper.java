@@ -17,8 +17,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OrderMapper {
+
     public static Order toDomain(OrderEntity orderEntity) {
-        return new Order.Builder()
+        Order order = new Order.Builder()
                 .id(orderEntity.getId())
                 .identifier(orderEntity.getIdentifier())
                 .customer(CustomerMapper.toDomain(orderEntity.getCustomer()))
@@ -31,6 +32,10 @@ public class OrderMapper {
                 .orderDateTime(orderEntity.getOrderDateTime())
                 .updatedAt(orderEntity.getUpdatedAt())
                 .build();
+        if (order.getItens() != null) {
+            order.getItens().forEach(item -> item.setOrder(order));
+        }
+        return order;
     }
 
     public static OrderEntity toEntity(Order order, PaymentEntity paymentEntity) {
@@ -50,19 +55,27 @@ public class OrderMapper {
     }
 
     public static OrderEntity toEntity(Order order) {
-        return OrderEntity.builder()
+        OrderEntity orderEntity = OrderEntity.builder()
                 .id(order.getId())
                 .identifier(order.getIdentifier())
                 .customer(CustomerMapper.toEntity(order.getCustomer()))
                 .payment(PaymentMapper.toEntity(order.getPayment()))
                 .itens(order.getItens()
                         .stream()
-                        .map(OrderItemMapper::toEntity).toList())
+                        .map(OrderItemMapper::toEntity)
+                        .toList())
                 .totalPrice(order.getTotalPrice())
                 .orderStatus(order.getStatus())
                 .orderDateTime(order.getOrderDateTime())
                 .updatedAt(order.getUpdatedAt())
                 .build();
+
+
+        if (orderEntity.getItens() != null) {
+            orderEntity.getItens().forEach(item -> item.setOrder(orderEntity));
+        }
+
+        return orderEntity;
     }
 
     public static Order toDomain(OrderRequest orderRequest) {
