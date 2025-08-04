@@ -3,7 +3,7 @@ package com.postech.fastfood.application.mapper;
 import com.postech.fastfood.domain.Customer;
 import com.postech.fastfood.infrastructure.controller.dto.request.CustomerCpfRequest;
 import com.postech.fastfood.infrastructure.controller.dto.request.CustomerEmailRequest;
-import com.postech.fastfood.infrastructure.repository.entity.CustomerEntity;
+import com.postech.fastfood.infrastructure.persistence.entity.CustomerEntity;
 import org.springframework.stereotype.Component;
 
 @Component

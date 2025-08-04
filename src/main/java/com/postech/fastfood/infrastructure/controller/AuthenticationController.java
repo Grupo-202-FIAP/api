@@ -1,8 +1,8 @@
 package com.postech.fastfood.infrastructure.controller;
 
 import com.postech.fastfood.application.gateways.LoggerPort;
-import com.postech.fastfood.application.usecases.security.AuthorizeUserServiceAdapter;
-import com.postech.fastfood.application.usecases.security.TokenServiceAdapter;
+import com.postech.fastfood.infrastructure.adapters.security.AuthorizeUserServiceAdapter;
+import com.postech.fastfood.infrastructure.adapters.security.TokenServiceAdapter;
 import com.postech.fastfood.domain.exception.FastFoodException;
 import com.postech.fastfood.infrastructure.controller.dto.request.AuthCustomerRequest;
 import com.postech.fastfood.infrastructure.controller.dto.request.AuthEmployeeRequest;
