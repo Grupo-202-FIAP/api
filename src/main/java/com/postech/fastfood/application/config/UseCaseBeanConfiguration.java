@@ -1,6 +1,14 @@
 package com.postech.fastfood.application.config;
 
-import com.postech.fastfood.application.gateways.*;
+
+import com.postech.fastfood.application.gateways.UserRepositoryPort;
+import com.postech.fastfood.application.gateways.CustomerRepositoryPort;
+import com.postech.fastfood.application.gateways.OrderRepositoryPort;
+import com.postech.fastfood.application.gateways.PaymentRepositoryPort;
+import com.postech.fastfood.application.gateways.PasswordEncoderPort;
+import com.postech.fastfood.application.gateways.ProductRepositoryPort;
+import com.postech.fastfood.application.gateways.MercadoPagoPort;
+import com.postech.fastfood.application.gateways.LoggerPort;
 import com.postech.fastfood.application.usecases.implementation.customer.CreateCustomerWithCpfUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.customer.CreateCustomerWithNameAndEmailUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.customer.FindCustomerByCpfUseCaseImpl;
@@ -131,14 +139,24 @@ public class UseCaseBeanConfiguration {
     }
 
     @Bean
-    public GenerateQrCodePaymentUseCase generateQrCodePaymentUseCase(OrderRepositoryPort orderRepositoryPort, MercadoPagoPort mercadoPagoPort, LoggerPort logger, LoggerPort loggerPort) {
+    public GenerateQrCodePaymentUseCase generateQrCodePaymentUseCase(
+            OrderRepositoryPort orderRepositoryPort,
+            MercadoPagoPort mercadoPagoPort,
+            LoggerPort loggerPort) {
         return new GenerateQrCodePaymentUseCaseImpl(orderRepositoryPort,mercadoPagoPort, loggerPort);
     }
 
     @Bean
-    public ProcessPaymentNotificationUseCase processPaymentNotificationUseCase(OrderRepositoryPort orderRepositoryPort, UpdateOrderStatusUseCase updateOrderStatusUseCase, MercadoPagoWebhookSignatureValidator mercadoPagoWebhookSignatureValidator, LoggerPort logger)
-    {
-        return new ProcessPaymentNotificationUseCaseImpl(orderRepositoryPort,updateOrderStatusUseCase,mercadoPagoWebhookSignatureValidator,logger);
+    public ProcessPaymentNotificationUseCase processPaymentNotificationUseCase(
+            OrderRepositoryPort orderRepositoryPort,
+            UpdateOrderStatusUseCase updateOrderStatusUseCase,
+            MercadoPagoWebhookSignatureValidator mercadoPagoWebhookSignatureValidator,
+            LoggerPort logger) {
+        return new ProcessPaymentNotificationUseCaseImpl(
+                orderRepositoryPort,
+                updateOrderStatusUseCase,
+                mercadoPagoWebhookSignatureValidator,
+                logger);
     }
 
 }

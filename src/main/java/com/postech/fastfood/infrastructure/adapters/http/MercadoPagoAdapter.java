@@ -23,7 +23,7 @@ public class MercadoPagoAdapter implements MercadoPagoPort {
     @Override
     public String createOrder(String idempotencyKey, String accessToken, OrderMercadoPagoRequestDto requestBody, String orderId) {
         try {
-            String resposta = mercadoPagoClient.createOrder(idempotencyKey, "Bearer " + accessToken, requestBody );
+            final String resposta = mercadoPagoClient.createOrder(idempotencyKey, "Bearer " + accessToken, requestBody );
             logger.info("[Service][Payment] Resposta MercadoPago: {}", resposta);
             return resposta;
 
@@ -32,10 +32,10 @@ public class MercadoPagoAdapter implements MercadoPagoPort {
             throw new FastFoodException("Erro ao gerar QR Code de pagamento",
                     "Não foi possível gerar o QR Code de pagamento para o pedido: " + orderId,
                     HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (Exception e) {
-            logger.error("[Service][Payment] Erro inesperado MercadoPago: {}", e.getMessage());
-            throw new FastFoodException("Erro ao gerar QR Code de pagamento",
-                    "Não foi possível gerar o QR Code de pagamento para o pedido: " + orderId,
+        } catch (IllegalArgumentException | NullPointerException e) {
+            logger.error("[Service][Payment] Erro de validação ou nulidade: {}", e.getMessage(), e);
+            throw new FastFoodException("Erro ao processar dados do pedido",
+                    "Houve um erro interno ao processar o pedido: " + orderId,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

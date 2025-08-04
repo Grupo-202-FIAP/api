@@ -1,7 +1,6 @@
 package com.postech.fastfood.infrastructure.http.mercadopago.dto;
 
 import lombok.Builder;
-
 import java.util.List;
 
 @Builder

@@ -21,5 +21,4 @@ public class Data {
     private String type;
     @JsonProperty("version")
     private int version;
-
 }

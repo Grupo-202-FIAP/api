@@ -17,19 +17,19 @@ public class MercadoPagoWebhookSignatureValidator {
         this.loggerPort = loggerPort;
     }
 
-    public Boolean isValid(String idUrl, String xRequestId, String xSignature) {
+    public Boolean isValid(String idUrl, String xrequestId, String xsignature) {
 
         try {
-            String ts = xSignature.split(",")[0].split("=")[1];
-            String expectedSignature = xSignature.split(",")[1].split("=")[1]; // valor do v1
+            final String ts = xsignature.split(",")[0].split("=")[1];
+            final String expectedSignature = xsignature.split(",")[1].split("=")[1]; // valor do v1
 
-            String signedTemplate = String.format("id:%s;request-id:%s;ts:%s;", idUrl, xRequestId, ts);
+            final String signedTemplate = String.format("id:%s;request-id:%s;ts:%s;", idUrl, xrequestId, ts);
 
-            String generatedSignature = new HmacUtils("HmacSHA256", secretKey).hmacHex(signedTemplate);
+            final String generatedSignature = new HmacUtils("HmacSHA256", secretKey).hmacHex(signedTemplate);
 
             return generatedSignature.equals(expectedSignature);
 
-        } catch (Exception e) {
+        } catch (NullPointerException | IllegalArgumentException e) {
             loggerPort.error("[Webhook][Payment] Error validating signature: {}", e.getMessage());
             return false;
         }

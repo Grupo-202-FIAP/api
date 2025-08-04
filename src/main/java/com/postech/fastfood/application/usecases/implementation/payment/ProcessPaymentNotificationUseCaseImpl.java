@@ -19,7 +19,11 @@ public class ProcessPaymentNotificationUseCaseImpl implements ProcessPaymentNoti
     private final MercadoPagoWebhookSignatureValidator mercadoPagoWebhookSignatureValidator;
     private final LoggerPort logger;
 
-    public ProcessPaymentNotificationUseCaseImpl(OrderRepositoryPort orderRepositoryPort, UpdateOrderStatusUseCase updateOrderStatusUseCase, MercadoPagoWebhookSignatureValidator mercadoPagoWebhookSignatureValidator, LoggerPort logger) {
+    public ProcessPaymentNotificationUseCaseImpl(
+            OrderRepositoryPort orderRepositoryPort,
+            UpdateOrderStatusUseCase updateOrderStatusUseCase,
+            MercadoPagoWebhookSignatureValidator mercadoPagoWebhookSignatureValidator,
+            LoggerPort logger) {
         this.orderRepositoryPort = orderRepositoryPort;
         this.updateOrderStatusUseCase = updateOrderStatusUseCase;
         this.mercadoPagoWebhookSignatureValidator = mercadoPagoWebhookSignatureValidator;
@@ -37,7 +41,7 @@ public class ProcessPaymentNotificationUseCaseImpl implements ProcessPaymentNoti
             throw new FastFoodException("Invalid signature for webhook event", "Invalid Signature", HttpStatus.UNAUTHORIZED);
         }
 
-        Order order = orderRepositoryPort.findByIdentifier(event.getData().getExternalReference());
+        final Order order = orderRepositoryPort.findByIdentifier(event.getData().getExternalReference());
         if (order == null) {
             logger.warn("[Webhook][Payment] No order found for webhook event: {}", event);
             throw new FastFoodException("No order found for webhook event", "Order Not Found", HttpStatus.NOT_FOUND);
@@ -65,7 +69,7 @@ public class ProcessPaymentNotificationUseCaseImpl implements ProcessPaymentNoti
 
     private void processOrderSucess(Order order) {
         order.getPayment().setStatus(PaymentStatus.AUTHORIZED);
-        Order updatedOrder = orderRepositoryPort.save(order);
+        final Order updatedOrder = orderRepositoryPort.save(order);
         updateOrderStatusUseCase.execute(updatedOrder.getId());
         logger.info("[Webhook][Payment] Order updated to authorized status: {}", updatedOrder.getId());
     }

@@ -26,5 +26,4 @@ public class WebhookEvent {
     private String type;
     @JsonProperty("user_id")
     private String userId;
-
 }

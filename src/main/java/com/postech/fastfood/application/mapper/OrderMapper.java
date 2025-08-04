@@ -7,10 +7,15 @@ import com.postech.fastfood.domain.enums.PaymentMethod;
 import com.postech.fastfood.domain.enums.PaymentStatus;
 import com.postech.fastfood.infrastructure.controller.dto.request.OrderRequest;
 import com.postech.fastfood.infrastructure.controller.dto.response.OrderResponse;
-import com.postech.fastfood.infrastructure.http.mercadopago.dto.*;
+import com.postech.fastfood.infrastructure.http.mercadopago.dto.OrderMercadoPagoRequestDto;
+import com.postech.fastfood.infrastructure.http.mercadopago.dto.CategoryIdDto;
+import com.postech.fastfood.infrastructure.http.mercadopago.dto.ConfigDto;
+import com.postech.fastfood.infrastructure.http.mercadopago.dto.ItemDto;
+import com.postech.fastfood.infrastructure.http.mercadopago.dto.PaymentDto;
+import com.postech.fastfood.infrastructure.http.mercadopago.dto.QrConfigDto;
+import com.postech.fastfood.infrastructure.http.mercadopago.dto.TransactionsDto;
 import com.postech.fastfood.infrastructure.persistence.entity.OrderEntity;
 import com.postech.fastfood.infrastructure.persistence.entity.PaymentEntity;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
@@ -19,7 +24,7 @@ import org.springframework.stereotype.Component;
 public class OrderMapper {
 
     public static Order toDomain(OrderEntity orderEntity) {
-        Order order = new Order.Builder()
+        final Order order = new Order.Builder()
                 .id(orderEntity.getId())
                 .identifier(orderEntity.getIdentifier())
                 .customer(CustomerMapper.toDomain(orderEntity.getCustomer()))
@@ -55,7 +60,7 @@ public class OrderMapper {
     }
 
     public static OrderEntity toEntity(Order order) {
-        OrderEntity orderEntity = OrderEntity.builder()
+        final OrderEntity orderEntity = OrderEntity.builder()
                 .id(order.getId())
                 .identifier(order.getIdentifier())
                 .customer(CustomerMapper.toEntity(order.getCustomer()))
@@ -121,7 +126,7 @@ public class OrderMapper {
 
     public static OrderMercadoPagoRequestDto toMercadoPagoV1OrderRequest(Order order, String posId, String mode) {
 
-        var items = order.getItens().stream().map(item ->
+       final var items = order.getItens().stream().map(item ->
                 ItemDto.builder()
                         .title(item.getProduct().getName())
                         .unit_price(item.getProduct().getUnitPrice().toString())
@@ -134,19 +139,19 @@ public class OrderMapper {
                         .build()
         ).collect(java.util.stream.Collectors.toList());
 
-        ConfigDto config = ConfigDto.builder()
+        final ConfigDto config = ConfigDto.builder()
                 .qr(
                         QrConfigDto.builder()
                                 .external_pos_id(posId)
                                 .mode(mode)
                                 .build())
                 .build();
-        PaymentDto paymentDto = PaymentDto.builder()
+        final PaymentDto paymentDto = PaymentDto.builder()
                 .amount(order.getTotalPrice().toString())
                 .build();
-        List<PaymentDto> paymentDtos = List.of(paymentDto);
+        final List<PaymentDto> paymentDtos = List.of(paymentDto);
 
-        TransactionsDto transactionsDto = TransactionsDto.builder()
+        final TransactionsDto transactionsDto = TransactionsDto.builder()
                 .payments(paymentDtos)
                 .build();
 
