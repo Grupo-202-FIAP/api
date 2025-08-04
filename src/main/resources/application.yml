@@ -3,16 +3,9 @@ spring:
     name: fastfood
   profiles:
     default: dev
-    active: dev
   jpa:
     generate-ddl: false
-    ddl-auto: update
     show-sql: true
-
-  flyway:
-    enabled: false
-    classpath: db/migration
-    location: classpath:db/migration
 
 management:
   endpoints:
