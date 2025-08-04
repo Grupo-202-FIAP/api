@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.5</version>
+        <version>3.5.4</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.postech</groupId>
@@ -28,19 +28,24 @@
     </scm>
     <properties>
         <java.version>17</java.version>
+        <spring-cloud.version>2025.0.0</spring-cloud.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.2.224</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
-            <version>8.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>net.logstash.logback</groupId>-->
+<!--            <artifactId>logstash-logback-encoder</artifactId>-->
+<!--            <version>8.1</version>-->
+<!--        </dependency>-->
 
         <!--Prometheus-->
         <dependency>
@@ -108,12 +113,13 @@
             <artifactId>java-jwt</artifactId>
             <version>4.5.0</version>
         </dependency>
-
-        <!-- Mercado Pago-->
         <dependency>
-            <groupId>com.mercadopago</groupId>
-            <artifactId>sdk-java</artifactId>
-            <version>2.4.0</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
         </dependency>
 
         <!-- Swagger/OpenAPI -->
@@ -123,6 +129,17 @@
             <version>2.8.8</version>
         </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2025.0.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <finalName>fastfood-app</finalName>
         <plugins>

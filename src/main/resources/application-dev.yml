@@ -4,7 +4,7 @@ spring:
       on-profile: dev
 
   datasource:
-    url: ${DB_URL:jdbc:postgresql://db:5432/fastfood}
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/fastfood}
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver

@@ -1,11 +1,6 @@
 package com.postech.fastfood.application.config;
 
-import com.postech.fastfood.application.gateways.CustomerRepositoryPort;
-import com.postech.fastfood.application.gateways.OrderRepositoryPort;
-import com.postech.fastfood.application.gateways.PasswordEncoderPort;
-import com.postech.fastfood.application.gateways.PaymentRepositoryPort;
-import com.postech.fastfood.application.gateways.ProductRepositoryPort;
-import com.postech.fastfood.application.gateways.UserRepositoryPort;
+import com.postech.fastfood.application.gateways.*;
 import com.postech.fastfood.application.usecases.customer.CreateCustomerWithCpfUseCaseImpl;
 import com.postech.fastfood.application.usecases.customer.CreateCustomerWithNameAndEmailUseCaseImpl;
 import com.postech.fastfood.application.usecases.customer.FindCustomerByCpfUseCaseImpl;
@@ -17,6 +12,8 @@ import com.postech.fastfood.application.usecases.order.ListOrdersUseCaseImpl;
 import com.postech.fastfood.application.usecases.order.UpdateOrderStatusUseCaseImpl;
 import com.postech.fastfood.application.usecases.payment.CreatePaymentUseCaseImpl;
 import com.postech.fastfood.application.usecases.payment.ProccessPaymentUseCaseImpl;
+import com.postech.fastfood.application.usecases.payment.ProcessPaymentNotificationUseCaseImpl;
+import com.postech.fastfood.application.usecases.payment.ValidateSignatureWebhookUseCaseImpl;
 import com.postech.fastfood.application.usecases.product.CreateProductUseCaseImpl;
 import com.postech.fastfood.application.usecases.product.DeleteProductUseCaseImpl;
 import com.postech.fastfood.application.usecases.product.ListProductsByCategoryUseCaseImpl;
@@ -33,6 +30,7 @@ import com.postech.fastfood.infrastructure.gateways.order.ListOrdersUseCase;
 import com.postech.fastfood.infrastructure.gateways.order.UpdateOrderStatusUseCase;
 import com.postech.fastfood.infrastructure.gateways.payment.CreatePaymentUseCase;
 import com.postech.fastfood.infrastructure.gateways.payment.ProccessPaymentUseCase;
+import com.postech.fastfood.infrastructure.gateways.payment.ProcessPaymentNotificationUseCase;
 import com.postech.fastfood.infrastructure.gateways.product.CreateProductUseCase;
 import com.postech.fastfood.infrastructure.gateways.product.DeleteProductUseCase;
 import com.postech.fastfood.infrastructure.gateways.product.ListProductByCategoryUseCase;
@@ -123,6 +121,14 @@ public class UseCaseBeanConfiguration {
     @Bean
     public UpdateOrderStatusUseCase updateOrderStatusUseCase(OrderRepositoryPort orderRepositoryPort) {
         return new UpdateOrderStatusUseCaseImpl(orderRepositoryPort);
+    }
+
+
+    @Bean
+    public ProcessPaymentNotificationUseCase processPaymentNotificationUseCase(OrderRepositoryPort orderRepositoryPort,
+                                                                 UpdateOrderStatusUseCase updateOrderStatusUseCase,
+                                                                 LoggerPort logger) {
+        return new ProcessPaymentNotificationUseCaseImpl(orderRepositoryPort, updateOrderStatusUseCase, logger);
     }
 
 }

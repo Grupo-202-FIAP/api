@@ -1,0 +1,50 @@
+package com.postech.fastfood.application.usecases.payment;
+
+import com.postech.fastfood.application.gateways.LoggerPort;
+import com.postech.fastfood.application.gateways.OrderRepositoryPort;
+import com.postech.fastfood.application.mapper.OrderMapper;
+import com.postech.fastfood.application.usecases.payment.dto.OrderMercadoPagoRequestDto;
+import com.postech.fastfood.domain.Order;
+import com.postech.fastfood.domain.exception.FastFoodException;
+import com.postech.fastfood.infrastructure.gateways.payment.GenerateQrCodePaymentUseCase;
+
+import com.postech.fastfood.application.gateways.MercadoPagoGateway;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+
+import java.util.UUID;
+@Service
+public class GenerateQrCodePaymentUseCaseImpl implements GenerateQrCodePaymentUseCase {
+
+    private final OrderRepositoryPort orderRepositoryPort;
+    private final String EXTERNAL_POS_ID = "TOTEMFASTFOOD";
+    private final String QR_CODE_MODE_TYPE = "dynamic";
+    private final MercadoPagoGateway mercadoPagoGateway;
+    private final LoggerPort logger;
+    @Value("${mercadoPago.accessToken}")
+    private String accessToken;
+
+    public GenerateQrCodePaymentUseCaseImpl(OrderRepositoryPort orderRepositoryPort, MercadoPagoGateway mercadoPagoGateway, LoggerPort logger) {
+        this.orderRepositoryPort = orderRepositoryPort;
+        this.mercadoPagoGateway = mercadoPagoGateway;
+        this.logger = logger;
+    }
+
+    public String execute(UUID orderId) {
+        Order order = orderRepositoryPort.findById(orderId);
+        if (order == null) {
+            throw new FastFoodException("Pedido não encontrado",
+                    "Não foi possível encontrar o pedido com ID: " + orderId,
+                    HttpStatus.NOT_FOUND);
+        }
+        logger.info("[Service][Payment] Criando Order no MercadoPago para o pedido: {}", orderId);
+        OrderMercadoPagoRequestDto requestBody = OrderMapper.toMercadoPagoV1OrderRequest(order, EXTERNAL_POS_ID, QR_CODE_MODE_TYPE);
+
+        String idempotencyKey = UUID.randomUUID().toString();
+        return mercadoPagoGateway.createOrder(idempotencyKey, accessToken, requestBody,orderId.toString());
+    }
+
+}
+

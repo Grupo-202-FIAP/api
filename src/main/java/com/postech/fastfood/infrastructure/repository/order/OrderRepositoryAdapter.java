@@ -82,6 +82,19 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
     }
 
     @Override
+    public Order findByIdentifier(String externalReference) {
+        logger.info("[Repository][Order] Buscando pedido por identificador={}", externalReference);
+
+        final OrderEntity orderEntity = this.orderEntityRepository.findByIdentifier(externalReference).orElseThrow(() -> {
+            logger.warn("[Repository][Order] Pedido não encontrado: identificador={}", externalReference);
+
+            return new FastFoodException("Order not found with identifier:" + externalReference, "Order Not Found", HttpStatus.NOT_FOUND);
+        });
+
+        return OrderMapper.toDomain(orderEntity);
+    }
+
+    @Override
     public Order save(Order order) {
         logger.info("[Repository][Order] Salvando novo pedido");
         final OrderEntity entity = OrderMapper.toEntity(order);

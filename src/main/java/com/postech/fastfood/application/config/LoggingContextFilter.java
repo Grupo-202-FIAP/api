@@ -10,22 +10,22 @@ import java.util.UUID;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
-@Component
-public class LoggingContextFilter implements Filter {
-
-    private static final String TRACE_ID = "traceId";
-
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
-
-        try {
-            MDC.put(TRACE_ID, UUID.randomUUID().toString());
-            chain.doFilter(request, response);
-        } finally {
-            MDC.remove(TRACE_ID);
-        }
-    }
-
-
-}
+//@Component
+//public class LoggingContextFilter implements Filter {
+//
+//    private static final String TRACE_ID = "traceId";
+//
+//    @Override
+//    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+//            throws IOException, ServletException {
+//
+//        try {
+//            MDC.put(TRACE_ID, UUID.randomUUID().toString());
+//            chain.doFilter(request, response);
+//        } finally {
+//            MDC.remove(TRACE_ID);
+//        }
+//    }
+//
+//
+//}
