@@ -18,7 +18,6 @@ import com.postech.fastfood.application.usecases.implementation.order.CreateOrde
 import com.postech.fastfood.application.usecases.implementation.order.ListOrdersByStatusUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.order.ListOrdersUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.order.UpdateOrderStatusUseCaseImpl;
-import com.postech.fastfood.application.usecases.implementation.payment.CreatePaymentUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.payment.GenerateQrCodePaymentUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.payment.ProccessPaymentUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.payment.ProcessPaymentNotificationUseCaseImpl;
@@ -37,7 +36,6 @@ import com.postech.fastfood.application.usecases.interfaces.order.CreateOrderUse
 import com.postech.fastfood.application.usecases.interfaces.order.ListOrdersByStatusUseCase;
 import com.postech.fastfood.application.usecases.interfaces.order.ListOrdersUseCase;
 import com.postech.fastfood.application.usecases.interfaces.order.UpdateOrderStatusUseCase;
-import com.postech.fastfood.application.usecases.interfaces.payment.CreatePaymentUseCase;
 import com.postech.fastfood.application.usecases.interfaces.payment.ProccessPaymentUseCase;
 import com.postech.fastfood.application.usecases.interfaces.payment.ProcessPaymentNotificationUseCase;
 import com.postech.fastfood.application.usecases.interfaces.product.CreateProductUseCase;
@@ -75,11 +73,6 @@ public class UseCaseBeanConfiguration {
     @Bean
     public CreateEmployeeUseCase createEmployeeUseCase(UserRepositoryPort userRepositoryPort, PasswordEncoderPort passwordEncoderPort) {
         return new CreateEmployeeUseCaseImpl(userRepositoryPort, passwordEncoderPort);
-    }
-
-    @Bean
-    public CreatePaymentUseCase createPaymentUseCase(PaymentRepositoryPort paymentRepositoryPort) {
-        return new CreatePaymentUseCaseImpl(paymentRepositoryPort);
     }
 
     @Bean

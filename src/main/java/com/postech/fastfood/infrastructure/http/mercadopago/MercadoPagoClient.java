@@ -1,6 +1,5 @@
 package com.postech.fastfood.infrastructure.http.mercadopago;
 
-
 import com.postech.fastfood.infrastructure.http.mercadopago.dto.OrderMercadoPagoRequestDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,3 +18,4 @@ public interface MercadoPagoClient {
             @RequestBody OrderMercadoPagoRequestDto requestBody
     );
 }
+

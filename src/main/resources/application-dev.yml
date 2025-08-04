@@ -3,6 +3,9 @@ spring:
     activate:
       on-profile: dev
 
+  flyway:
+    enabled: false
+
   datasource:
     url: jdbc:postgresql://localhost:5432/fastfood
     username: postgres
