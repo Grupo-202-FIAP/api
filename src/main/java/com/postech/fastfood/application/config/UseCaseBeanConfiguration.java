@@ -1,11 +1,6 @@
 package com.postech.fastfood.application.config;
 
-import com.postech.fastfood.application.gateways.CustomerRepositoryPort;
-import com.postech.fastfood.application.gateways.OrderRepositoryPort;
-import com.postech.fastfood.application.gateways.PasswordEncoderPort;
-import com.postech.fastfood.application.gateways.PaymentRepositoryPort;
-import com.postech.fastfood.application.gateways.ProductRepositoryPort;
-import com.postech.fastfood.application.gateways.UserRepositoryPort;
+import com.postech.fastfood.application.gateways.*;
 import com.postech.fastfood.application.usecases.implementation.customer.CreateCustomerWithCpfUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.customer.CreateCustomerWithNameAndEmailUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.customer.FindCustomerByCpfUseCaseImpl;
@@ -16,7 +11,9 @@ import com.postech.fastfood.application.usecases.implementation.order.ListOrders
 import com.postech.fastfood.application.usecases.implementation.order.ListOrdersUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.order.UpdateOrderStatusUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.payment.CreatePaymentUseCaseImpl;
+import com.postech.fastfood.application.usecases.implementation.payment.GenerateQrCodePaymentUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.payment.ProccessPaymentUseCaseImpl;
+import com.postech.fastfood.application.usecases.implementation.payment.ProcessPaymentNotificationUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.product.CreateProductUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.product.DeleteProductUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.product.ListProductsByCategoryUseCaseImpl;
@@ -24,6 +21,7 @@ import com.postech.fastfood.application.usecases.implementation.product.ListProd
 import com.postech.fastfood.application.usecases.implementation.product.UpdateProductUseCaseImpl;
 import com.postech.fastfood.application.usecases.interfaces.FindUserByCpfUseCase;
 import com.postech.fastfood.application.usecases.interfaces.FindUserByEmailUseCase;
+import com.postech.fastfood.application.usecases.interfaces.GenerateQrCodePaymentUseCase;
 import com.postech.fastfood.application.usecases.interfaces.customer.CreateCustomerWithCpfUseCase;
 import com.postech.fastfood.application.usecases.interfaces.customer.CreateCustomerWithNameAndEmailUseCase;
 import com.postech.fastfood.application.usecases.interfaces.employee.CreateEmployeeUseCase;
@@ -33,11 +31,13 @@ import com.postech.fastfood.application.usecases.interfaces.order.ListOrdersUseC
 import com.postech.fastfood.application.usecases.interfaces.order.UpdateOrderStatusUseCase;
 import com.postech.fastfood.application.usecases.interfaces.payment.CreatePaymentUseCase;
 import com.postech.fastfood.application.usecases.interfaces.payment.ProccessPaymentUseCase;
+import com.postech.fastfood.application.usecases.interfaces.payment.ProcessPaymentNotificationUseCase;
 import com.postech.fastfood.application.usecases.interfaces.product.CreateProductUseCase;
 import com.postech.fastfood.application.usecases.interfaces.product.DeleteProductUseCase;
 import com.postech.fastfood.application.usecases.interfaces.product.ListProductByCategoryUseCase;
 import com.postech.fastfood.application.usecases.interfaces.product.ListProductsUseCase;
 import com.postech.fastfood.application.usecases.interfaces.product.UpdateProductUseCase;
+import com.postech.fastfood.infrastructure.http.mercadopago.security.MercadoPagoWebhookSignatureValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -123,6 +123,22 @@ public class UseCaseBeanConfiguration {
     @Bean
     public UpdateOrderStatusUseCase updateOrderStatusUseCase(OrderRepositoryPort orderRepositoryPort) {
         return new UpdateOrderStatusUseCaseImpl(orderRepositoryPort);
+    }
+
+    @Bean
+    public ProccessPaymentUseCase proccessPaymentUseCase(PaymentRepositoryPort paymentRepositoryPort) {
+        return new ProccessPaymentUseCaseImpl(paymentRepositoryPort);
+    }
+
+    @Bean
+    public GenerateQrCodePaymentUseCase generateQrCodePaymentUseCase(OrderRepositoryPort orderRepositoryPort, MercadoPagoPort mercadoPagoPort, LoggerPort logger, LoggerPort loggerPort) {
+        return new GenerateQrCodePaymentUseCaseImpl(orderRepositoryPort,mercadoPagoPort, loggerPort);
+    }
+
+    @Bean
+    public ProcessPaymentNotificationUseCase processPaymentNotificationUseCase(OrderRepositoryPort orderRepositoryPort, UpdateOrderStatusUseCase updateOrderStatusUseCase, MercadoPagoWebhookSignatureValidator mercadoPagoWebhookSignatureValidator, LoggerPort logger)
+    {
+        return new ProcessPaymentNotificationUseCaseImpl(orderRepositoryPort,updateOrderStatusUseCase,mercadoPagoWebhookSignatureValidator,logger);
     }
 
 }

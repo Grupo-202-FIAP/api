@@ -7,8 +7,11 @@ import com.postech.fastfood.domain.enums.PaymentMethod;
 import com.postech.fastfood.domain.enums.PaymentStatus;
 import com.postech.fastfood.infrastructure.controller.dto.request.OrderRequest;
 import com.postech.fastfood.infrastructure.controller.dto.response.OrderResponse;
+import com.postech.fastfood.infrastructure.http.mercadopago.dto.*;
 import com.postech.fastfood.infrastructure.persistence.entity.OrderEntity;
 import com.postech.fastfood.infrastructure.persistence.entity.PaymentEntity;
+
+import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 
@@ -103,4 +106,46 @@ public class OrderMapper {
                 .build();
     }
 
+    public static OrderMercadoPagoRequestDto toMercadoPagoV1OrderRequest(Order order, String posId, String mode) {
+
+        var items = order.getItens().stream().map(item ->
+                ItemDto.builder()
+                        .title(item.getProduct().getName())
+                        .unit_price(item.getProduct().getUnitPrice().toString())
+                        .quantity(item.getQuantity())
+                        .unit_measure("UN")
+                        .external_code(item.getProduct().getId().toString())
+                        .external_categories(
+                                List.of(CategoryIdDto.builder().id(item.getProduct().getCategory().getCategory()).build())
+                        )
+                        .build()
+        ).collect(java.util.stream.Collectors.toList());
+
+        ConfigDto config = ConfigDto.builder()
+                .qr(
+                        QrConfigDto.builder()
+                                .external_pos_id(posId)
+                                .mode(mode)
+                                .build())
+                .build();
+        PaymentDto paymentDto = PaymentDto.builder()
+                .amount(order.getTotalPrice().toString())
+                .build();
+        List<PaymentDto> paymentDtos = List.of(paymentDto);
+
+        TransactionsDto transactionsDto = TransactionsDto.builder()
+                .payments(paymentDtos)
+                .build();
+
+        return OrderMercadoPagoRequestDto.builder()
+                .type("qr")
+                .total_amount(order.getTotalPrice().toString())
+                .description("Pedido FastFood - " + order.getIdentifier())
+                .external_reference(order.getIdentifier())
+                .expiration_time("PT2H") // 2 horas expiração
+                .config(config)
+                .transactions(transactionsDto)
+                .items(items)
+                .build();
+    }
 }
