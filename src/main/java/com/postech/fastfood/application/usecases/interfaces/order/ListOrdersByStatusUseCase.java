@@ -5,5 +5,5 @@ import com.postech.fastfood.domain.enums.OrderStatus;
 import java.util.List;
 
 public interface ListOrdersByStatusUseCase {
-    List<Order> execute(OrderStatus status);
+    List<Order> execute( );
 }

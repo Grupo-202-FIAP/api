@@ -18,6 +18,7 @@ import com.postech.fastfood.application.usecases.implementation.order.CreateOrde
 import com.postech.fastfood.application.usecases.implementation.order.ListOrdersByStatusUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.order.ListOrdersUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.order.UpdateOrderStatusUseCaseImpl;
+import com.postech.fastfood.application.usecases.implementation.payment.CheckPaymentStatusUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.payment.GenerateQrCodePaymentUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.payment.ProccessPaymentUseCaseImpl;
 import com.postech.fastfood.application.usecases.implementation.payment.ProcessPaymentNotificationUseCaseImpl;
@@ -36,6 +37,7 @@ import com.postech.fastfood.application.usecases.interfaces.order.CreateOrderUse
 import com.postech.fastfood.application.usecases.interfaces.order.ListOrdersByStatusUseCase;
 import com.postech.fastfood.application.usecases.interfaces.order.ListOrdersUseCase;
 import com.postech.fastfood.application.usecases.interfaces.order.UpdateOrderStatusUseCase;
+import com.postech.fastfood.application.usecases.interfaces.payment.CheckPaymentStatusUseCase;
 import com.postech.fastfood.application.usecases.interfaces.payment.ProccessPaymentUseCase;
 import com.postech.fastfood.application.usecases.interfaces.payment.ProcessPaymentNotificationUseCase;
 import com.postech.fastfood.application.usecases.interfaces.product.CreateProductUseCase;
@@ -150,6 +152,11 @@ public class UseCaseBeanConfiguration {
                 updateOrderStatusUseCase,
                 mercadoPagoWebhookSignatureValidator,
                 logger);
+    }
+
+    @Bean
+    public CheckPaymentStatusUseCase checkPaymentStatusUseCase(OrderRepositoryPort orderRepositoryPort) {
+        return new CheckPaymentStatusUseCaseImpl(orderRepositoryPort);
     }
 
 }

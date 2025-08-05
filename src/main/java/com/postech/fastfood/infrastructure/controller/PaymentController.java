@@ -3,8 +3,10 @@ package com.postech.fastfood.infrastructure.controller;
 import com.postech.fastfood.application.gateways.LoggerPort;
 import com.postech.fastfood.application.usecases.interfaces.GenerateQrCodePaymentUseCase;
 import java.util.UUID;
+import com.postech.fastfood.application.usecases.interfaces.payment.CheckPaymentStatusUseCase;
 import jakarta.validation.constraints.NotEmpty;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaymentController {
 
     private final GenerateQrCodePaymentUseCase generateQrCodePaymentUseCase;
+    private final CheckPaymentStatusUseCase checkPaymentStatus;
     private final LoggerPort logger;
 
-    public PaymentController(GenerateQrCodePaymentUseCase generateQrCodePaymentUseCase, LoggerPort logger) {
+    public PaymentController(GenerateQrCodePaymentUseCase generateQrCodePaymentUseCase, CheckPaymentStatusUseCase checkPaymentStatus, LoggerPort logger) {
         this.generateQrCodePaymentUseCase = generateQrCodePaymentUseCase;
+        this.checkPaymentStatus = checkPaymentStatus;
         this.logger = logger;
     }
 
@@ -31,5 +35,12 @@ public class PaymentController {
         return ResponseEntity.ok(qrCode);
     }
 
+    @GetMapping("/check-status")
+    public ResponseEntity<String> checkPaymentStatus(@RequestParam("orderId") @NotEmpty UUID orderId) {
+        logger.info("[Payment] Verificando status de pagamento para o pedido id={}", orderId);
+        final String status = checkPaymentStatus.execute(orderId);
+        logger.info("[Payment] Status de pagamento verificado para o pedido id={}: {}", orderId, status);
+        return ResponseEntity.ok(status);
+    }
 
 }

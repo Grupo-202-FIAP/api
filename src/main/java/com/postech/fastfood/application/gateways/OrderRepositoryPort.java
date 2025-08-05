@@ -12,7 +12,7 @@ public interface OrderRepositoryPort {
 
     List<Order> findAll();
 
-    List<Order> findByStatus(OrderStatus status);
+    List<Order> findByStatus( );
 
     Order findByIdentifier(String externalReference);
 }

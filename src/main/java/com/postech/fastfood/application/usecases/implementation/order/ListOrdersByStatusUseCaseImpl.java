@@ -14,7 +14,7 @@ public class ListOrdersByStatusUseCaseImpl implements ListOrdersByStatusUseCase 
     }
 
     @Override
-    public List<Order> execute(OrderStatus status) {
-        return this.orderRepositoryPort.findByStatus(status);
+    public List<Order> execute( ) {
+        return this.orderRepositoryPort.findByStatus( );
     }
 }
