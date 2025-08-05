@@ -3,6 +3,7 @@ package com.postech.fastfood.infrastructure.controller;
 import com.postech.fastfood.application.gateways.LoggerPort;
 import com.postech.fastfood.application.usecases.interfaces.GenerateQrCodePaymentUseCase;
 import java.util.UUID;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class PaymentController {
 
 
     @PostMapping("/generate=qr-code")
-    public ResponseEntity<String> generateQrCode(@RequestParam("orderId") UUID orderId) {
+    public ResponseEntity<String> generateQrCode(@RequestParam("orderId") @NotEmpty UUID orderId) {
         logger.info("[Payment] Iniciando geração de QR Code para o pedido id={}", orderId);
         final String qrCode = generateQrCodePaymentUseCase.execute(orderId);
         logger.info("[Payment] QR Code gerado com sucesso para o pedido id={}", orderId);

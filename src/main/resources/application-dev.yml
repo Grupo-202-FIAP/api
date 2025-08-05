@@ -7,12 +7,15 @@ spring:
     enabled: false
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/fastfood
-    username: postgres
-    password: postgres
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/fastfood}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
     show-sql: true
@@ -20,4 +23,4 @@ spring:
 api:
   security:
     token:
-      secret: minha-secret-dev
+      secret: ${JWT_SECRET:minha-secret}
