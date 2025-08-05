@@ -444,7 +444,7 @@
             "name": "status",
             "in": "query",
             "description": "Status dos pedidos",
-            "required": true,
+            "required": false,
             "schema": {
               "type": "string",
               "enum": ["RECEIVED", "PREPARING", "READY", "COMPLETED", "CANCELLED"]
