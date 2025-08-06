@@ -144,6 +144,6 @@ Vídeo com a arquitetura e execução via Docker Compose disponível em: **[VÍD
 
 ## 📹 Demonstração Fase 2
 
-Vídeo com a arquitetura e execução via Kubernetes disponível em: **[VÍDEO]()**
+Vídeo com a arquitetura e execução via Kubernetes disponível em: **[VÍDEO](https://www.youtube.com/watch?v=vQ_cuAbrN40&ab_channel=Fernandeeess)**
 
 
