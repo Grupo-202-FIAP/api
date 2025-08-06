@@ -1,0 +1,7 @@
+--CREATE TABLE public.tb_customer_list_order_entities (
+--	customer_entity_id uuid NOT NULL,
+--	list_order_entities_id uuid NOT NULL,
+--	CONSTRAINT ukls7bfhjenvae9bdswce021fho UNIQUE (list_order_entities_id),
+--	CONSTRAINT fk35jx6q7iogmue1rj12e49ttin FOREIGN KEY (customer_entity_id) REFERENCES public.tb_customer(id),
+--	CONSTRAINT fks9v8tvgotinspekhjq34des9y FOREIGN KEY (list_order_entities_id) REFERENCES public.tb_order(id)
+--);

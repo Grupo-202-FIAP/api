@@ -1,0 +1,34 @@
+@startuml
+title Cadastro e Identificação do Cliente
+
+actor Cliente
+participant "Sistema de Autoatendimento" as Sistema
+participant "Banco de Dados" as DB
+
+Cliente -> Sistema: Acessa interface e inicia pedido
+
+alt Cliente informa CPF
+    Sistema -> DB: Busca cliente por CPF
+    alt Cliente encontrado
+        Sistema -> Cliente: Cliente identificado, associa pedido
+    else Cliente não encontrado
+        Cliente -> Sistema: Opcional: envia nome e email para cadastro
+        alt Dados para cadastro enviados
+            Sistema -> Sistema: Valida dados
+            alt Dados válidos
+                Sistema -> DB: Cria cadastro do cliente
+                DB --> Sistema: Confirmação
+                Sistema -> Cliente: Cadastro realizado e pedido associado
+            else Dados inválidos
+                Sistema -> Cliente: Erro - dados inválidos
+            end
+        else Cliente opta por não se cadastrar
+            Sistema -> Cliente: Pedido continuará anônimo
+        end
+    end
+
+else Cliente opta por pedido anônimo (não informa CPF)
+    Sistema -> Cliente: Pedido será anônimo
+end
+
+@enduml

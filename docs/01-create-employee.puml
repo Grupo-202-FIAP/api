@@ -1,0 +1,18 @@
+@startuml
+title Criação de Employee (somente ROLE_ADMIN)
+
+actor AdminUser as User
+participant "Sistema de Gestão" as System
+participant "Banco de Dados" as DB
+
+User -> System: Solicita criação de Employee (com dados e role)
+System -> System: Verifica se User tem ROLE_ADMIN
+alt User tem ROLE_ADMIN
+    System -> DB: Insere novo Employee com role especificada
+    DB --> System: Confirmação de criação
+    System -> User: Employee criado com sucesso
+else User não tem ROLE_ADMIN
+    System -> User: Erro - Permissão negada
+end
+
+@enduml
