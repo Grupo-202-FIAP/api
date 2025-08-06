@@ -1,10 +1,10 @@
 package com.postech.fastfood.application.mapper;
 
-import com.postech.fastfood.adapter.driven.persistence.entity.OrderItemEntity;
-import com.postech.fastfood.adapter.driver.controller.dto.request.OrderItemRequest;
-import com.postech.fastfood.adapter.driver.controller.dto.response.OrderItemResponse;
-import com.postech.fastfood.core.domain.OrderItem;
-import com.postech.fastfood.core.domain.Product;
+import com.postech.fastfood.domain.OrderItem;
+import com.postech.fastfood.domain.Product;
+import com.postech.fastfood.infrastructure.controller.dto.request.OrderItemRequest;
+import com.postech.fastfood.infrastructure.controller.dto.response.OrderItemResponse;
+import com.postech.fastfood.infrastructure.persistence.entity.OrderItemEntity;
 import org.springframework.stereotype.Component;
 
 @Component
