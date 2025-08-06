@@ -3,7 +3,7 @@ spring:
     name: fastfood
   profiles:
     default: dev
-    active: dev
+    active: prod
   jpa:
     generate-ddl: false
     show-sql: true

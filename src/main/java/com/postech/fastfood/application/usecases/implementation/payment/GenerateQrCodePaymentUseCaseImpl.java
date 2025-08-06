@@ -37,8 +37,7 @@ public class GenerateQrCodePaymentUseCaseImpl implements GenerateQrCodePaymentUs
                     HttpStatus.NOT_FOUND);
         }
         logger.info("[Service][Payment] Criando Order no MercadoPago para o pedido: {}", orderId);
-         final OrderMercadoPagoRequestDto requestBody = OrderMapper.toMercadoPagoV1OrderRequest(order, externalPosId, qrCodeModeType);
-
+        final OrderMercadoPagoRequestDto requestBody = OrderMapper.toMercadoPagoV1OrderRequest(order, externalPosId, qrCodeModeType);
         final String idempotencyKey = UUID.randomUUID().toString();
         return mercadoPagoPort.createOrder(idempotencyKey, accessToken, requestBody,orderId.toString());
     }

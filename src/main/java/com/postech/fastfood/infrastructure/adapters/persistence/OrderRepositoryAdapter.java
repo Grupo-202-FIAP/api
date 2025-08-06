@@ -4,7 +4,6 @@ import com.postech.fastfood.application.gateways.LoggerPort;
 import com.postech.fastfood.application.gateways.OrderRepositoryPort;
 import com.postech.fastfood.application.mapper.OrderMapper;
 import com.postech.fastfood.domain.Order;
-import com.postech.fastfood.domain.enums.OrderStatus;
 import com.postech.fastfood.domain.exception.FastFoodException;
 import com.postech.fastfood.infrastructure.persistence.repository.customer.ICustomerEntityRepository;
 import com.postech.fastfood.infrastructure.persistence.entity.OrderEntity;
@@ -66,20 +65,16 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
     }
 
     @Override
-    public List<Order> findByStatus(OrderStatus status) {
-        logger.info("[Repository][Order] Buscando pedidos com status={}", status);
+    public List<Order> findByStatus( ) {
+        logger.info("[Repository][Order] Buscando pedidos ordenados por status");
 
-        final List<Order> orderList =
-                this.orderEntityRepository.findByOrderStatus(status).stream().map(OrderMapper::toDomain).collect(Collectors.toList());
+        final List<Order> orderList = this.orderEntityRepository
+                .findOrdersByStatus()
+                .stream()
+                .map(OrderMapper::toDomain)
+                .collect(Collectors.toList());
 
-        if (orderList.isEmpty()) {
-            logger.warn("[Repository][Order] Nenhum pedido encontrado com status={}", status);
-
-            throw new FastFoodException("Nenhum pedido encontrado com o status: " + status,
-                    "Não há pedidos com o status " + status + " registrados no sistema", HttpStatus.NOT_FOUND);
-        }
-
-        logger.info("[Repository][Order] {} pedidos encontrados com status={}", orderList.size(), status);
+        logger.info("[Repository][Order] {} pedidos encontrados ", orderList.size());
         return orderList;
     }
 

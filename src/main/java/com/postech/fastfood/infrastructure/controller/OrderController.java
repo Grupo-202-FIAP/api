@@ -3,7 +3,6 @@ package com.postech.fastfood.infrastructure.controller;
 import com.postech.fastfood.application.gateways.LoggerPort;
 import com.postech.fastfood.application.mapper.OrderMapper;
 import com.postech.fastfood.domain.Order;
-import com.postech.fastfood.domain.enums.OrderStatus;
 import com.postech.fastfood.infrastructure.controller.dto.request.OrderRequest;
 import com.postech.fastfood.infrastructure.controller.dto.response.OrderResponse;
 import com.postech.fastfood.application.usecases.interfaces.order.CreateOrderUseCase;
@@ -64,14 +63,16 @@ public class OrderController {
         return ResponseEntity.ok(response);
     }
 
+
+
     @GetMapping("/status")
-    public ResponseEntity<List<OrderResponse>> listOrderByStatus(@Valid @RequestParam("status") OrderStatus status) {
-        logger.info("[Order] Buscando pedidos com status={}", status);
-        final List<Order> orders = this.listOrdersByStatusUseCase.execute(status);
+    public ResponseEntity<List<OrderResponse>> listOrderByStatus() {
+        logger.info("[Order] Buscando pedidos ordenados por status");
+        final List<Order> orders = this.listOrdersByStatusUseCase.execute();
         final List<OrderResponse> response = orders.stream()
                 .map(OrderMapper::toResponse)
                 .toList();
-        logger.info("[Order] {} pedidos encontrados com status={}", orders.size(), status);
+        logger.info("[Order] {} pedidos encontrados ", orders.size());
         return ResponseEntity.ok(response);
     }
 
