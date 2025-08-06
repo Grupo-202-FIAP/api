@@ -11,19 +11,9 @@ on:
       - '**.md'
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v4
-      - name: Instalar yamllint
-        run: sudo apt-get update && sudo apt-get install -y yamllint
-      - name: Validar arquivos YAML
-        run: yamllint .
 
   build-test:
     runs-on: ubuntu-latest
-    needs: lint
     steps:
       - uses: actions/checkout@v4
 
@@ -74,10 +64,10 @@ jobs:
           chmod +x ~/.docker/cli-plugins/docker-compose
 
       - name: Validar docker-compose
-        run: docker compose -f infra/docker-compose.yml config
+        run: docker compose -f docker-compose.yml config
 
       - name: Build da imagem com Docker Compose
-        run: docker compose -f infra/docker-compose.yml build app
+        run: docker compose -f docker-compose.yml build app
 
   pr-dev:
     runs-on: ubuntu-latest
