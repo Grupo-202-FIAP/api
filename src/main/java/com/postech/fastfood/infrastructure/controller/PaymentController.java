@@ -5,6 +5,7 @@ import com.postech.fastfood.application.usecases.interfaces.GenerateQrCodePaymen
 import java.util.UUID;
 import com.postech.fastfood.application.usecases.interfaces.payment.CheckPaymentStatusUseCase;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,7 @@ public class PaymentController {
 
 
     @PostMapping("/generate=qr-code")
-    public ResponseEntity<String> generateQrCode(@RequestParam("orderId") @NotEmpty UUID orderId) {
+    public ResponseEntity<String> generateQrCode(@RequestParam("orderId") @NotNull UUID orderId) {
         logger.info("[Payment] Iniciando geração de QR Code para o pedido id={}", orderId);
         final String qrCode = generateQrCodePaymentUseCase.execute(orderId);
         logger.info("[Payment] QR Code gerado com sucesso para o pedido id={}", orderId);
@@ -36,7 +37,7 @@ public class PaymentController {
     }
 
     @GetMapping("/check-status")
-    public ResponseEntity<String> checkPaymentStatus(@RequestParam("orderId") @NotEmpty UUID orderId) {
+    public ResponseEntity<String> checkPaymentStatus(@RequestParam("orderId") @NotNull UUID orderId) {
         logger.info("[Payment] Verificando status de pagamento para o pedido id={}", orderId);
         final String status = checkPaymentStatus.execute(orderId);
         logger.info("[Payment] Status de pagamento verificado para o pedido id={}: {}", orderId, status);
