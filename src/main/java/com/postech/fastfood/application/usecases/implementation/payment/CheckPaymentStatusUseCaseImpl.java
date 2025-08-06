@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public class CheckPaymentStatusUseCaseImpl implements CheckPaymentStatusUseCase {
 
-    private OrderRepositoryPort orderRepositoryPort;
+    private final OrderRepositoryPort orderRepositoryPort;
 
     public CheckPaymentStatusUseCaseImpl(OrderRepositoryPort orderRepositoryPort) {
         this.orderRepositoryPort = orderRepositoryPort;
