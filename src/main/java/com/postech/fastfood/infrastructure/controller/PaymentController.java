@@ -4,7 +4,6 @@ import com.postech.fastfood.application.gateways.LoggerPort;
 import com.postech.fastfood.application.usecases.interfaces.GenerateQrCodePaymentUseCase;
 import java.util.UUID;
 import com.postech.fastfood.application.usecases.interfaces.payment.CheckPaymentStatusUseCase;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,10 @@ public class PaymentController {
     private final CheckPaymentStatusUseCase checkPaymentStatus;
     private final LoggerPort logger;
 
-    public PaymentController(GenerateQrCodePaymentUseCase generateQrCodePaymentUseCase, CheckPaymentStatusUseCase checkPaymentStatus, LoggerPort logger) {
+    public PaymentController(
+            GenerateQrCodePaymentUseCase generateQrCodePaymentUseCase,
+            CheckPaymentStatusUseCase checkPaymentStatus,
+            LoggerPort logger) {
         this.generateQrCodePaymentUseCase = generateQrCodePaymentUseCase;
         this.checkPaymentStatus = checkPaymentStatus;
         this.logger = logger;

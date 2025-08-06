@@ -3,7 +3,6 @@ package com.postech.fastfood.infrastructure.controller;
 import com.postech.fastfood.application.gateways.LoggerPort;
 import com.postech.fastfood.application.mapper.OrderMapper;
 import com.postech.fastfood.domain.Order;
-import com.postech.fastfood.domain.enums.OrderStatus;
 import com.postech.fastfood.infrastructure.controller.dto.request.OrderRequest;
 import com.postech.fastfood.infrastructure.controller.dto.response.OrderResponse;
 import com.postech.fastfood.application.usecases.interfaces.order.CreateOrderUseCase;
