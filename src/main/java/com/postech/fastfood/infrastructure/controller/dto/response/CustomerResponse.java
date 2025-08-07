@@ -1,0 +1,18 @@
+package com.postech.fastfood.infrastructure.controller.dto.response;
+
+import com.postech.fastfood.domain.enums.UserRole;
+import java.time.LocalDateTime;
+import java.util.UUID;
+import lombok.Builder;
+
+@Builder
+public record CustomerResponse(
+        UUID id,
+        String name,
+        String email,
+        String cpf,
+        UserRole role,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
+) {
+}
