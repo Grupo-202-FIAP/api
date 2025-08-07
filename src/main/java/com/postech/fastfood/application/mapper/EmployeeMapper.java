@@ -1,8 +1,8 @@
 package com.postech.fastfood.application.mapper;
 
-import com.postech.fastfood.domain.Employee;
-import com.postech.fastfood.infrastructure.controller.dto.request.EmployeeRequest;
-import com.postech.fastfood.infrastructure.persistence.entity.EmployeeEntity;
+import com.postech.fastfood.adapter.driven.persistence.entity.EmployeeEntity;
+import com.postech.fastfood.adapter.driver.controller.dto.request.EmployeeRequest;
+import com.postech.fastfood.core.domain.Employee;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Component;
 
