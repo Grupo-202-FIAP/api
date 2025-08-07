@@ -23,7 +23,7 @@ O desafio propõe a criação de um sistema de autoatendimento para uma lanchone
 - Acompanhamento do pedido em tempo real (Recebido, Em preparação, Pronto, Finalizado)
 - Painel administrativo para acompanhamento de pedidos e gestão de produtos/clientes
 - APIs RESTful documentadas via Swagger
-- Observabilidade e métricas com Prometheus, Grafana, Loki e Promtail
+- Observabilidade e métricas com Prometheus, Grafana e Loki
 
 ## 🧱 Arquitetura
 
@@ -31,7 +31,6 @@ O desafio propõe a criação de um sistema de autoatendimento para uma lanchone
 - Spring Boot 3.4.5
 - PostgreSQL
 - Docker + Docker Compose
-- Kubernetes (Minikube)
 - Prometheus + Grafana + Loki + Promtail
 - Flyway para versionamento de banco
 - Micrometer para métricas
@@ -42,83 +41,37 @@ O desafio propõe a criação de um sistema de autoatendimento para uma lanchone
 
 ### Pré-requisitos
 
-- Docker e Docker Compose
-- Minikube
-- Maven 3.8.6 ou superior
-- Java 17
-- Gitbash
-- IDE de sua preferência (IntelliJ, Eclipse, etc.)
-- Conta no Mercado Pago (opcional, para testes de pagamento)
-
-### Desenho de Infraestrutura
-![Infraestrutura](docs/Diagrama-fastfood.png)
-
-#### Serviços
-- fastfood-app (Deployment)
-  - API Java 17
-  - Exposta via app-service (NodePort 8080).
-- fastfood-app (HPA)
-  - Escalonamento automático da API por métricas de CPU.
-  - Máximo de 5 réplicas
-- fastfood-app (Secret)
-  - Protegem credenciais sensíveis da aplicação e do banco.
-  - Criptografia em base 64.
-- Banco de Dados (Postgres - Deployment)
-  - API conecta ao banco via bd-service.
-  - Credenciais armazenadas em Secret.
-  - Persistência de dados com volume persistente (PVC).
-- Prometheus (Deployment): Coleta métricas da API para monitoramento
-- Grafana (Deployment): Visualização de métricas e dashboards.
-- ConfigMaps: Configurações para Prometheus, Grafana.
-
-#### Requisitos de negócio
-- Alta disponibilidade e escalabilidade: 
-  - Garantida pelo HPA e pelo uso de replica sets.
-- Monitoramento e observabilidade: Métricas e logs centralizados via Prometheus e Grafana.
-  - 🚧 Loki e Promtail - Próxima fase de implementação. 🚧
-- Segurança: Uso de Secrets para variáveis sensíveis.
-- Persistência de dados: Banco de dados Postgres com volume persistente.
+- Docker e Docker Compose instalados
 
 ### Passos
 
 ```bash
-# Clonagem do projeto
+# Clone o projeto
 $ git clone https://github.com/Grupo-202-FIAP/api.git
-$ cd api/infra
+$ cd api
 
-# Execução do script de inicialização do Kubernetes
-$ ./deploy.sh
+# Gere o JAR (se preferir fora do GitHub Actions)
+$ mvn clean package -DskipTests
 
-# Acessar dashboard do minikube
-$ minikube dashboard
-
-# Acessar os serviços da aplicação, Prometheus e Grafana
-$ minikube service app-service
-$ minikube service prometheus-service
-$ minikube service grafana-nodeport-svc
-
-# Acessar o Swagger da aplicação
-http://<127.0.0.1>:<porta_do_servico_app_service>/swagger-ui/index.html
-
+# Suba o ambiente completo
+$ docker compose -f infra/docker-compose.yml up --build
 ```
 
-## 🌐 Serviços disponíveis localmente
+## 🌐 Serviços disponíveis
 
-- [Aplicação](http://localhost:8080)
+- **Aplicação**: [http://localhost:8080](http://localhost:8080)
 - **Banco de Dados**: `localhost:5432`
     - Usuário: `postgres`
     - Senha: `postgres`
-- [Prometheus](http://localhost:9090)
-- [Grafana](http://localhost:3001) (senha: `admin`)
-- [Loki](http://localhost:3100)
+- **Prometheus**: [http://localhost:9090](http://localhost:9090)
+- **Grafana**: [http://localhost:3001](http://localhost:3001) (senha: `admin`)
+- **Loki**: [http://localhost:3100](http://localhost:3100)
 
 ## 📑 Documentação da API
 
 Swagger disponível após subir a aplicação:
 
 🔗 [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
-
-Collection do Insomnia para testes da API: [Insomnia Collection](local/fastfood-collection.yaml)
 
 ## 🧪 Testes e Qualidade
 
@@ -136,14 +89,10 @@ Este projeto utiliza **Dependabot** para manter as dependências Maven e Docker 
 
 ## 🧠 Documentação da Fase 1
 
-A documentação completa com Event Storming, Diagrama de Contexto, Fluxos e Modelos Ubiquamente nomeados está disponível em **[MIRO](https://miro.com/app/board/uXjVIGITNZs=/)**
+A documentação completa com Event Storming, Diagrama de Contexto, Fluxos e Modelos Ubiquamente nomeados está disponível em **[LINK_DO_MIRO]**
 
-## 📹 Demonstração Fase 1
+## 📹 Demonstração
 
-Vídeo com a arquitetura e execução via Docker Compose disponível em: **[VÍDEO](https://www.youtube.com/watch?v=O0kyaD-p7C8&ab_channel=Fernandeeess)**
-
-## 📹 Demonstração Fase 2
-
-Vídeo com a arquitetura e execução via Kubernetes disponível em: **[VÍDEO](https://www.youtube.com/watch?v=vQ_cuAbrN40&ab_channel=Fernandeeess)**
+Vídeo com a arquitetura e execução via Docker Compose disponível em: **[LINK_DO_VÍDEO]**
 
 
