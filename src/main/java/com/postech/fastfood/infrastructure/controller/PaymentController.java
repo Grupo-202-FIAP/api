@@ -30,7 +30,7 @@ public class PaymentController {
     }
 
 
-    @PostMapping("/generate=qr-code")
+    @PostMapping("/generate-qr-code")
     public ResponseEntity<String> generateQrCode(@RequestParam("orderId") @NotNull UUID orderId) {
         logger.info("[Payment] Iniciando geração de QR Code para o pedido id={}", orderId);
         final String qrCode = generateQrCodePaymentUseCase.execute(orderId);

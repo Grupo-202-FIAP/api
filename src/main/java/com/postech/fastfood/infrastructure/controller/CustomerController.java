@@ -11,9 +11,11 @@ import com.postech.fastfood.application.usecases.interfaces.FindUserByEmailUseCa
 import com.postech.fastfood.application.usecases.interfaces.customer.CreateCustomerWithCpfUseCase;
 import com.postech.fastfood.application.usecases.interfaces.customer.CreateCustomerWithNameAndEmailUseCase;
 import jakarta.validation.Valid;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,9 +71,9 @@ public class CustomerController {
     }
 
     @GetMapping("/cpf/{cpf}")
-    public ResponseEntity<User> getCustomerByCpf(CustomerCpfRequest customerCpfRequest) {
+    public ResponseEntity<User> getCustomerByCpf(@PathVariable @CPF String cpf) {
         logger.info("[Customer] Buscando cliente por CPF");
-        final User userFound = this.findUserByCpfUseCase.execute(customerCpfRequest.cpf());
+        final User userFound = this.findUserByCpfUseCase.execute(cpf);
         logger.info("[Customer] Cliente encontrado por CPF: id={}", userFound.getId());
         return ResponseEntity.status(HttpStatus.OK).body(userFound);
     }

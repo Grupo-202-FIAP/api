@@ -36,6 +36,7 @@
             <version>2.2.224</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
