@@ -40,9 +40,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, PRODUCT_ENDPOINT + ALL_URIS).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
-                        .requestMatchers(HttpMethod.DELETE, PRODUCT_ENDPOINT + ALL_URIS).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
-                        .requestMatchers(HttpMethod.PUT, PRODUCT_ENDPOINT + ALL_URIS).hasAnyRole(ROLE_ADMIN, ROLE_MANAGER)
+                        .requestMatchers(HttpMethod.POST, PRODUCT_ENDPOINT + ALL_URIS).permitAll()
+                        .requestMatchers(HttpMethod.DELETE, PRODUCT_ENDPOINT + ALL_URIS).permitAll()
+                        .requestMatchers(HttpMethod.PUT, PRODUCT_ENDPOINT + ALL_URIS).permitAll()
                         .requestMatchers(HttpMethod.GET, PRODUCT_ENDPOINT + ALL_URIS).permitAll()
                         .requestMatchers(CUSTOMER_ENDPOINT + ALL_URIS).permitAll()
                         .requestMatchers(EMPLOYEE_ENDPOINT + ALL_URIS).permitAll()

@@ -20,7 +20,7 @@ management:
 
 springdoc:
   swagger-ui:
-    enabled: false
+    enabled: true
 
 api:
   security:
