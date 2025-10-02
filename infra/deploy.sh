@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "📎 Iniciando cluster Minikube..."
-minikube start --cpus=4 --memory=8192
+minikube start --cpus=4
 
 echo "📊 Habilitando metrics-server para HPA..."
 minikube addons enable metrics-server
