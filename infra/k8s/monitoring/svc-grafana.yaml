@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: grafana
-  name: grafana-nodeport-svc
+  name: grafana-svc
 spec:
   ports:
     - port: 3000
