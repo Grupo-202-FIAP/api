@@ -101,16 +101,16 @@ jobs:
 
       - name: Trigger infra pipeline via GitHub API
         env:
-          PERSONAL_ACCESS_TOKEN_MANA_FOOD_APP: ${{ secrets.APP_PERSONAL_TOKEN }}
+          PAT: ${{ secrets.APP_PERSONAL_TOKEN }}
           IMAGE_TAG: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
         run: |
           INFRA_REPO="Grupo-202-FIAP/infra-kubernetes"
-          WORKFLOW_FILE="cd-deploy.yml"
+          WORKFLOW_FILE="deploy.yml"
 
           echo "Disparando fluxo de trabalho no repositório de infraestrutura: $INFRA_REPO"
 
           curl -X POST \
             -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer $APP_PERSONAL_TOKEN" \
+            -H "Authorization: Bearer $PAT" \
             https://api.github.com/repos/$INFRA_REPO/actions/workflows/$WORKFLOW_FILE/dispatches \
-            -d '{"ref":"main","inputs":{"image":"'"$IMAGE_TAG"'"}}'
+            -d '{"ref":"dev","inputs":{"image":"'"$IMAGE_TAG"'"}}'
